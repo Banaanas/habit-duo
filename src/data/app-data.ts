@@ -1,14 +1,8 @@
-export const appName = "Simple Reddit";
+export const appName = "Flower Metal";
 
 export const appNavLinks: AppNavLinks = {
   home: {
     href: "/",
-  },
-  query: {
-    href: "/q",
-  },
-  history: {
-    href: "/history",
   },
 };
 
@@ -18,6 +12,4 @@ export interface NavLink {
 
 interface AppNavLinks {
   home: NavLink;
-  query: NavLink;
-  history: NavLink;
 }
