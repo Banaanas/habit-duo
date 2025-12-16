@@ -3,17 +3,17 @@ export const GOOGLE_SHEET_ID =
 
 export const SHEETS = {
   blackMetal: {
-    title: "Black Metal",
+    label: "Black Metal",
     gid: "1141938115",
     category: "black-metal",
   },
   otherGenres: {
-    title: "Other Genres",
+    label: "Other Genres",
     gid: "846668971",
     category: "other-genres",
   },
   recordLabels: {
-    title: "Record Labels",
+    label: "Record Labels",
     gid: "867923480",
     category: "record-labels",
   },
