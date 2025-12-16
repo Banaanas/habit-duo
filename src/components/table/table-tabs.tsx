@@ -10,10 +10,7 @@ export const TableTabs = ({
   onValueChange,
   children,
 }: TableTabsProps) => {
-  console.log("🔵 Component rendered, value:", value);
-
   const handleValueChange = (val: string) => {
-    console.log("🟢 handleValueChange called with:", val);
     onValueChange(val as SheetCategory);
   };
 
