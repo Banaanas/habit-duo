@@ -1,16 +1,17 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export const TableSearch = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-
+export const TableSearch = ({
+  searchTerm,
+  setSearchTerm,
+}: TableSearchProps) => {
   return (
-    <div className="flex-1">
+    <div className="w-full max-w-[340px]  self-center">
       <Label htmlFor="search" className="sr-only">
         Search bands
       </Label>
@@ -28,3 +29,8 @@ export const TableSearch = () => {
     </div>
   );
 };
+
+interface TableSearchProps {
+  searchTerm: string;
+  setSearchTerm: Dispatch<SetStateAction<string>>;
+}

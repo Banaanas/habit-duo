@@ -16,7 +16,7 @@ export const TableTabs = ({
 
   return (
     <Tabs value={value} onValueChange={handleValueChange} className="mb-8">
-      <TabsList className="grid w-full max-w-md mx-auto grid-cols-3">
+      <TabsList className="grid w-full max-w-lg mx-auto grid-cols-4">
         {tabSheets.map(({ category, label }) => (
           <TabsTrigger key={category} value={category}>
             {label}
