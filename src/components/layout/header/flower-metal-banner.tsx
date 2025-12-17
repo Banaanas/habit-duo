@@ -1,24 +1,13 @@
-type FlowerMetalBannerProps = {
-  size?: number; // scales width, keeps ratio
-  flowerColor?: string;
-  metalColor?: string;
-  strokeColor?: string;
-  className?: string;
-};
-
-export function FlowerMetalBanner({
+export const FlowerMetalBanner = ({
   size = 280,
   flowerColor = "#FFFFFF",
   metalColor = "#FF69B4",
   strokeColor,
   className,
-}: FlowerMetalBannerProps) {
-  const height = (size * 100) / 280;
-
+}: FlowerMetalBannerProps) => {
   return (
     <svg
       width={size}
-      height={height}
       viewBox="0 0 280 100"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
@@ -53,4 +42,12 @@ export function FlowerMetalBanner({
       </g>
     </svg>
   );
+};
+
+interface FlowerMetalBannerProps {
+  size?: number;
+  flowerColor?: string;
+  metalColor?: string;
+  strokeColor?: string;
+  className?: string;
 }
