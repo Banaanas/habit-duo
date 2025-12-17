@@ -35,4 +35,9 @@ interface TableTabsProps {
   children: ReactNode;
 }
 
-const tabSheets = [SHEETS.blackMetal, SHEETS.otherGenres, SHEETS.recordLabels];
+const tabSheets = [
+  SHEETS.blackMetal,
+  SHEETS.otherGenres,
+  SHEETS.recordLabels,
+  SHEETS.all,
+];

@@ -17,6 +17,11 @@ export const SHEETS = {
     gid: "867923480",
     category: "record-labels",
   },
+  all: {
+    label: "All",
+    gid: "",
+    category: "all",
+  },
 } as const;
 
 export type SheetKey = keyof typeof SHEETS;
