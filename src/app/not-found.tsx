@@ -1,9 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import { FlowerMetalBanner } from "@/components/layout/header/flower-metal-banner";
 import { Button } from "@/components/ui/button";
 import { appNavLinks } from "@/data/app-data";
-import flowerMetalLogoSVG from "@/public/assets/flower-metal.png";
 
 {
   /* NO SUPPORT FOR METADATA in not-found.tsx yet
@@ -15,12 +14,7 @@ Alternative solution: https://github.com/vercel/next.js/issues/45620#issuecommen
 const NotFound = () => {
   return (
     <div className="bg-background flex h-full max-w-xl grow flex-col items-center gap-6 p-8 pt-48 text-center">
-      <Image
-        src={flowerMetalLogoSVG}
-        alt="FlowerMetalLogo"
-        width={32}
-        height={32}
-      />
+      <FlowerMetalBanner />
       <div className="flex flex-col">
         <h1
           className="text-foreground font-semibold"
