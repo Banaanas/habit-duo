@@ -29,7 +29,7 @@ export const Header = () => {
 const HeaderText = () => {
   return (
     <p className="text-xs text-muted-foreground">
-      Because we do like clean metal.
+      Metal with flowers. Not hate.
     </p>
   );
 };
