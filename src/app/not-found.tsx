@@ -28,7 +28,7 @@ const NotFound = () => {
           href={appNavLinks.home.href}
           className="text-muted-foreground hover:text-foreground text-sm"
         >
-          ← Back to search
+          ← Back to Home
         </Link>
       </Button>
     </div>
