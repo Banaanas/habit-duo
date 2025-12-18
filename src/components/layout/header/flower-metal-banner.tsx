@@ -1,3 +1,11 @@
+import { cn } from "@/lib/utils";
+
+
+
+
+
+
+
 export const FlowerMetalBanner = ({
   size = 280,
   flowerColor = "#FFFFFF",
@@ -8,9 +16,10 @@ export const FlowerMetalBanner = ({
   return (
     <svg
       width={size}
-      viewBox="0 0 280 100"
+      viewBox="10 10 155 82"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={cn("block", className)}
+      preserveAspectRatio="xMinYMin meet"
     >
       {/* FLOWER */}
       <g
