@@ -35,7 +35,7 @@ export const FlowerMetalView = ({ items }: FlowerMetalView) => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-y-2 items-end">
+      <div className="flex flex-col gap-y-1 items-end">
         <TableSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <FlowerMetalTable items={filteredItems} />
       </div>
