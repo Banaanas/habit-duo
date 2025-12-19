@@ -1,11 +1,5 @@
 import { cn } from "@/lib/utils";
 
-
-
-
-
-
-
 export const FlowerMetalBanner = ({
   size = 280,
   flowerColor = "#FFFFFF",
