@@ -9,7 +9,7 @@ import { appNavLinks } from "@/data/app-data";
 
 export const Header = () => {
   return (
-    <header className="border-b border-border bg-card/80 backdrop-blur-sm top-0 z-50">
+    <header className="border-b border-border bg-muted backdrop-blur-sm top-0 z-50">
       <div className="mx-auto px-4 py-4 flex items-center justify-between flex-wrap">
         <Link
           href={appNavLinks.home.href}
