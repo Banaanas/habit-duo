@@ -14,21 +14,21 @@ import { getCategoryLabel } from "@/utils/get-category-label";
 
 export const FlowerMetalTable = ({ items }: FlowerMetalTableProps) => {
   return (
-    <Card className="overflow-hidden rounded-lg shadow-lg border-border/50">
+    <Card className="overflow-hidden rounded-lg shadow-lg border-border/50 p-0">
       <div className="overflow-x-auto max-h-[calc(100vh-280px)] overflow-y-auto">
         <Table>
-          <TableHeader className="sticky top-0 bg-card/95 backdrop-blur-sm z-10 border-b-2 border-border/50">
+          <TableHeader className="backdrop-blur-sm bg-muted/50 z-10 border-b-2 border-border/50">
             <TableRow className="hover:bg-transparent">
-              <TableHead className="w-[220px] font-semibold text-foreground/90">
+              <TableHead className="w-[220px] py-4 font-semibold text-foreground/90">
                 Artist / Label
               </TableHead>
-              <TableHead className="w-[120px] font-semibold text-foreground/90">
+              <TableHead className="w-[120px] py-4 font-semibold text-foreground/90">
                 Country
               </TableHead>
-              <TableHead className="w-[140px] font-semibold text-foreground/90">
+              <TableHead className="w-[140px] py-4 font-semibold text-foreground/90">
                 Category
               </TableHead>
-              <TableHead className="hidden md:table-cell font-semibold text-foreground/90">
+              <TableHead className="hidden py-4 md:table-cell font-semibold text-foreground/90">
                 Explanation
               </TableHead>
             </TableRow>
@@ -39,7 +39,7 @@ export const FlowerMetalTable = ({ items }: FlowerMetalTableProps) => {
               <TableRow
                 key={`${item.category}-${index}`}
                 className={`transition-colors hover:bg-muted/50 border-b border-border/30 last:border-0 ${
-                  index % 2 === 0 ? "bg-background" : "bg-muted/10"
+                  index % 2 === 0 ? "bg-background" : "bg-muted/20"
                 }`}
               >
                 <TableCell className="font-medium whitespace-normal break-words max-w-[220px] py-4">

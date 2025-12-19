@@ -18,24 +18,27 @@ export const FlowerMetalView = ({ items }: FlowerMetalView) => {
   const filteredItems = filterItems(items, selectedCategory, searchTerm);
 
   return (
-    <div className="flex flex-col gap-y-8 pt-8">
-      <TableSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+    <div className="flex flex-col items-center gap-y-8 pt-8">
+      <div className="flex flex-col gap-y-2">
+        <div className="max-w-48 sm:hidden">
+          <TableCategoryDropdown
+            value={selectedCategory}
+            onValueChange={setSelectedCategory}
+          />
+        </div>
 
-      <div className="max-w-48">
-        <TableCategoryDropdown
-          value={selectedCategory}
-          onValueChange={setSelectedCategory}
-        />
+        <div className="hidden sm:block">
+          <TableCategoryToggle
+            value={selectedCategory}
+            onValueChange={setSelectedCategory}
+          />
+        </div>
       </div>
 
-      <div className="">
-        <TableCategoryToggle
-          value={selectedCategory}
-          onValueChange={setSelectedCategory}
-        />
+      <div className="flex flex-col gap-y-2 items-end">
+        <TableSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <FlowerMetalTable items={filteredItems} />
       </div>
-
-      <FlowerMetalTable items={filteredItems} />
     </div>
   );
 };
