@@ -19,9 +19,9 @@ export const TableCategoryDropdown = ({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="border-border bg-background hover:bg-accent flex w-full items-center justify-between rounded-md border px-3 py-2 text-sm transition-colors">
+      <DropdownMenuTrigger className="border-2 border-foreground/80 shadow-sm bg-background hover:bg-accent flex w-full items-center gap-x-2 justify-around rounded-md px-3 py-2 transition-colors  text-accent-foreground font-bold min-w-[200px]">
         <span>{selectedFilter?.label}</span>
-        <ChevronDown className="h-4 w-4 opacity-50" />
+        <ChevronDown className="h-5 w-5" />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent

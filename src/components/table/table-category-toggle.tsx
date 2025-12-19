@@ -21,7 +21,7 @@ export const TableCategoryToggle = ({
       type="single"
       value={value}
       onValueChange={handleValueChange}
-      className="border-2 border-foreground/80  rounded-lg bg-card shadow-sm p-1"
+      className="border-2 border-foreground/80 rounded-lg bg-card shadow-sm p-1"
     >
       {CATEGORY_FILTERS.map(({ category, label }) => (
         <ToggleGroupItem
