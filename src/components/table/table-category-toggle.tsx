@@ -1,9 +1,12 @@
 "use client";
 
-import { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { CATEGORY_FILTERS, SheetCategory } from "@/data/google-sheets.config";
+import {
+  CATEGORY_FILTERS,
+  type SheetCategory,
+} from "@/data/google-sheets.config";
 
 export const TableCategoryToggle = ({
   value,
