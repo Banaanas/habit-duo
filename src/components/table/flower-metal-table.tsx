@@ -14,15 +14,21 @@ import { getCategoryLabel } from "@/utils/get-category-label";
 
 export const FlowerMetalTable = ({ items }: FlowerMetalTableProps) => {
   return (
-    <Card className="overflow-hidden">
-      <div className="overflow-x-auto max-h-[50vh] overflow-y-auto">
+    <Card className="overflow-hidden rounded-lg shadow-lg border-border/50">
+      <div className="overflow-x-auto max-h-[calc(100vh-280px)] overflow-y-auto">
         <Table>
-          <TableHeader className="sticky top-0 bg-background z-10">
-            <TableRow>
-              <TableHead className="w-[220px]">Artist / Label</TableHead>
-              <TableHead className="w-[120px]">Country</TableHead>
-              <TableHead className="w-[140px]">Category</TableHead>
-              <TableHead className="hidden md:table-cell">
+          <TableHeader className="sticky top-0 bg-card/95 backdrop-blur-sm z-10 border-b-2 border-border/50">
+            <TableRow className="hover:bg-transparent">
+              <TableHead className="w-[220px] font-semibold text-foreground/90">
+                Artist / Label
+              </TableHead>
+              <TableHead className="w-[120px] font-semibold text-foreground/90">
+                Country
+              </TableHead>
+              <TableHead className="w-[140px] font-semibold text-foreground/90">
+                Category
+              </TableHead>
+              <TableHead className="hidden md:table-cell font-semibold text-foreground/90">
                 Explanation
               </TableHead>
             </TableRow>
@@ -30,22 +36,27 @@ export const FlowerMetalTable = ({ items }: FlowerMetalTableProps) => {
 
           <TableBody>
             {items.map((item, index) => (
-              <TableRow key={`${item.category}-${index}`}>
-                {/* Artist - constrained with wrapping */}
-                <TableCell className="font-medium whitespace-normal break-words max-w-[220px]">
+              <TableRow
+                key={`${item.category}-${index}`}
+                className={`transition-colors hover:bg-muted/50 border-b border-border/30 last:border-0 ${
+                  index % 2 === 0 ? "bg-background" : "bg-muted/10"
+                }`}
+              >
+                <TableCell className="font-medium whitespace-normal break-words max-w-[220px] py-4">
                   {item.artist ?? "—"}
                 </TableCell>
 
-                {/* Country */}
-                <TableCell>{item.country ?? "—"}</TableCell>
-
-                {/* Category */}
-                <TableCell className="text-sm text-muted-foreground">
-                  {getCategoryLabel(item.category)}
+                <TableCell className="py-4 text-2xl">
+                  {isFlagEmoji(item.country) ? item.country : "—"}
                 </TableCell>
 
-                {/* Explanation - allow wrapping and breaking long words within width */}
-                <TableCell className="hidden md:table-cell  whitespace-normal break-words">
+                <TableCell className="py-4">
+                  <span className="inline-flex items-center rounded-md bg-accent/80 px-2.5 py-1 text-xs font-medium text-accent-foreground">
+                    {getCategoryLabel(item.category)}
+                  </span>
+                </TableCell>
+
+                <TableCell className="hidden md:table-cell whitespace-normal break-words py-4 leading-relaxed text-foreground/90">
                   {item.explanation ? (
                     item.explanation
                   ) : (
@@ -58,8 +69,11 @@ export const FlowerMetalTable = ({ items }: FlowerMetalTableProps) => {
         </Table>
 
         {items.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground">No results found.</p>
+          <div className="text-center py-16 px-4">
+            <p className="text-muted-foreground text-lg">No results found.</p>
+            <p className="text-muted-foreground/60 text-sm mt-2">
+              Try adjusting your search or filters
+            </p>
           </div>
         )}
       </div>
@@ -70,3 +84,9 @@ export const FlowerMetalTable = ({ items }: FlowerMetalTableProps) => {
 interface FlowerMetalTableProps {
   items: GoogleSheetItem[];
 }
+
+const isFlagEmoji = (value: string | null | undefined): boolean => {
+  if (!value) return false;
+
+  return /^[\u{1F1E6}-\u{1F1FF}]{2}$/u.test(value);
+};
