@@ -104,9 +104,7 @@ const RowCollapsibleContent = ({
           className="py-4 px-4 pt-0 whitespace-normal break-words"
         >
           <div className="text-sm leading-relaxed text-foreground/90 animate-in fade-in slide-in-from-top-1 duration-200">
-            <p className="font-semibold mb-1 text-xs uppercase tracking-wider text-muted-foreground">
-              Explanation
-            </p>
+            <span className="sr-only">Explanation</span>
             {explanation}
           </div>
         </TableCell>
