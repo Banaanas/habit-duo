@@ -34,13 +34,13 @@ export const FlowerMetalTable = ({ items }: FlowerMetalTableProps) => {
               <TableHead className="w-[120px] py-4 font-semibold text-foreground/90">
                 Country
               </TableHead>
-              <TableHead className="w-[140px] hidden sm:table-cell py-4 font-semibold text-foreground/90">
+              <TableHead className="w-[140px] hidden lg:table-cell py-4 font-semibold text-foreground/90">
                 Category
               </TableHead>
-              <TableHead className="hidden sm:table-cell py-4 font-semibold text-foreground/90">
+              <TableHead className="hidden lg:table-cell py-4 font-semibold text-foreground/90">
                 Explanation
               </TableHead>
-              <TableHead className="w-[50px] sm:hidden py-4 font-semibold text-foreground/90">
+              <TableHead className="w-[50px] lg:hidden py-4 font-semibold text-foreground/90">
                 <span className="sr-only">Expand</span>
               </TableHead>
             </TableRow>
@@ -57,40 +57,44 @@ export const FlowerMetalTable = ({ items }: FlowerMetalTableProps) => {
                     index % 2 === 0 ? "bg-background" : "bg-muted/20"
                   )}
                 >
-                  <TableRow className="transition-colors hover:bg-muted/50 border-none bg-transparent">
-                    <TableCell className="font-medium whitespace-normal break-words max-w-[220px] py-4">
-                      {artist ?? "—"}
-                    </TableCell>
-                    <TableCell className="py-4 text-2xl">
-                      {isFlagEmoji(country) ? country : "—"}
-                    </TableCell>
-                    <TableCell className="py-4 hidden sm:table-cell ">
-                      <span className="inline-flex items-center rounded-md bg-accent/80 px-2.5 py-1 text-xs font-medium text-accent-foreground">
-                        {getCategoryLabel(category)}
-                      </span>
-                    </TableCell>
-                    <TableCell className="hidden sm:table-cell whitespace-normal break-words py-4 leading-relaxed text-foreground/90">
-                      {hasExplanation ? (
-                        explanation
-                      ) : (
-                        <span className="text-sm text-muted-foreground">—</span>
+                  <CollapsibleTrigger asChild disabled={!hasExplanation}>
+                    <TableRow
+                      className={cn(
+                        "transition-colors border-none bg-transparent",
+                        hasExplanation &&
+                          "cursor-pointer sm:cursor-default sm:pointer-events-none hover:bg-muted/50"
                       )}
-                    </TableCell>
-                    <TableCell className="sm:hidden py-4 text-right">
-                      {hasExplanation && (
-                        <CollapsibleTrigger asChild>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-8 w-8 p-0 data-[state=open]:rotate-180 transition-transform duration-200"
-                          >
+                    >
+                      <TableCell className="font-medium whitespace-normal break-words max-w-[220px] py-4">
+                        {artist ?? "—"}
+                      </TableCell>
+                      <TableCell className="py-4 text-2xl">
+                        {isFlagEmoji(country) ? country : "—"}
+                      </TableCell>
+                      <TableCell className="py-4 hidden lg:table-cell ">
+                        <span className="inline-flex items-center rounded-md bg-accent/80 px-2.5 py-1 text-xs font-medium text-accent-foreground">
+                          {getCategoryLabel(category)}
+                        </span>
+                      </TableCell>
+                      <TableCell className="hidden sm:table-cell whitespace-normal break-words py-4 leading-relaxed text-foreground/90">
+                        {hasExplanation ? (
+                          explanation
+                        ) : (
+                          <span className="text-sm text-muted-foreground">
+                            —
+                          </span>
+                        )}
+                      </TableCell>
+                      <TableCell className="sm:hidden py-4 text-right">
+                        {hasExplanation && (
+                          <div className="inline-flex items-center justify-center h-8 w-8 rounded-md hover:bg-muted/50 transition-transform duration-200 [[data-state=open]_&]:rotate-180">
                             <ChevronDown className="h-4 w-4" />
                             <span className="sr-only">Toggle explanation</span>
-                          </Button>
-                        </CollapsibleTrigger>
-                      )}
-                    </TableCell>
-                  </TableRow>
+                          </div>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  </CollapsibleTrigger>
                   {hasExplanation && (
                     <CollapsibleContent asChild>
                       <TableRow className="sm:hidden border-none bg-transparent">
