@@ -1,6 +1,14 @@
 "use client";
 
+import { ChevronDown } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import {
   Table,
   TableBody,
@@ -9,6 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 import type { GoogleSheetItem } from "@/types/google-sheet";
 import { getCategoryLabel } from "@/utils/get-category-label";
 
@@ -28,48 +37,81 @@ export const FlowerMetalTable = ({ items }: FlowerMetalTableProps) => {
               <TableHead className="w-[140px] py-4 font-semibold text-foreground/90">
                 Category
               </TableHead>
-              <TableHead className="hidden py-4 md:table-cell font-semibold text-foreground/90">
+              <TableHead className="hidden lg:table-cell py-4 font-semibold text-foreground/90">
                 Explanation
               </TableHead>
-              <TableHead className="hidden py-4 md:table-cell font-semibold text-foreground/90">
-                Explanation
+              <TableHead className="w-[50px] lg:hidden py-4 font-semibold text-foreground/90">
+                <span className="sr-only">Expand</span>
               </TableHead>
             </TableRow>
           </TableHeader>
 
-          <TableBody>
-            {items.map(({ artist, country, category, explanation }, index) => {
-              const hasExplanation = explanation && explanation.trim() !== "";
+          {items.map(({ artist, country, category, explanation }, index) => {
+            const hasExplanation = explanation && explanation.trim() !== "";
 
-              return (
-                <TableRow
-                  key={`${category}-${index}`}
-                  className={`transition-colors hover:bg-muted/50 border-b border-border/30 last:border-0 ${
+            return (
+              <Collapsible key={`${category}-${index}`} asChild>
+                <tbody
+                  className={cn(
+                    "border-b border-border/30 last:border-0",
                     index % 2 === 0 ? "bg-background" : "bg-muted/20"
-                  }`}
+                  )}
                 >
-                  <TableCell className="font-medium whitespace-normal break-words max-w-[220px] py-4">
-                    {artist ?? "—"}
-                  </TableCell>
-                  <TableCell className="py-4 text-2xl">
-                    {isFlagEmoji(country) ? country : "—"}
-                  </TableCell>
-                  <TableCell className="py-4">
-                    <span className="inline-flex items-center rounded-md bg-accent/80 px-2.5 py-1 text-xs font-medium text-accent-foreground">
-                      {getCategoryLabel(category)}
-                    </span>
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell whitespace-normal break-words py-4 leading-relaxed text-foreground/90">
-                    {hasExplanation ? (
-                      explanation
-                    ) : (
-                      <span className="text-sm text-muted-foreground">—</span>
-                    )}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
+                  <TableRow className="transition-colors hover:bg-muted/50 border-none bg-transparent">
+                    <TableCell className="font-medium whitespace-normal break-words max-w-[220px] py-4">
+                      {artist ?? "—"}
+                    </TableCell>
+                    <TableCell className="py-4 text-2xl">
+                      {isFlagEmoji(country) ? country : "—"}
+                    </TableCell>
+                    <TableCell className="py-4">
+                      <span className="inline-flex items-center rounded-md bg-accent/80 px-2.5 py-1 text-xs font-medium text-accent-foreground">
+                        {getCategoryLabel(category)}
+                      </span>
+                    </TableCell>
+                    <TableCell className="hidden lg:table-cell whitespace-normal break-words py-4 leading-relaxed text-foreground/90">
+                      {hasExplanation ? (
+                        explanation
+                      ) : (
+                        <span className="text-sm text-muted-foreground">—</span>
+                      )}
+                    </TableCell>
+                    <TableCell className="lg:hidden py-4 text-right">
+                      {hasExplanation && (
+                        <CollapsibleTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-8 w-8 p-0 data-[state=open]:rotate-180 transition-transform duration-200"
+                          >
+                            <ChevronDown className="h-4 w-4" />
+                            <span className="sr-only">Toggle explanation</span>
+                          </Button>
+                        </CollapsibleTrigger>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                  {hasExplanation && (
+                    <CollapsibleContent asChild>
+                      <TableRow className="lg:hidden border-none bg-transparent">
+                        <TableCell
+                          colSpan={4}
+                          className="py-4 px-4 pt-0 whitespace-normal break-words"
+                        >
+                          <div className="text-sm leading-relaxed text-foreground/90 animate-in fade-in slide-in-from-top-1 duration-200">
+                            <p className="font-semibold mb-1 text-xs uppercase tracking-wider text-muted-foreground">
+                              Explanation
+                            </p>
+                            {explanation}
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    </CollapsibleContent>
+                  )}
+                </tbody>
+              </Collapsible>
+            );
+          })}
         </Table>
 
         {items.length === 0 && (
