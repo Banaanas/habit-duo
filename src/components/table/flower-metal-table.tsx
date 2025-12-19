@@ -2,11 +2,6 @@
 
 import { Card } from "@/components/ui/card";
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import {
   Table,
   TableBody,
   TableCell,
@@ -70,13 +65,6 @@ export const FlowerMetalTable = ({ items }: FlowerMetalTableProps) => {
                     ) : (
                       <span className="text-sm text-muted-foreground">—</span>
                     )}
-                  </TableCell>
-
-                  <TableCell className="hidden md:table-cell whitespace-normal break-words py-4 leading-relaxed text-foreground/90">
-                    <Collapsible>
-                      <CollapsibleTrigger>Gino</CollapsibleTrigger>
-                      <CollapsibleContent>{explanation}</CollapsibleContent>
-                    </Collapsible>
                   </TableCell>
                 </TableRow>
               );
