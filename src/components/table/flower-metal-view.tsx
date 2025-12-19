@@ -17,7 +17,7 @@ export const FlowerMetalView = ({ items }: FlowerMetalView) => {
   const filteredItems = filterItems(items, selectedTab, searchTerm);
 
   return (
-    <div className="flex flex-col gap-y-8">
+    <div className="flex flex-col gap-y-8 pt-8">
       <TableSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
       <TableTabs value={selectedTab} onValueChange={setSelectedTab}>
