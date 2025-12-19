@@ -49,17 +49,16 @@ const filterItems = (
   selectedTab: SheetCategory,
   searchTerm: string
 ): GoogleSheetItem[] => {
-  return items.filter((item) => {
-    // Filter by category (unless "all" is selected)
+  const searchLower = searchTerm.trim().toLowerCase();
+
+  // FILTERED
+  const filtered = items.filter((item) => {
     if (selectedTab !== "all" && item.category !== selectedTab) {
       return false;
     }
 
-    // If no search term, show all items in this category
-    if (!searchTerm.trim()) return true;
+    if (!searchLower) return true;
 
-    // Search across multiple fields
-    const searchLower = searchTerm.toLowerCase();
     return (
       item.artist?.toLowerCase().includes(searchLower) ||
       item.country?.toLowerCase().includes(searchLower) ||
@@ -67,4 +66,17 @@ const filterItems = (
       item.explanation?.toLowerCase().includes(searchLower)
     );
   });
+
+  // ORDERED
+  return orderItemsAlphabetically(filtered);
+};
+
+const orderItemsAlphabetically = (
+  items: GoogleSheetItem[]
+): GoogleSheetItem[] => {
+  return [...items].sort((a, b) =>
+    (a.artist ?? "").localeCompare(b.artist ?? "", undefined, {
+      sensitivity: "base",
+    })
+  );
 };
