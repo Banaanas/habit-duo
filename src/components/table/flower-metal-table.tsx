@@ -15,16 +15,16 @@ export const FlowerMetalTable = ({ items }: FlowerMetalTableProps) => {
               <TableHead className="w-[220px] py-4 font-semibold text-foreground/90">
                 Artist / Label
               </TableHead>
-              <TableHead className="w-[120px] py-4 font-semibold text-foreground/90">
+              <TableHead className="py-4 font-semibold text-foreground/90">
                 Country
               </TableHead>
-              <TableHead className="w-[140px] hidden lg:table-cell py-4 font-semibold text-foreground/90">
+              <TableHead className="hidden sm:table-cell py-4 font-semibold text-foreground/90">
                 Category
               </TableHead>
-              <TableHead className="hidden lg:table-cell py-4 font-semibold text-foreground/90">
+              <TableHead className="hidden sm:table-cell py-4 font-semibold text-foreground/90">
                 Explanation
               </TableHead>
-              <TableHead className="w-[50px] lg:hidden py-4 font-semibold text-foreground/90">
+              <TableHead className="w-[140px] sm:hidden py-4 font-semibold text-foreground/90">
                 <span className="sr-only">Expand</span>
               </TableHead>
             </TableRow>

@@ -71,7 +71,7 @@ const RowCollapsibleTrigger = ({
         <TableCell className="py-4 text-2xl">
           {isFlagEmoji(country) ? country : "—"}
         </TableCell>
-        <TableCell className="py-4 hidden lg:table-cell ">
+        <TableCell className="py-4 hidden sm:table-cell ">
           <span className="inline-flex items-center rounded-md bg-accent/80 px-2.5 py-1 text-xs font-medium text-accent-foreground">
             {getCategoryLabel(category)}
           </span>
@@ -83,7 +83,7 @@ const RowCollapsibleTrigger = ({
             <span className="text-sm text-muted-foreground">—</span>
           )}
         </TableCell>
-        <TableCell className="sm:hidden py-4 text-right">
+        <TableCell className="sm:hidden flex py-4 text-right">
           {hasExplanation && (
             <div className="inline-flex items-center justify-center h-8 w-8 rounded-md hover:bg-muted/50 transition-transform duration-200 [[data-state=open]_&]:rotate-180">
               <ChevronDown className="h-4 w-4" />
