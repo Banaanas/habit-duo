@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { appName } from "@/data/app-data";
 
 export const AboutDialog = ({ open, onOpenChange }: AboutDialogProps) => {
   return (
@@ -15,7 +16,7 @@ export const AboutDialog = ({ open, onOpenChange }: AboutDialogProps) => {
         <DialogHeader>
           <DialogTitle className="text-2xl">About This Database</DialogTitle>
           <DialogDescription>
-            Understanding the Metal Accountability Database
+            Understanding the {appName} Database
           </DialogDescription>
         </DialogHeader>
 
@@ -25,38 +26,11 @@ export const AboutDialog = ({ open, onOpenChange }: AboutDialogProps) => {
               Purpose
             </h4>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              The Metal Accountability Database (Flower Metal) tracks metal
-              bands with documented or alleged connections to Nazi ideology
-              (NSBM), white supremacy, and related extremist movements. This
-              resource helps fans, venues, and labels make informed decisions
-              about which artists to support.
+              The {appName} Database tracks metal bands with documented or
+              alleged connections to Nazi ideology (NSBM), white supremacy, and
+              related extremist movements. This resource helps fans, venues, and
+              labels make informed decisions about which artists to support.
             </p>
-          </div>
-
-          <div>
-            <h4 className="font-semibold text-base text-foreground mb-2">
-              Methodology
-            </h4>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Bands are categorized based on publicly available evidence
-              including lyrics, interviews, member statements, imagery, and
-              associations with known extremist groups. We use three evidence
-              classifications:
-            </p>
-            <ul className="list-disc list-inside space-y-1 mt-2 text-sm text-muted-foreground">
-              <li>
-                <strong className="text-foreground">Confirmed:</strong> Multiple
-                sources documenting explicit extremist ideology
-              </li>
-              <li>
-                <strong className="text-foreground">Alleged:</strong> Credible
-                allegations with some supporting evidence
-              </li>
-              <li>
-                <strong className="text-foreground">Associated:</strong>{" "}
-                Significant connections to extremist networks or figures
-              </li>
-            </ul>
           </div>
 
           <div>
