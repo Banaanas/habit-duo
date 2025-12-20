@@ -8,7 +8,7 @@ import type { GoogleSheetItem } from "@/types/google-sheet";
 export const FlowerMetalTable = ({ items }: FlowerMetalTableProps) => {
   return (
     <Card className="overflow-hidden w-full rounded-lg shadow-lg border-border/50 p-0">
-      <div className="overflow-x-auto max-h-[calc(100vh-280px)] overflow-y-auto">
+      <div className="overflow-x-auto max-h-[min(400px,90vh)] overflow-y-auto">
         <Table>
           <TableHeader className="backdrop-blur-sm bg-muted/50 z-10 border-b-2 border-border/50">
             <TableRow className="hover:bg-transparent">
