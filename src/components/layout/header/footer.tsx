@@ -1,4 +1,5 @@
 import { FlowerMetalIcon } from "@/components/shared/icons/flower-metal-icon";
+import { appSlogan } from "@/data/app-data";
 
 export const Footer = () => {
   return (
@@ -7,7 +8,7 @@ export const Footer = () => {
         <div className="flex items-center justify-center gap-x-2">
           <FlowerMetalIcon className="w-8" />
           <p className="text-sm font-semibold text-muted-foreground">
-            Metal with flowers. Not hate.
+            {appSlogan}
           </p>
         </div>
         <p className="text-xs text-muted-foreground">

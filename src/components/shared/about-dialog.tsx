@@ -5,6 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { appSlogan } from "@/data/app-data";
 import {
   GOOGLE_SHEET_ID,
   GOOGLE_SHEET_ROOT,
@@ -22,9 +23,7 @@ export const AboutDialog = ({ open, onOpenChange }: AboutDialogProps) => {
       <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
         <DialogHeader className="flex flex-col gap-y-0 items-center">
           <DialogTitle className="text-2xl">About Flower Metal</DialogTitle>
-          <DialogDescription className="italic">
-            Metal with flowers. Not hate.
-          </DialogDescription>
+          <DialogDescription className="italic">{appSlogan}</DialogDescription>
         </DialogHeader>
 
         <div className="flex flex-col gap-y-4">
