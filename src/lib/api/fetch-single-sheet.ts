@@ -24,6 +24,8 @@ export const fetchSingleSheet = async (
       next: { revalidate: 3600 },
     });
 
+    console.log(response.ok);
+
     if (!response.ok) {
       console.error(`Failed to fetch sheet ${sheetKey}: ${response.status}`);
       return [];

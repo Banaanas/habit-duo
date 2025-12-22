@@ -21,19 +21,17 @@ export const SHEETS = {
     gid: "867923480",
     category: "record-labels",
   },
-  all: {
-    label: "All Categories",
-    gid: "",
-    category: "all",
-  },
 } as const;
 
 export type SheetKey = keyof typeof SHEETS;
-export type SheetCategory = (typeof SHEETS)[SheetKey]["category"];
+export type SheetCategory = (typeof SHEETS)[SheetKey]["category"] | "all";
 
 export const CATEGORY_FILTERS = [
   SHEETS.blackMetal,
   SHEETS.otherGenres,
   SHEETS.recordLabels,
-  SHEETS.all,
+  {
+    label: "All Categories",
+    category: "all" as const,
+  },
 ] as const;
