@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-export const FlowerMetalIcon = ({ className }: { className?: string }) => {
+export const HabitDuoIcon = ({ className }: { className?: string }) => {
   return (
     <svg
       viewBox="0 0 64 64"

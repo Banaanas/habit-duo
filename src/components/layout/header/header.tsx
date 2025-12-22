@@ -1,10 +1,8 @@
 import Link from "next/link";
 
-import { AboutDialogButton } from "@/components/layout/header/about-dialog-button";
-import { FlowerMetalBanner } from "@/components/layout/header/flower-metal-banner";
-import GoogleSheetsLink from "@/components/layout/header/google-sheets-link";
+import { HabitDuo } from "@/components/layout/header/habit-duo";
 import { ToggleThemeButton } from "@/components/layout/theme-button";
-import { FlowerMetalIcon } from "@/components/shared/icons/flower-metal-icon";
+import { HabitDuoIcon } from "@/components/shared/icons/habit-duo-icon";
 import { appNavLinks } from "@/data/app-data";
 
 export const Header = () => {
@@ -16,12 +14,10 @@ export const Header = () => {
           className="flex items-center gap-x-3"
           style={{ height: "clamp(32px, 10vw, 64px)" }}
         >
-          <FlowerMetalIcon />
-          <FlowerMetalBanner />
+          <HabitDuoIcon />
+          <HabitDuo />
         </Link>
         <div className="flex items-center gap-x-3">
-          <AboutDialogButton />
-          <GoogleSheetsLink />
           <ToggleThemeButton />
         </div>
       </div>

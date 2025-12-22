@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { FlowerMetalBanner } from "@/components/layout/header/flower-metal-banner";
+import { HabitDuo } from "@/components/layout/header/habit-duo";
 import { Button } from "@/components/ui/button";
 import { appNavLinks } from "@/data/app-data";
 
@@ -14,7 +14,7 @@ Alternative solution: https://github.com/vercel/next.js/issues/45620#issuecommen
 const NotFound = () => {
   return (
     <div className="bg-background flex h-full max-w-xl grow flex-col items-center gap-6 p-8 pt-48 text-center">
-      <FlowerMetalBanner />
+      <HabitDuo />
       <div className="flex flex-col">
         <h1
           className="text-foreground font-semibold"

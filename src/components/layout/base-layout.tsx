@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { Footer } from "@/components/layout/header/footer";
+import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header/header";
 import MaxWidthWrapper from "@/components/shared/max-width-wrapper";
 import { AppProviders } from "@/lib/providers/app-providers";

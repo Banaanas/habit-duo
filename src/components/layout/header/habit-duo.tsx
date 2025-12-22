@@ -1,11 +1,11 @@
 import { cn } from "@/lib/utils";
 
-export const FlowerMetalBanner = ({
+export const HabitDuo = ({
   flowerColor = "#FFFFFF",
   metalColor = "#FF69B4",
   strokeColor,
   className,
-}: FlowerMetalBannerProps) => {
+}: HabitDuoBannerProps) => {
   return (
     <svg
       viewBox="10 10 155 82"
@@ -45,7 +45,7 @@ export const FlowerMetalBanner = ({
   );
 };
 
-interface FlowerMetalBannerProps {
+interface HabitDuoBannerProps {
   size?: number;
   flowerColor?: string;
   metalColor?: string;

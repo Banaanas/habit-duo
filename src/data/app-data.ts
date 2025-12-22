@@ -1,5 +1,5 @@
-export const appName = "Flower Metal";
-export const appSlogan = "Metal with flowers. Not hate.";
+export const appName = "Habit Duo";
+export const appSlogan = "Friendship can be productive.";
 
 export const appNavLinks: AppNavLinks = {
   home: {
