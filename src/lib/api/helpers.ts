@@ -7,4 +7,4 @@ export const getByHeader = (row: RawRow, patterns: RegExp[]): string | null => {
   return String(value).trim() || null;
 };
 
-type RawRow = Record<string, any>;
+type RawRow = Record<string, unknown>;
