@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import "../styles/globals.css";
 
 import { BaseLayout } from "@/components/layout/base-layout";
-import { appMetadata } from "@/data/app-metadata";
+import { appName, appSlogan } from "@/data/app-data";
 import { roboto, robotoMono } from "@/lib/fonts";
 
 export default function RootLayout({
@@ -23,8 +23,18 @@ export default function RootLayout({
 
 export const metadata: Metadata = {
   title: {
-    default: appMetadata.name,
-    template: `%s | ${appMetadata.name}`,
+    default: appName,
+    template: `%s | ${appName}`,
   },
-  description: appMetadata.description,
+  description: appSlogan,
+  openGraph: {
+    title: appName,
+    description: appSlogan,
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: appName,
+    description: appSlogan,
+  },
 };
