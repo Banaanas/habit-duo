@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-const MaxWidthWrapper = ({
+export const MaxWidthWrapper = ({
   maxWidth,
   className = "",
   autoMargin = true,
@@ -16,7 +16,7 @@ const MaxWidthWrapper = ({
   );
 };
 
-export default MaxWidthWrapper;
+
 
 interface MaxWidthWrapperProps {
   maxWidth: string;
