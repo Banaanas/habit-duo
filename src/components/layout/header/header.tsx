@@ -1,7 +1,9 @@
-import { Users } from "lucide-react";
+import { LogOut, Users } from "lucide-react";
 import Link from "next/link";
 
+import { getUser, signOut } from "@/actions/auth";
 import { ToggleThemeButton } from "@/components/layout/theme-button";
+import { Button } from "@/components/ui/button";
 import { appNavLinks } from "@/data/app-data";
 
 export const Header = () => {
@@ -28,10 +30,32 @@ export const Header = () => {
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-x-3">
+        <div className="flex items-center gap-x-2">
+          <UserButtons />
           <ToggleThemeButton />
         </div>
       </div>
     </header>
   );
 };
+
+const UserButtons = async () => {
+  const appUser = await getUser();
+
+  if (!appUser) return null;
+  const { name, avatarEmoji } = appUser;
+
+  return (
+    <>
+      <div className="flex items-center gap-x-1">
+        <span className="text-xl">{avatarEmoji}</span>
+        <span>{name}</span>
+      </div>
+      <Button variant="ghost" size="icon" onClick={signOut}>
+        <LogOut className="w-4 h-4" />
+      </Button>
+    </>
+  );
+};
+
+export default UserButtons;
