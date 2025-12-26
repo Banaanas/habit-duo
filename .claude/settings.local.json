@@ -1,5 +1,11 @@
 {
   "permissions": {
-    "allow": ["Bash(find:*)"]
+    "allow": [
+      "Bash(find:*)",
+      "Bash(mkdir:*)",
+      "Bash(pnpm install:*)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(pnpm add:*)"
+    ]
   }
 }

@@ -16,8 +16,6 @@ export const MaxWidthWrapper = ({
   );
 };
 
-
-
 interface MaxWidthWrapperProps {
   maxWidth: string;
   className?: string;

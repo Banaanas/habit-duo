@@ -57,5 +57,3 @@ const UserButtons = async () => {
     </>
   );
 };
-
-export default UserButtons;

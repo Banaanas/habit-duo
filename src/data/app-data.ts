@@ -5,6 +5,12 @@ export const appNavLinks: AppNavLinks = {
   home: {
     href: "/",
   },
+  magicLink: {
+    href: "/auth/magic-link",
+  },
+  signIn: {
+    href: "/sign-in",
+  },
 };
 
 export interface NavLink {
@@ -13,4 +19,6 @@ export interface NavLink {
 
 interface AppNavLinks {
   home: NavLink;
+  magicLink: NavLink;
+  signIn: NavLink;
 }

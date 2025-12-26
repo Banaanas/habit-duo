@@ -1,0 +1,38 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { parseAsBoolean, useQueryState } from "nuqs";
+
+import { AddGoalDialog } from "./add-goal-dialog";
+
+interface AddGoalDialogWrapperProps {
+  userId: string;
+  weekId: string;
+}
+
+export const AddGoalDialogWrapper = ({
+  userId,
+  weekId,
+}: AddGoalDialogWrapperProps) => {
+  const router = useRouter();
+  const [showAddGoal, setShowAddGoal] = useQueryState(
+    "addGoal",
+    parseAsBoolean.withDefault(false)
+  );
+
+  const handleOpenChange = async (open: boolean) => {
+    await setShowAddGoal(open);
+    if (!open) {
+      router.refresh();
+    }
+  };
+
+  return (
+    <AddGoalDialog
+      open={showAddGoal ?? false}
+      onOpenChange={handleOpenChange}
+      userId={userId}
+      weekId={weekId}
+    />
+  );
+};

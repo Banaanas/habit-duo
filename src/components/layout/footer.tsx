@@ -11,9 +11,6 @@ export const Footer = () => {
             {appSlogan}
           </p>
         </div>
-        <p className="text-xs text-muted-foreground">
-          A visual exploration of community-made data.
-        </p>
       </div>
     </footer>
   );
