@@ -23,9 +23,11 @@ export const Scoreboard = ({
     await setSelectedUserId(userId);
     router.refresh();
   };
-  const currentWinning = currentScore.percentage > friendScore.percentage;
-  const friendWinning = friendScore.percentage > currentScore.percentage;
-  const tied = currentScore.percentage === friendScore.percentage;
+
+  const { currentWinning, friendWinning, tied } = calculateWinningStatus(
+    currentScore,
+    friendScore
+  );
 
   return (
     <div className="bg-card border border-border rounded-2xl shadow-sm p-6 mb-6">
@@ -69,3 +71,20 @@ interface ScoreboardProps {
   currentScore: { completed: number; total: number; percentage: number };
   friendScore: { completed: number; total: number; percentage: number };
 }
+
+interface WinningStatus {
+  currentWinning: boolean;
+  friendWinning: boolean;
+  tied: boolean;
+}
+
+const calculateWinningStatus = (
+  currentScore: { percentage: number },
+  friendScore: { percentage: number }
+): WinningStatus => {
+  const currentWinning = currentScore.percentage > friendScore.percentage;
+  const friendWinning = friendScore.percentage > currentScore.percentage;
+  const tied = currentScore.percentage === friendScore.percentage;
+
+  return { currentWinning, friendWinning, tied };
+};

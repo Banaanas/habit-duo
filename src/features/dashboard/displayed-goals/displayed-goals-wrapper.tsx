@@ -1,5 +1,6 @@
 import { DisplayedGoals } from "./displayed-goals";
 
+import { getUser } from "@/actions/auth";
 import { deleteGoalAction, toggleCompletionAction } from "@/actions/goals";
 import {
   getCompletionsForGoals,
@@ -8,22 +9,17 @@ import {
   getUsers,
 } from "@/lib/supabase/queries";
 
-interface DisplayedGoalsWrapperProps {
-  currentUserId: string;
-  selectedUserId?: string;
-}
-
 export const DisplayedGoalsWrapper = async ({
-  currentUserId,
   selectedUserId,
 }: DisplayedGoalsWrapperProps) => {
+  const currentUser = await getUser();
   const users = await getUsers();
   const currentWeek = await getCurrentWeek();
 
-  const targetUserId = selectedUserId || currentUserId;
+  const targetUserId = selectedUserId || currentUser?.id;
   const selectedUser = users.find((u) => u.id === targetUserId);
 
-  if (!currentWeek || !selectedUser) {
+  if (!currentUser || !selectedUser || !currentWeek) {
     return null;
   }
 
@@ -37,7 +33,7 @@ export const DisplayedGoalsWrapper = async ({
   const goalIds = displayedGoals.map((g) => g.id);
   const completions = await getCompletionsForGoals(goalIds);
 
-  const isViewingCurrentUser = targetUserId === currentUserId;
+  const isViewingCurrentUser = targetUserId === currentUser.id;
 
   return (
     <DisplayedGoals
@@ -52,3 +48,7 @@ export const DisplayedGoalsWrapper = async ({
     />
   );
 };
+
+interface DisplayedGoalsWrapperProps {
+  selectedUserId?: string;
+}

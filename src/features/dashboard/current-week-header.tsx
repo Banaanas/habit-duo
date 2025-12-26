@@ -1,11 +1,15 @@
 import { format } from "date-fns";
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { getCurrentWeek } from "@/lib/supabase/queries-read";
 
-export const CurrentWeekHeader = ({
-  weekStartDate,
-  weekEndDate,
-}: CurrentWeekHeaderProps) => {
+export const CurrentWeekHeader = async () => {
+  const currentWeek = await getCurrentWeek();
+
+  if (!currentWeek) return null;
+
+  const { startDate: weekStartDate, endDate: weekEndDate } = currentWeek;
+
   const weekStart = new Date(weekStartDate);
   const weekEnd = new Date(weekEndDate);
 
@@ -20,8 +24,3 @@ export const CurrentWeekHeader = ({
     </Card>
   );
 };
-
-interface CurrentWeekHeaderProps {
-  weekStartDate: string;
-  weekEndDate: string;
-}

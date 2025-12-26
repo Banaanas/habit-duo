@@ -17,12 +17,9 @@ export const Dashboard = ({
       className="flex flex-col gap-y-6"
       style={{ maxWidth: dashboardMaxWidth }}
     >
-      <CurrentWeekHeader
-        weekStartDate={weekStartDate}
-        weekEndDate={weekEndDate}
-      />
+      <CurrentWeekHeader />
 
-      <ScoreboardWrapper currentUserId={currentUserId} />
+      <ScoreboardWrapper />
 
       <DisplayedGoalsWrapper
         selectedUserId={selectedUserId}
