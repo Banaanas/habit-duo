@@ -5,24 +5,15 @@ import { appNavLinks } from "@/data/app-data";
 import { Dashboard } from "@/features/dashboard/dashboard";
 import { getCurrentWeek } from "@/lib/supabase/queries";
 
-interface HomePageProps {
-  searchParams: Promise<{ selected?: string }>;
-}
-
 const HomePage = async ({ searchParams }: HomePageProps) => {
   const currentUser = await getUser();
-
-  if (!currentUser) {
-    redirect(appNavLinks.signIn.href);
-  }
-
   const currentWeek = await getCurrentWeek();
 
-  if (!currentWeek) {
-    return <div>Loading...</div>;
-  }
-
   const params = await searchParams;
+
+  if (!currentUser || !currentWeek) {
+    redirect(appNavLinks.signIn.href);
+  }
   const selectedUserId = params.selected || currentUser.id;
 
   return (
@@ -39,3 +30,7 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
 };
 
 export default HomePage;
+
+interface HomePageProps {
+  searchParams: Promise<{ selected?: string }>;
+}
