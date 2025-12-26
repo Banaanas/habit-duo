@@ -2,11 +2,6 @@ import { format } from "date-fns";
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 
-interface CurrentWeekHeaderProps {
-  weekStartDate: string;
-  weekEndDate: string;
-}
-
 export const CurrentWeekHeader = ({
   weekStartDate,
   weekEndDate,
@@ -25,3 +20,8 @@ export const CurrentWeekHeader = ({
     </Card>
   );
 };
+
+interface CurrentWeekHeaderProps {
+  weekStartDate: string;
+  weekEndDate: string;
+}
