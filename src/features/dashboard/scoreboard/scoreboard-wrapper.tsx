@@ -1,5 +1,6 @@
 import { Scoreboard } from "./scoreboard";
 
+import { getUser } from "@/actions/auth";
 import {
   getCompletionsForGoals,
   getCurrentWeek,
@@ -8,10 +9,8 @@ import {
 } from "@/lib/supabase/queries";
 import { Completion, Goal } from "@/types/database-camel-case";
 
-export const ScoreboardWrapper = async ({
-  currentUserId,
-}: ScoreboardWrapperProps) => {
-  const data = await getScoreboardData(currentUserId);
+export const ScoreboardWrapper = async () => {
+  const data = await getScoreboardData();
 
   if (!data) {
     return null;
@@ -37,25 +36,19 @@ export const ScoreboardWrapper = async ({
   );
 };
 
-interface ScoreboardWrapperProps {
-  currentUserId: string;
-}
-
-const getScoreboardData = async (currentUserId: string) => {
-  const [users, currentWeek] = await Promise.all([
+const getScoreboardData = async () => {
+  const [currentUser, users, currentWeek] = await Promise.all([
+    getUser(),
     getUsers(),
     getCurrentWeek(),
   ]);
 
+  const friendUser = users.find((u) => u.id !== currentUser?.id);
+
   if (!currentWeek) return null;
-
-  const currentUser = users.find((u) => u.id === currentUserId);
-  const friendUser = users.find((u) => u.id !== currentUserId);
-
   if (!currentUser || !friendUser) return null;
 
   const goals = await getGoalsForWeek(currentWeek.id);
-
   const goalIds = goals.map((g) => g.id);
   const completions =
     goalIds.length > 0 ? await getCompletionsForGoals(goalIds) : [];
