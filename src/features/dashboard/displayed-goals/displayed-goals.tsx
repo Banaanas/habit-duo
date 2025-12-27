@@ -14,34 +14,32 @@ export const DisplayedGoals = ({
   const hasGoals = displayedGoals.length > 0;
 
   return (
-    <>
+    <div className="flex flex-col gap-y-2">
       <DisplayedGoalsHeader
         isViewingCurrentUser={isViewingCurrentUser}
         userName={selectedUser.name}
         avatarEmoji={selectedUser.avatarEmoji}
       />
 
-      <div className="space-y-4">
-        {!hasGoals ? (
-          <EmptyGoalsState
-            isViewingCurrentUser={isViewingCurrentUser}
-            userName={selectedUser.name}
-          />
-        ) : null}
+      {!hasGoals ? (
+        <EmptyGoalsState
+          isViewingCurrentUser={isViewingCurrentUser}
+          userName={selectedUser.name}
+        />
+      ) : null}
 
-        {hasGoals ? (
-          <GoalsList
-            displayedGoals={displayedGoals}
-            completions={completions}
-            weekStartDate={weekStartDate}
-            weekEndDate={weekEndDate}
-            onToggle={onToggle}
-            onDelete={onDelete}
-            isViewingCurrentUser={isViewingCurrentUser}
-          />
-        ) : null}
-      </div>
-    </>
+      {hasGoals ? (
+        <GoalsList
+          displayedGoals={displayedGoals}
+          completions={completions}
+          weekStartDate={weekStartDate}
+          weekEndDate={weekEndDate}
+          onToggle={onToggle}
+          onDelete={onDelete}
+          isViewingCurrentUser={isViewingCurrentUser}
+        />
+      ) : null}
+    </div>
   );
 };
 
@@ -64,8 +62,8 @@ const DisplayedGoalsHeader = ({
   const title = isViewingCurrentUser ? "Your Goals" : `${userName}'s Goals`;
 
   return (
-    <div className="flex items-center gap-3 mb-2">
-      <span className="text-3xl">{avatarEmoji}</span>
+    <div className="flex items-center gap-x-2">
+      <span className="text-xl">{avatarEmoji}</span>
       <h2 className="text-xl font-bold">{title}</h2>
     </div>
   );
@@ -87,7 +85,7 @@ const GoalsList = ({
   isViewingCurrentUser,
 }: GoalsListProps) => {
   return (
-    <>
+    <div className="flex flex-col gap-y-2">
       {displayedGoals.map((goal) => {
         const goalCompletions = completions.filter((c) => c.goalId === goal.id);
 
@@ -104,7 +102,7 @@ const GoalsList = ({
           />
         );
       })}
-    </>
+    </div>
   );
 };
 
@@ -128,7 +126,9 @@ const EmptyGoalsState = ({
 
   return (
     <div className="bg-card border border-border rounded-xl p-8 text-center">
-      <p className="text-muted-foreground">{message}</p>
+      <p className="text-muted-foreground max-w-[280px] text-pretty">
+        {message}
+      </p>
     </div>
   );
 };
