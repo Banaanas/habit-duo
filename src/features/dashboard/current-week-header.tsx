@@ -13,12 +13,15 @@ export const CurrentWeekHeader = async () => {
   const weekStart = new Date(weekStartDate);
   const weekEnd = new Date(weekEndDate);
 
+  const formattedWeekStart = format(weekStart, "MMM d");
+
+  const formattedWeekEnd = format(weekEnd, "MMM d, yyyy");
+
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-center">
-          Week of {format(weekStart, "MMM d")} -{" "}
-          {format(weekEnd, "MMM d, yyyy")}
+          Week of {formattedWeekStart} - {formattedWeekEnd}
         </CardTitle>
       </CardHeader>
     </Card>
