@@ -31,5 +31,5 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
 export default HomePage;
 
 interface HomePageProps {
-  searchParams: Promise<{ selected?: string }>;
+  searchParams: Promise<{ [QUERY_PARAMS.selectedUserId]?: string }>;
 }
