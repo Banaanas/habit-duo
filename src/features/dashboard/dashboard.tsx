@@ -8,8 +8,6 @@ import { dashboardMaxWidth } from "@/styles/common-style";
 export const Dashboard = ({
   currentUserId,
   weekId,
-  weekStartDate,
-  weekEndDate,
   selectedUserId,
 }: DashboardProps) => {
   return (
@@ -39,7 +37,5 @@ export const Dashboard = ({
 interface DashboardProps {
   currentUserId: string;
   weekId: string;
-  weekStartDate: string;
-  weekEndDate: string;
   selectedUserId: string;
 }

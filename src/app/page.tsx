@@ -22,8 +22,6 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
       <Dashboard
         currentUserId={currentUser.id}
         weekId={currentWeek.id}
-        weekStartDate={currentWeek.startDate}
-        weekEndDate={currentWeek.endDate}
         selectedUserId={selectedUserId}
       />
     </div>
