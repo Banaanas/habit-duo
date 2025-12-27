@@ -33,3 +33,8 @@ export const AddGoalDialogWrapper = ({
     />
   );
 };
+
+interface AddGoalDialogWrapperProps {
+  userId: string;
+  weekId: string;
+}

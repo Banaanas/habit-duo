@@ -16,19 +16,9 @@ export const Dashboard = ({
       style={{ maxWidth: dashboardMaxWidth }}
     >
       <CurrentWeekHeader />
-
       <ScoreboardWrapper />
-
-      <DisplayedGoalsWrapper
-        selectedUserId={selectedUserId}
-        currentUserId={currentUserId}
-      />
-
-      <AddGoalButtonWrapper
-        selectedUserId={selectedUserId}
-        currentUserId={currentUserId}
-      />
-
+      <DisplayedGoalsWrapper selectedUserId={selectedUserId} />
+      <AddGoalButtonWrapper selectedUserId={selectedUserId} />
       <AddGoalDialogWrapper userId={currentUserId} weekId={weekId} />
     </div>
   );

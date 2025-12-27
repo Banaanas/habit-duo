@@ -19,3 +19,7 @@ export const AddGoalButton = ({ goalCount }: AddGoalButtonProps) => {
     </div>
   );
 };
+
+interface AddGoalButtonProps {
+  goalCount: number;
+}
