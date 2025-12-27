@@ -56,12 +56,6 @@ interface DisplayedGoalsProps {
   onDelete: (goalId: string) => Promise<void>;
 }
 
-interface DisplayedGoalsHeaderProps {
-  isViewingCurrentUser: boolean;
-  userName: string;
-  avatarEmoji: string;
-}
-
 const DisplayedGoalsHeader = ({
   isViewingCurrentUser,
   userName,
@@ -77,14 +71,10 @@ const DisplayedGoalsHeader = ({
   );
 };
 
-interface GoalsListProps {
-  displayedGoals: Goal[];
-  completions: Completion[];
-  weekStartDate: string;
-  weekEndDate: string;
-  onToggle: (goalId: string, date: string) => Promise<void>;
-  onDelete: (goalId: string) => Promise<void>;
+interface DisplayedGoalsHeaderProps {
   isViewingCurrentUser: boolean;
+  userName: string;
+  avatarEmoji: string;
 }
 
 const GoalsList = ({
@@ -100,6 +90,7 @@ const GoalsList = ({
     <>
       {displayedGoals.map((goal) => {
         const goalCompletions = completions.filter((c) => c.goalId === goal.id);
+
         return (
           <GoalCard
             key={goal.id}
@@ -117,9 +108,14 @@ const GoalsList = ({
   );
 };
 
-interface EmptyGoalsStateProps {
+interface GoalsListProps {
+  displayedGoals: Goal[];
+  completions: Completion[];
+  weekStartDate: string;
+  weekEndDate: string;
+  onToggle: (goalId: string, date: string) => Promise<void>;
+  onDelete: (goalId: string) => Promise<void>;
   isViewingCurrentUser: boolean;
-  userName: string;
 }
 
 const EmptyGoalsState = ({
@@ -136,3 +132,8 @@ const EmptyGoalsState = ({
     </div>
   );
 };
+
+interface EmptyGoalsStateProps {
+  isViewingCurrentUser: boolean;
+  userName: string;
+}
