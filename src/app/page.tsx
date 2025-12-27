@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getUser } from "@/actions/auth";
 import { appNavLinks } from "@/data/app-data";
 import { Dashboard } from "@/features/dashboard/dashboard";
+import { QUERY_PARAMS } from "@/lib/query-params";
 import { getCurrentWeek } from "@/lib/supabase/queries";
 
 const HomePage = async ({ searchParams }: HomePageProps) => {
@@ -14,7 +15,7 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
   if (!currentUser || !currentWeek) {
     redirect(appNavLinks.signIn.href);
   }
-  const selectedUserId = params.selected || currentUser.id;
+  const selectedUserId = params[QUERY_PARAMS.selectedUserId] || currentUser.id;
 
   return (
     <div className="flex w-full justify-center items-center">

@@ -5,10 +5,7 @@ import { parseAsBoolean, useQueryState } from "nuqs";
 
 import { AddGoalDialog } from "./add-goal-dialog";
 
-interface AddGoalDialogWrapperProps {
-  userId: string;
-  weekId: string;
-}
+import { QUERY_PARAMS } from "@/lib/query-params";
 
 export const AddGoalDialogWrapper = ({
   userId,
@@ -16,7 +13,7 @@ export const AddGoalDialogWrapper = ({
 }: AddGoalDialogWrapperProps) => {
   const router = useRouter();
   const [showAddGoal, setShowAddGoal] = useQueryState(
-    "addGoal",
+    QUERY_PARAMS.addGoal,
     parseAsBoolean.withDefault(false)
   );
 

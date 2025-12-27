@@ -3,14 +3,11 @@
 import { parseAsBoolean, useQueryState } from "nuqs";
 
 import { Button } from "@/components/ui/button";
-
-interface AddGoalButtonProps {
-  goalCount: number;
-}
+import { QUERY_PARAMS } from "@/lib/query-params";
 
 export const AddGoalButton = ({ goalCount }: AddGoalButtonProps) => {
   const [, setShowAddGoal] = useQueryState(
-    "addGoal",
+    QUERY_PARAMS.addGoal,
     parseAsBoolean.withDefault(false)
   );
 
