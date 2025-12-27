@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { parseAsString, useQueryState } from "nuqs";
 
 import { UserScoreRow } from "@/features/dashboard/scoreboard/user-score-row";
+import { QUERY_PARAMS } from "@/lib/query-params";
 import { User } from "@/types/database-camel-case";
 
 export const Scoreboard = ({
@@ -15,7 +16,7 @@ export const Scoreboard = ({
 }: ScoreboardProps) => {
   const router = useRouter();
   const [, setSelectedUserId] = useQueryState(
-    "selected",
+    QUERY_PARAMS.selectedUserId,
     parseAsString.withDefault(currentUser.id)
   );
 
@@ -24,21 +25,21 @@ export const Scoreboard = ({
     router.refresh();
   };
 
-  const { currentWinning, friendWinning, tied } = calculateWinningStatus(
+  const { currentWinning, friendWinning, isGameTied } = calculateWinningStatus(
     currentScore,
     friendScore
   );
 
   return (
-    <div className="bg-card border border-border rounded-2xl shadow-sm p-6 mb-6">
-      <div className="flex items-center gap-2 mb-4">
+    <div className="bg-card border border-border flex flex-col gap-y-4 rounded-2xl shadow-sm p-6">
+      <div className="flex items-center justify-center gap-2">
         <Trophy className="w-5 h-5 text-primary" />
         <h2 className="font-bold text-lg text-foreground">
           This Week's Battle
         </h2>
       </div>
 
-      <div className="flex flex-col gap-y-4">
+      <div className="flex flex-col gap-y-2">
         <UserScoreRow
           user={currentUser}
           score={currentScore}
@@ -47,11 +48,7 @@ export const Scoreboard = ({
           onClick={() => onUserClick(currentUser.id)}
         />
 
-        {tied ? (
-          <div className="text-center text-sm text-muted-foreground font-medium">
-            🤝 Tied! Keep pushing!
-          </div>
-        ) : null}
+        {isGameTied ? <TiedGameText /> : null}
 
         <UserScoreRow
           user={friendUser}
@@ -72,11 +69,13 @@ interface ScoreboardProps {
   friendScore: { completed: number; total: number; percentage: number };
 }
 
-interface WinningStatus {
-  currentWinning: boolean;
-  friendWinning: boolean;
-  tied: boolean;
-}
+const TiedGameText = () => {
+  return (
+    <div className="text-center text-sm py-2 text-muted-foreground font-medium">
+      🤝 Tied! Keep pushing!
+    </div>
+  );
+};
 
 const calculateWinningStatus = (
   currentScore: { percentage: number },
@@ -84,7 +83,13 @@ const calculateWinningStatus = (
 ): WinningStatus => {
   const currentWinning = currentScore.percentage > friendScore.percentage;
   const friendWinning = friendScore.percentage > currentScore.percentage;
-  const tied = currentScore.percentage === friendScore.percentage;
+  const isGameTied = currentScore.percentage === friendScore.percentage;
 
-  return { currentWinning, friendWinning, tied };
+  return { currentWinning, friendWinning, isGameTied };
 };
+
+interface WinningStatus {
+  currentWinning: boolean;
+  friendWinning: boolean;
+  isGameTied: boolean;
+}
