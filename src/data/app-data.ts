@@ -1,6 +1,10 @@
 export const appName = "Habit Duo";
 export const appSlogan = "Friendship can be productive.";
 
+export const appLimits = {
+  maxGoalsPerWeek: 2,
+} as const;
+
 export const appNavLinks: AppNavLinks = {
   home: {
     href: "/",

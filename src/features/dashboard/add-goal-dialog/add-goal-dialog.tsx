@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { appLimits } from "@/data/app-data";
 
 export const AddGoalDialog = ({
   open,
@@ -62,8 +63,8 @@ export const AddGoalDialog = ({
           <DialogHeader>
             <DialogTitle>Add New Goal</DialogTitle>
             <DialogDescription>
-              Create a new habit goal for this week. You can track up to 2 goals
-              per week.
+              Create a new habit goal for this week. You can track up to{" "}
+              {appLimits.maxGoalsPerWeek} goals per week.
             </DialogDescription>
           </DialogHeader>
 

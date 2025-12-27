@@ -20,7 +20,8 @@ export const AddGoalButtonWrapper = async ({
     displayedGoals.length < 2 && selectedUserId === currentUserId;
   const isViewingCurrentUser = selectedUserId === currentUserId;
 
-  if (!isViewingCurrentUser || !canAddGoal) return null;
+  // Only allow adding if under the max goals limit
+  if (userGoalsThisWeek.length >= appLimits.maxGoalsPerWeek) return null;
 
   return <AddGoalButton goalCount={displayedGoals.length} />;
 };
