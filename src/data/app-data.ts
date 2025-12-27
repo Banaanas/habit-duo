@@ -3,6 +3,7 @@ export const appSlogan = "Friendship can be productive.";
 
 export const appLimits = {
   maxGoalsPerWeek: 2,
+  maxDaysPerGoal: 7,
 } as const;
 
 export const appNavLinks: AppNavLinks = {

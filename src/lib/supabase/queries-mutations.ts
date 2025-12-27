@@ -1,3 +1,5 @@
+import { appLimits } from "@/data/app-data";
+
 import { createClient } from "./supabase-server";
 import { transformGoal } from "./transformers";
 
@@ -12,7 +14,7 @@ export const createGoal = async (
   weekId: string,
   title: string,
   description?: string,
-  targetDays: number = 7
+  targetDays: number = appLimits.maxDaysPerGoal
 ): Promise<Goal> => {
   const supabase = await createClient();
 

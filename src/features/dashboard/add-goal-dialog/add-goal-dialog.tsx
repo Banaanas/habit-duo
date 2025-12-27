@@ -24,8 +24,11 @@ export const AddGoalDialog = ({
 }: AddGoalDialogProps) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [targetDays, setTargetDays] = useState(7);
+  const [targetDays, setTargetDays] = useState<number>(appLimits.maxDaysPerGoal);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+
+  const maxGoalsNumber = appLimits.maxDaysPerGoal;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,7 +48,7 @@ export const AddGoalDialog = ({
       // Reset form
       setTitle("");
       setDescription("");
-      setTargetDays(7);
+      setTargetDays(maxGoalsNumber);
 
       onOpenChange(false);
     } catch (error) {
@@ -98,13 +101,14 @@ export const AddGoalDialog = ({
                 id="targetDays"
                 type="number"
                 min={1}
-                max={7}
+                max={maxGoalsNumber}
                 value={targetDays}
                 onChange={(e) => setTargetDays(Number(e.target.value))}
                 required
               />
               <p className="text-xs text-muted-foreground">
-                How many days this week do you want to complete this goal? (1-7)
+                How many days this week do you want to complete this goal?
+                (1-{maxGoalsNumber})
               </p>
             </div>
           </div>
