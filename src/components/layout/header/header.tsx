@@ -1,9 +1,9 @@
-import { UsersIcon } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
 import { HeaderUserButtons, HeaderUserButtonsSkeleton } from "@/components/layout/header/header-user-buttons";
 import { ToggleThemeButton } from "@/components/layout/theme-button";
+import { Logo } from "@/components/shared/logo";
 import { appNavLinks } from "@/data/app-data";
 
 export const Header = () => {
@@ -16,9 +16,7 @@ export const Header = () => {
             className="flex items-center gap-x-3"
             style={{ height: "clamp(32px, 10vw, 64px)" }}
           >
-            <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary to-chart-1 rounded-xl">
-              <UsersIcon className="w-6 h-6 text-primary-foreground" />
-            </div>{" "}
+            <Logo size={48} variant="gradient" />
           </Link>
 
           <div>
