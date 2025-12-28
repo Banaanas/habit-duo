@@ -14,7 +14,7 @@ export const Header = () => {
           href={appNavLinks.home.href}
           className="flex items-center gap-x-3"
         >
-          <div className="bg-background rounded-lg p-2 flex items-center justify-center">
+          <div className="bg-background rounded-lg p-2 flex items-center justify-center border border-border/50">
             <Logo size={48} variant="gradient" />
           </div>
           <div className="flex flex-col gap-y-0">
