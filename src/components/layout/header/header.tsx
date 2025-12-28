@@ -28,8 +28,14 @@ const HeaderBranding = () => {
       href={appNavLinks.home.href}
       className="flex items-center gap-x-3"
     >
-      <div className="bg-background rounded-lg p-2 flex items-center justify-center border border-border/50">
-        <Logo size={48} variant="gradient" />
+      <div
+        className="bg-background rounded-lg p-2 flex items-center justify-center border border-border/50"
+        style={{
+          width: "clamp(36px, 12vw, 48px)",
+          height: "clamp(36px, 12vw, 48px)"
+        }}
+      >
+        <Logo size={48} variant="gradient" className="w-full h-full" />
       </div>
       <div className="flex flex-col gap-y-0">
         <div
