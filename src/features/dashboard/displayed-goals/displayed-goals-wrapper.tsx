@@ -1,4 +1,4 @@
-import { DisplayedGoals } from "./displayed-goals";
+import { DisplayedGoals } from "@/features/dashboard/displayed-goals/displayed-goals";
 
 import { getUser } from "@/actions/auth";
 import { deleteGoalAction, toggleCompletionAction } from "@/actions/goals";

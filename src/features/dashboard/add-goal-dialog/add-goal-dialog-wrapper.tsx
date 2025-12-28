@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { parseAsBoolean, useQueryState } from "nuqs";
 
-import { AddGoalDialog } from "./add-goal-dialog";
+import { AddGoalDialog } from "@/features/dashboard/add-goal-dialog/add-goal-dialog";
 
 import { QUERY_PARAMS } from "@/lib/query-params";
 

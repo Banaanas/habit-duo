@@ -1,9 +1,8 @@
 // Week queries that can CREATE data (not cached)
 // Uses server client for proper authentication
 
-import { createSupabaseServerClient } from "../clients/supabase-server";
-import { transformWeek } from "../transformers";
-
+import { createSupabaseServerClient } from "@/lib/supabase/clients/supabase-server";
+import { transformWeek } from "@/lib/supabase/transformers";
 import type { Week } from "@/types/database-camel-case";
 
 /**

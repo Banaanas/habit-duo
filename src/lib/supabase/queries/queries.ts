@@ -7,10 +7,14 @@ export {
   getCompletionsForGoal,
   getCompletionsForGoals,
   getWeeklyScores,
-} from "./queries-read";
+} from "@/lib/supabase/queries/queries-read";
 
 // Re-export week queries (not cached - can create data)
-export { getCurrentWeek } from "./queries-weeks";
+export { getCurrentWeek } from "@/lib/supabase/queries/queries-weeks";
 
 // Re-export mutations (not cached)
-export { createGoal, deleteGoal, toggleCompletion } from "./queries-mutations";
+export {
+  createGoal,
+  deleteGoal,
+  toggleCompletion,
+} from "@/lib/supabase/queries/queries-mutations";

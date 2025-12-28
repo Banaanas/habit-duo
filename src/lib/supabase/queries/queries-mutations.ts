@@ -1,8 +1,6 @@
 import { appLimits } from "@/data/app-data";
-
-import { createSupabaseServerClient } from "../clients/supabase-server";
-import { transformGoal } from "../transformers";
-
+import { createSupabaseServerClient } from "@/lib/supabase/clients/supabase-server";
+import { transformGoal } from "@/lib/supabase/transformers";
 import type { Goal } from "@/types/database-camel-case";
 
 // ============= MUTATIONS =============

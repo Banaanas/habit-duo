@@ -4,8 +4,7 @@ import { Trash2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { MouseEventHandler, useTransition } from "react";
 
-import { DayButton } from "./day-button";
-
+import { DayButton } from "@/features/dashboard/day-button";
 import type { Completion, Goal } from "@/types/database-camel-case";
 import { formatDateToISO, getCurrentWeekDates, isPastOrToday } from "@/utils/date";
 
