@@ -2,7 +2,7 @@
 
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { MouseEventHandler, useTransition } from "react";
 
 import { DayButton } from "./day-button";
 
@@ -12,16 +12,6 @@ import {
   getCurrentWeekDates,
   isPastOrToday,
 } from "@/utils/date";
-
-interface GoalCardProps {
-  goal: Goal;
-  completions: Completion[];
-  weekStartDate: string;
-  weekEndDate: string;
-  onToggle: (goalId: string, date: string) => Promise<void>;
-  onDelete: (goalId: string) => Promise<void>;
-  isCurrentUser: boolean;
-}
 
 export const GoalCard = ({
   goal,
@@ -56,36 +46,101 @@ export const GoalCard = ({
   };
 
   return (
-    <div className="bg-card border border-border rounded-xl shadow-sm p-4">
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex-1">
-          <h3 className="font-semibold text-foreground">{goal.title}</h3>
-          <p className="text-sm text-muted-foreground">
-            {completedCount}/{totalDays} days completed
-          </p>
-        </div>
-        {isCurrentUser && (
-          <button
-            onClick={handleDelete}
-            disabled={isPending}
-            className="p-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors disabled:opacity-50"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
-        )}
+    <div className="bg-card border border-border rounded-xl flex flex-col gap-y-4 shadow-sm p-4">
+      <div className="flex items-start justify-between">
+        <GoalHeader goal={goal} />
+        <RemoveGoalButton
+          handleDelete={handleDelete}
+          isCurrentUser={isCurrentUser}
+          isPending={isPending}
+        />
       </div>
 
-      <div className="flex gap-1">
-        {weekDates.map((date, index) => (
-          <DayButton
-            key={index}
-            date={date}
-            isCompleted={isCompleted(date)}
-            canToggle={isPastOrToday(date) && isCurrentUser}
-            onToggle={handleToggle}
-          />
-        ))}
+      <div className="flex flex-col gap-y-2">
+        <DayButtons
+          weekDates={weekDates}
+          isCompleted={isCompleted}
+          isCurrentUser={isCurrentUser}
+          onToggle={handleToggle}
+        />
+
+        <p className="text-sm text-muted-foreground text-right italic">
+          {completedCount}/{totalDays} days completed
+        </p>
       </div>
+    </div>
+  );
+};
+
+interface GoalCardProps {
+  goal: Goal;
+  completions: Completion[];
+  weekStartDate: string;
+  weekEndDate: string;
+  onToggle: (goalId: string, date: string) => Promise<void>;
+  onDelete: (goalId: string) => Promise<void>;
+  isCurrentUser: boolean;
+}
+
+const RemoveGoalButton = ({
+  handleDelete,
+  isPending,
+  isCurrentUser,
+}: RemoveGoalButtonProps) => {
+  if (!isCurrentUser) return null;
+
+  return (
+    <button
+      onClick={handleDelete}
+      disabled={isPending}
+      className="p-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors disabled:opacity-50"
+    >
+      <Trash2 className="w-4 h-4" />
+    </button>
+  );
+};
+
+interface RemoveGoalButtonProps {
+  handleDelete: MouseEventHandler<HTMLButtonElement>;
+  isPending: boolean;
+  isCurrentUser: boolean;
+}
+
+const GoalHeader = ({ goal }: { goal: Goal }) => {
+  const { title, description } = goal;
+
+  return (
+    <div className="flex-1">
+      <h3 className="font-semibold text-foreground">{title}</h3>
+      <p className="text-sm text-muted-foreground">{description}</p>
+    </div>
+  );
+};
+
+interface DayButtonsProps {
+  weekDates: Date[];
+  isCompleted: (date: Date) => boolean;
+  isCurrentUser: boolean;
+  onToggle: (date: string) => Promise<void>;
+}
+
+const DayButtons = ({
+  weekDates,
+  isCompleted,
+  isCurrentUser,
+  onToggle,
+}: DayButtonsProps) => {
+  return (
+    <div className="flex gap-1">
+      {weekDates.map((date) => (
+        <DayButton
+          key={date.toISOString()}
+          date={date}
+          isCompleted={isCompleted(date)}
+          canToggle={isPastOrToday(date) && isCurrentUser}
+          onToggle={onToggle}
+        />
+      ))}
     </div>
   );
 };

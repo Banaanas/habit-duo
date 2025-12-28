@@ -44,7 +44,7 @@ export const DayButton = ({
       onClick={handleClick}
       disabled={!canToggle || isPending}
       className={cn(
-        "flex-1 flex flex-col items-center gap-1 py-2 px-1 rounded-lg transition-all",
+        "flex-1 flex flex-col items-center gap-1 py-1 px-1 rounded-lg transition-all",
         today && "ring-2 ring-primary ring-offset-2 ring-offset-card",
         canToggle && "hover:bg-muted cursor-pointer",
         !canToggle && "cursor-default",

@@ -24,10 +24,7 @@ export const AddGoalDialog = ({
 }: AddGoalDialogProps) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [targetDays, setTargetDays] = useState<number>(appLimits.maxDaysPerGoal);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-
   const maxGoalsNumber = appLimits.maxDaysPerGoal;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -41,14 +38,12 @@ export const AddGoalDialog = ({
         userId,
         weekId,
         title.trim(),
-        description.trim() || undefined,
-        targetDays
+        description.trim() || undefined
       );
 
       // Reset form
       setTitle("");
       setDescription("");
-      setTargetDays(maxGoalsNumber);
 
       onOpenChange(false);
     } catch (error) {
@@ -66,8 +61,8 @@ export const AddGoalDialog = ({
           <DialogHeader>
             <DialogTitle>Add New Goal</DialogTitle>
             <DialogDescription>
-              Create a new habit goal for this week. You can track up to{" "}
-              {appLimits.maxGoalsPerWeek} goals per week.
+              Create a new daily habit goal for this week. You can track up to{" "}
+              {maxGoalsNumber} goals per week. All goals are daily commitments.
             </DialogDescription>
           </DialogHeader>
 
@@ -93,23 +88,6 @@ export const AddGoalDialog = ({
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="targetDays">Target Days</Label>
-              <Input
-                id="targetDays"
-                type="number"
-                min={1}
-                max={maxGoalsNumber}
-                value={targetDays}
-                onChange={(e) => setTargetDays(Number(e.target.value))}
-                required
-              />
-              <p className="text-xs text-muted-foreground">
-                How many days this week do you want to complete this goal?
-                (1-{maxGoalsNumber})
-              </p>
             </div>
           </div>
 

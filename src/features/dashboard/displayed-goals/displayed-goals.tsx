@@ -63,7 +63,7 @@ const DisplayedGoalsHeader = ({
 
   return (
     <div className="flex items-center gap-x-2">
-      <span className="text-xl">{avatarEmoji}</span>
+      <span className="text-3xl">{avatarEmoji}</span>
       <h2 className="text-xl font-bold">{title}</h2>
     </div>
   );
