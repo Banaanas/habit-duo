@@ -105,7 +105,76 @@ All imports use path aliases defined in `tsconfig.json`:
 - **NEVER create new path aliases** without explicit user authorization
 - If you need a new alias, ask the user first before modifying `tsconfig.json`
 
-### 7. Feature-Based Structure
+### 7. Centralized Constants
+
+The app centralizes all routes, query parameters, and cache tags in dedicated constant files for consistency and maintainability.
+
+#### Navigation Routes (`@/data/app-data.ts`)
+
+**All application routes** must be defined in `appNavLinks`:
+
+```typescript
+export const appNavLinks = {
+  home: { href: "/" },
+  signIn: { href: "/sign-in" },
+  // Add new routes here
+} as const;
+```
+
+**Rules**:
+- ✅ Use `appNavLinks.home.href` instead of hardcoded `"/"`
+- ✅ Only include **intentional navigation routes** (not error pages)
+- ❌ Never hardcode route strings - always use `appNavLinks`
+
+#### Query Parameters (`@/lib/query-params.ts`)
+
+**All URL search params** must be defined in `QUERY_PARAMS`:
+
+```typescript
+export const QUERY_PARAMS = {
+  selectedUserId: "selected",
+  addGoal: "addGoal",
+} as const;
+```
+
+**Usage**:
+```typescript
+// ✅ Correct
+searchParams[QUERY_PARAMS.selectedUserId]
+
+// ❌ Avoid
+searchParams["selected"]
+```
+
+#### Cache Tags (`@/lib/cache-tags.ts`)
+
+**All Next.js cache tags** must be defined in `CACHE_TAGS`:
+
+```typescript
+export const CACHE_TAGS = {
+  users: "users",
+  weeks: "weeks",
+  currentWeek: "current-week",
+} as const;
+```
+
+**Usage**:
+```typescript
+// ✅ Correct
+cacheTag(CACHE_TAGS.users);
+revalidateTag(CACHE_TAGS.users);
+
+// ❌ Avoid
+cacheTag("users");
+```
+
+**Benefits**:
+- Type safety and autocomplete
+- Easy refactoring (change once, updates everywhere)
+- No typos in string literals
+- Centralized source of truth
+
+### 8. Feature-Based Structure
 
 Components are organized by feature domain:
 
@@ -126,7 +195,7 @@ src/
 
 When adding new features, create a new directory under `features/` with related components.
 
-### 8. Server Components First
+### 9. Server Components First
 
 This project **heavily favors Server Components**:
 
