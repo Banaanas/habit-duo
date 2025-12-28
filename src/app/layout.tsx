@@ -28,8 +28,11 @@ export const metadata: Metadata = {
   },
   description: appSlogan,
   icons: {
-    icon: '/favicon.svg',
-    apple: '/favicon.svg',
+    icon: [
+      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: '/apple-touch-icon.png',
   },
   openGraph: {
     title: appName,
