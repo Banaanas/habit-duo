@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { getCurrentWeek } from "@/lib/supabase/queries-read";
+import { getCurrentWeek } from "@/lib/supabase/queries";
 
 export const CurrentWeekHeader = async () => {
   const currentWeek = await getCurrentWeek();

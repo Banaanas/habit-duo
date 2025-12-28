@@ -2,7 +2,7 @@
 
 import { cacheLife, cacheTag } from "next/cache";
 
-import { createClient } from "./supabase-client";
+import { createSupabaseBrowserClient } from "./supabase-client";
 
 import { CACHE_TAGS } from "@/lib/cache-tags";
 import {
@@ -20,7 +20,7 @@ import type {
   WeeklyScore,
 } from "@/types/database-camel-case";
 
-const supabase = createClient();
+const supabase = createSupabaseBrowserClient();
 
 // ============= USERS =============
 
@@ -38,25 +38,7 @@ export async function getUsers(): Promise<User[]> {
 }
 
 // ============= WEEKS =============
-
-export async function getCurrentWeek(): Promise<Week | null> {
-  cacheLife("minutes");
-  cacheTag(CACHE_TAGS.currentWeek);
-
-  const { data, error } = await supabase.rpc("get_or_create_current_week");
-
-  if (error) throw error;
-  if (!data) return null;
-
-  const { data: week, error: weekError } = await supabase
-    .from("weeks")
-    .select("*")
-    .eq("id", data)
-    .single();
-
-  if (weekError) throw weekError;
-  return transformWeek(week);
-}
+// Note: getCurrentWeek() is in queries-weeks.ts (not cached, uses server client)
 
 export async function getWeekById(weekId: string): Promise<Week | null> {
   cacheLife("hours");
