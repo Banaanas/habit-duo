@@ -29,7 +29,7 @@ const HeaderBranding = () => {
   return (
     <Link href={appNavLinks.home.href} className="flex items-center gap-x-3">
       <div
-        className="bg-background border-border/50 flex items-center justify-center rounded-lg border p-2"
+        className="bg-primary/10 flex items-center justify-center rounded-lg p-2"
         style={{
           width: "clamp(36px, 12vw, 48px)",
           height: "clamp(36px, 12vw, 48px)",

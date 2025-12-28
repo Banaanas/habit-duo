@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { Suspense } from "react";
 
 import { Dashboard } from "@/features/dashboard/dashboard";
@@ -19,3 +20,9 @@ export default HomePage;
 interface HomePageProps {
   searchParams: Promise<{ [QUERY_PARAMS.selectedUserId]?: string }>;
 }
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  description:
+    "Track your weekly habits and compete with your friend for the highest score",
+};
