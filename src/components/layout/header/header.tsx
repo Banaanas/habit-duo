@@ -10,16 +10,12 @@ export const Header = () => {
   return (
     <header className="border-b border-border/50 bg-background/80 backdrop-blur-md top-0 z-50 sticky">
       <div className="mx-auto px-4 py-4 flex items-center justify-between flex-wrap">
-        <div className="flex items-center gap-x-2">
-          <Link
-            href={appNavLinks.home.href}
-            className="flex items-center gap-x-3"
-            style={{ height: "clamp(32px, 10vw, 64px)" }}
-          >
-            <Logo size={48} variant="gradient" />
-          </Link>
-
-          <div>
+        <Link
+          href={appNavLinks.home.href}
+          className="flex items-center gap-x-3"
+        >
+          <Logo size={48} variant="gradient" />
+          <div className="flex flex-col gap-y-0">
             <div
               className="font-bold tracking-tight text-foreground"
               style={{ fontSize: "clamp(16px, 1vw + 1rem, 40px)" }}
@@ -30,7 +26,7 @@ export const Header = () => {
               Build habits together
             </div>
           </div>
-        </div>
+        </Link>
         <div className="flex items-center">
           <Suspense fallback={<HeaderUserButtonsSkeleton />}>
             <HeaderUserButtons />
