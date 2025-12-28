@@ -276,6 +276,40 @@ const Footer = () => {
 };
 ```
 
+**Event handler naming**: Follow React conventions for naming event handlers and callback props:
+
+- **Callback props** (passed to components): Use `on` prefix (e.g., `onClick`, `onSubmit`, `onChange`, `onTryAgain`)
+- **Handler functions** (defined locally): Use `handle` prefix (e.g., `handleClick`, `handleSubmit`, `handleChange`)
+
+```typescript
+// ✅ Correct naming
+const MyComponent = () => {
+  const handleClick = () => {
+    console.log("clicked");
+  };
+
+  const handleSubmit = (data: FormData) => {
+    // submit logic
+  };
+
+  return (
+    <div>
+      <Button onClick={handleClick} />
+      <Form onSubmit={handleSubmit} />
+    </div>
+  );
+};
+
+// Child component receives callback props with 'on' prefix
+const Form = ({ onSubmit }: FormProps) => {
+  return <form action={onSubmit}>...</form>;
+};
+
+interface FormProps {
+  onSubmit: (data: FormData) => void;
+}
+```
+
 ### CSS and Tailwind
 
 **Avoid margin utilities (`m-`, `mt-`, `mb-`, `ml-`, `mr-`)** for spacing. Instead, use flexbox with gap utilities on parent containers:
