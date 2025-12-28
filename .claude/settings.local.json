@@ -7,7 +7,9 @@
       "Bash(npx shadcn@latest add:*)",
       "Bash(pnpm add:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git mv:*)",
+      "Bash(tree:*)"
     ]
   }
 }
