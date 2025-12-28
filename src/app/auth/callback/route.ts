@@ -2,7 +2,7 @@ import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 import { appNavLinks } from "@/data/app-data";
-import { createSupabaseServerClient } from "@/lib/supabase/supabase-server";
+import { createSupabaseServerClient } from "@/lib/supabase/clients/supabase-server";
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);

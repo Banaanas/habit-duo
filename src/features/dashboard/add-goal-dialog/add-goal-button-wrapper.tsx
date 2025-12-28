@@ -1,6 +1,6 @@
 import { getUser } from "@/actions/auth";
 import { AddGoalButton } from "@/features/dashboard/add-goal-dialog/add-goal-button";
-import { getCurrentWeek, getGoalsForWeek } from "@/lib/supabase/queries";
+import { getCurrentWeek, getGoalsForWeek } from "@/lib/supabase/queries/queries";
 
 export const AddGoalButtonWrapper = async ({
   selectedUserId,

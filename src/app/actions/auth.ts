@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { appNavLinks } from "@/data/app-data";
-import { createSupabaseServerClient } from "@/lib/supabase/supabase-server";
+import { createSupabaseServerClient } from "@/lib/supabase/clients/supabase-server";
 
 export async function signInWithEmail(email: string) {
   const supabase = await createSupabaseServerClient();

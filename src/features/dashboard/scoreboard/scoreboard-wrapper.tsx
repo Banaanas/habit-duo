@@ -7,7 +7,7 @@ import {
   getCurrentWeek,
   getGoalsForWeek,
   getUsers,
-} from "@/lib/supabase/queries";
+} from "@/lib/supabase/queries/queries";
 import { Completion, Goal } from "@/types/database-camel-case";
 
 export const ScoreboardWrapper = async () => {

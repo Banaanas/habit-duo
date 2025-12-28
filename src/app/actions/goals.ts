@@ -8,7 +8,7 @@ import {
   createGoal,
   deleteGoal,
   toggleCompletion,
-} from "@/lib/supabase/queries";
+} from "@/lib/supabase/queries/queries";
 
 export const createGoalAction = async (
   userId: string,

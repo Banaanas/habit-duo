@@ -2,7 +2,7 @@
 
 import { cacheLife, cacheTag } from "next/cache";
 
-import { createSupabaseBrowserClient } from "./supabase-client";
+import { createSupabaseBrowserClient } from "../clients/supabase-client";
 
 import { CACHE_TAGS } from "@/lib/cache-tags";
 import {

@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { getCurrentWeek } from "@/lib/supabase/queries";
+import { getCurrentWeek } from "@/lib/supabase/queries/queries";
 
 export const CurrentWeekHeader = async () => {
   const currentWeek = await getCurrentWeek();

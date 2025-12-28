@@ -7,7 +7,7 @@ import {
   getCurrentWeek,
   getGoalsForWeek,
   getUsers,
-} from "@/lib/supabase/queries";
+} from "@/lib/supabase/queries/queries";
 
 export const DisplayedGoalsWrapper = async ({
   selectedUserId,

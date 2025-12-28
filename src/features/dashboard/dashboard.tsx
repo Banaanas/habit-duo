@@ -9,7 +9,7 @@ import { CurrentWeekHeader } from "@/features/dashboard/current-week-header";
 import { DisplayedGoalsWrapper } from "@/features/dashboard/displayed-goals/displayed-goals-wrapper";
 import { ScoreboardWrapper } from "@/features/dashboard/scoreboard/scoreboard-wrapper";
 import { QUERY_PARAMS } from "@/lib/query-params";
-import { getCurrentWeek } from "@/lib/supabase/queries";
+import { getCurrentWeek } from "@/lib/supabase/queries/queries";
 import { dashboardMaxWidth } from "@/styles/common-style";
 
 /**
