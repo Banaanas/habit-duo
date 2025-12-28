@@ -235,6 +235,47 @@ export const Input = () => { ... };
 export default function Page() { ... }
 ```
 
+**Component file structure**: When a file contains a main component with sub-components:
+
+1. Main component (exported) comes first
+2. Its interface/type comes immediately after with a blank line
+3. Sub-components follow in the order they appear in the main component
+4. Each sub-component's interface/type comes immediately after it with a blank line
+
+```typescript
+// ✅ Correct structure
+export const SignInForm = ({ onSubmit, error }: SignInFormProps) => {
+  return (
+    <div>
+      <Header />
+      <Form onSubmit={onSubmit} />
+      <Footer />
+    </div>
+  );
+};
+
+interface SignInFormProps {
+  onSubmit: () => void;
+  error: string | null;
+}
+
+const Header = () => {
+  return <header>...</header>;
+};
+
+const Form = ({ onSubmit }: FormProps) => {
+  return <form onSubmit={onSubmit}>...</form>;
+};
+
+interface FormProps {
+  onSubmit: () => void;
+}
+
+const Footer = () => {
+  return <footer>...</footer>;
+};
+```
+
 ### CSS and Tailwind
 
 **Avoid margin utilities (`m-`, `mt-`, `mb-`, `ml-`, `mr-`)** for spacing. Instead, use flexbox with gap utilities on parent containers:
@@ -251,6 +292,26 @@ export default function Page() { ... }
   <h1>Title</h1>
   <p>Paragraph</p>
 </div>
+```
+
+**Avoid space utilities (`space-x-*`, `space-y-*`)** for spacing. Instead, use flexbox with gap utilities:
+
+```tsx
+// ❌ Avoid space utilities
+<form className="space-y-4">
+  <div className="space-y-2">
+    <Label>Email</Label>
+    <Input />
+  </div>
+</form>
+
+// ✅ Use flex with gap
+<form className="flex flex-col gap-y-4">
+  <div className="flex flex-col gap-y-2">
+    <Label>Email</Label>
+    <Input />
+  </div>
+</form>
 ```
 
 **Always specify gap direction** (`gap-x-*` or `gap-y-*`) instead of using plain `gap-*`:
