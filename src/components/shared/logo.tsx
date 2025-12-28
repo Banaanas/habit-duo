@@ -1,5 +1,7 @@
+import { useId } from "react";
+
 export const Logo = ({ size = 48, variant = 'gradient', className = '' }: LogoProps) => {
-  const gradientId = `logo-gradient-${Math.random().toString(36).substr(2, 9)}`;
+  const gradientId = useId();
 
   const getFill = () => {
     if (variant === 'mono') return 'currentColor';
