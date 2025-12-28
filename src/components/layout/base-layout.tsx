@@ -14,7 +14,7 @@ export const BaseLayout = ({ children }: BaseLayoutProps) => {
         className={`flex flex-col gap-y-4 p-2 sm:py-8 min-w-[320px]`}
       >
         <Header />
-        <main className="w-full flex justify-center">{children}</main>
+        <main className="w-full flex justify-center flex-1">{children}</main>
         <Footer />
       </MaxWidthWrapper>
     </AppProviders>
