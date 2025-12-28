@@ -30,16 +30,20 @@ export const Scoreboard = ({
     friendScore
   );
 
-  const leadingUser = currentWinning ? currentUser : friendWinning ? friendUser : null;
+  const leadingUser = currentWinning
+    ? currentUser
+    : friendWinning
+      ? friendUser
+      : null;
 
   return (
-    <div className="bg-card border border-border flex flex-col gap-y-4 rounded-2xl shadow-sm p-6">
+    <div className="bg-card border-border flex flex-col gap-y-4 rounded-2xl border p-6 shadow-sm">
       <div className="flex flex-col items-center justify-center">
         <div className="flex items-center gap-x-2">
-          <div className="flex items-center justify-center size-9 rounded-full bg-gradient-to-br from-primary to-accent">
-            <SwordsIcon className="w-5 h-5 text-white" />
+          <div className="from-primary to-accent flex size-9 items-center justify-center rounded-full bg-gradient-to-br">
+            <SwordsIcon className="h-5 w-5 text-white" />
           </div>
-          <h2 className="font-bold text-lg text-foreground">
+          <h2 className="text-foreground text-lg font-bold">
             Battle of the Week
           </h2>
         </div>
@@ -78,7 +82,7 @@ interface ScoreboardProps {
 
 const TiedGameText = () => {
   return (
-    <div className="text-center text-sm py-2 text-muted-foreground font-medium">
+    <div className="text-muted-foreground py-2 text-center text-sm font-medium">
       🤝 Tied! Keep pushing!
     </div>
   );
@@ -86,8 +90,8 @@ const TiedGameText = () => {
 
 const LeaderIndicator = ({ leadingUser }: LeaderIndicatorProps) => {
   return (
-    <div className="flex items-center gap-x-1 justify-center text-sm text-muted-foreground">
-      <FlameIcon className="w-4 h-4 text-orange-500" />
+    <div className="text-muted-foreground flex items-center justify-center gap-x-1 text-sm">
+      <FlameIcon className="h-4 w-4 text-orange-500" />
       <span className="font-medium">{leadingUser.name} leads!</span>
     </div>
   );

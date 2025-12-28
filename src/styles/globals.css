@@ -132,6 +132,6 @@
     @apply h-full;
   }
   body {
-    @apply text-foreground flex min-h-full h-full flex-col;
+    @apply text-foreground flex h-full min-h-full flex-col;
   }
 }

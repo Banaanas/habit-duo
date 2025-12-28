@@ -15,7 +15,7 @@ export const UserScoreRow = ({
   return (
     <button
       onClick={onClick}
-      className="w-full text-left group cursor-pointer p-3 rounded-lg transition-colors hover:bg-muted/50"
+      className="group hover:bg-muted/50 w-full cursor-pointer rounded-lg p-3 text-left transition-colors"
     >
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
@@ -54,7 +54,7 @@ const UserAvatar = ({
 
   return (
     <div
-      className={`flex items-center justify-center size-10 rounded-md bg-primary/10 transition-all ${ringClass}`}
+      className={`bg-primary/10 flex size-10 items-center justify-center rounded-md transition-all ${ringClass}`}
     >
       <span className="text-xl">{avatarEmoji}</span>
     </div>
@@ -76,15 +76,15 @@ const UserInfo = ({
   const percentageColor = isCurrentUser ? "text-primary" : "text-accent";
 
   return (
-    <div className="flex items-center justify-between flex-1">
-      <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
+    <div className="flex flex-1 items-center justify-between">
+      <span className="text-foreground group-hover:text-primary font-semibold transition-colors">
         {userName}
         {isCurrentUser ? (
           <span className="text-muted-foreground text-sm"> (You)</span>
         ) : null}
       </span>
       <div className="flex items-center gap-1">
-        {isWinning ? <TrophyIcon className="w-4 h-4 text-yellow-500" /> : null}
+        {isWinning ? <TrophyIcon className="h-4 w-4 text-yellow-500" /> : null}
         <span className={`font-bold ${percentageColor}`}>{percentage}%</span>
       </div>
     </div>
@@ -104,13 +104,13 @@ const ScoreProgressBar = ({ score, isCurrentUser }: ScoreProgressBarProps) => {
 
   return (
     <div className="flex items-center justify-between gap-x-10">
-      <div className="flex-1 h-3 bg-muted rounded-full overflow-hidden">
+      <div className="bg-muted h-3 flex-1 overflow-hidden rounded-full">
         <div
           className={`h-full rounded-full transition-all duration-500 ${progressBarColor}`}
           style={{ width: `${percentage}%` }}
         />
       </div>
-      <span className="text-xs text-muted-foreground">
+      <span className="text-muted-foreground text-xs">
         {completed}/{total}
       </span>
     </div>

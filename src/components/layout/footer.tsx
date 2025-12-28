@@ -3,11 +3,11 @@ import { appSlogan } from "@/data/app-data";
 
 export const Footer = () => {
   return (
-    <footer className="border-t border-border/50 bg-background/60 backdrop-blur-sm p-4">
+    <footer className="border-border/50 bg-background/60 border-t p-4 backdrop-blur-sm">
       <div className="flex flex-col items-center gap-y-2">
         <div className="flex items-center justify-center gap-x-2">
           <Logo size={32} variant="gradient" />
-          <p className="text-sm font-semibold text-muted-foreground">
+          <p className="text-muted-foreground text-sm font-semibold">
             {appSlogan}
           </p>
         </div>

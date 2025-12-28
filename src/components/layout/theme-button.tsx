@@ -22,7 +22,11 @@ export const ToggleThemeButton = () => {
       onClick={toggleTheme}
       className="rounded-full"
     >
-      {isDarkTheme ? <MoonIcon className={iconClassname} /> : <SunIcon className={iconClassname} />}
+      {isDarkTheme ? (
+        <MoonIcon className={iconClassname} />
+      ) : (
+        <SunIcon className={iconClassname} />
+      )}
     </Button>
   );
 };

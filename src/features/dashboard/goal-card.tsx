@@ -6,7 +6,11 @@ import { MouseEventHandler, useTransition } from "react";
 
 import { DayButton } from "@/features/dashboard/day-button";
 import type { Completion, Goal } from "@/types/database-camel-case";
-import { formatDateToISO, getCurrentWeekDates, isPastOrToday } from "@/utils/date";
+import {
+  formatDateToISO,
+  getCurrentWeekDates,
+  isPastOrToday,
+} from "@/utils/date";
 
 export const GoalCard = ({
   goal,
@@ -41,7 +45,7 @@ export const GoalCard = ({
   };
 
   return (
-    <div className="bg-card border border-border rounded-xl flex flex-col gap-y-4 shadow-sm p-4">
+    <div className="bg-card border-border flex flex-col gap-y-4 rounded-xl border p-4 shadow-sm">
       <div className="flex items-start justify-between">
         <GoalHeader goal={goal} />
         <RemoveGoalButton
@@ -60,7 +64,7 @@ export const GoalCard = ({
         />
 
         <hr />
-        <p className="text-sm text-muted-foreground text-left">
+        <p className="text-muted-foreground text-left text-sm">
           <span className="font-bold">{completedCount}</span>/{totalDays} days
           completed
         </p>
@@ -90,9 +94,9 @@ const RemoveGoalButton = ({
     <button
       onClick={handleDelete}
       disabled={isPending}
-      className="p-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors disabled:opacity-50"
+      className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg p-2 transition-colors disabled:opacity-50"
     >
-      <Trash2Icon className="w-4 h-4" />
+      <Trash2Icon className="h-4 w-4" />
     </button>
   );
 };
@@ -108,8 +112,8 @@ const GoalHeader = ({ goal }: { goal: Goal }) => {
 
   return (
     <div className="flex-1">
-      <h3 className="font-semibold text-foreground">{title}</h3>
-      <p className="text-sm text-muted-foreground">{description}</p>
+      <h3 className="text-foreground font-semibold">{title}</h3>
+      <p className="text-muted-foreground text-sm">{description}</p>
     </div>
   );
 };

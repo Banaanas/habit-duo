@@ -2,9 +2,9 @@
 
 import { useActionState } from "react";
 
+import { signInWithEmail } from "@/actions/auth";
 import { SignInForm } from "@/features/sign-in/components/sign-in-form";
 import { SignInSuccess } from "@/features/sign-in/components/sign-in-success";
-import { signInWithEmail } from "@/actions/auth";
 
 export const SignInView = () => {
   const [state, formAction, isPending] = useActionState<FormState, FormData>(
@@ -23,14 +23,14 @@ export const SignInView = () => {
 
   if (state.email && !state.error) {
     return (
-      <div className="flex flex-col items-center justify-center w-full p-4">
+      <div className="flex w-full flex-col items-center justify-center p-4">
         <SignInSuccess onTryAgain={formAction} />
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col items-center justify-center w-full p-4">
+    <div className="flex w-full flex-col items-center justify-center p-4">
       <SignInForm
         onSubmit={formAction}
         isPending={isPending}

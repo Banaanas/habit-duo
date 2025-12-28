@@ -44,8 +44,8 @@ export const DayButton = ({
       onClick={handleClick}
       disabled={!canToggle || isPending}
       className={cn(
-        "flex-1 flex flex-col items-center gap-1 py-1 px-1 rounded-lg transition-all",
-        today && "ring-2 ring-primary ring-offset-2 ring-offset-card",
+        "flex flex-1 flex-col items-center gap-1 rounded-lg px-1 py-1 transition-all",
+        today && "ring-primary ring-offset-card ring-2 ring-offset-2",
         canToggle && "hover:bg-muted cursor-pointer",
         !canToggle && "cursor-default",
         isFuture && "opacity-40"
@@ -61,18 +61,20 @@ export const DayButton = ({
       </span>
       <div
         className={cn(
-          "w-7 h-7 rounded-full flex items-center justify-center transition-all",
+          "flex h-7 w-7 items-center justify-center rounded-full transition-all",
           isCompleted
             ? "bg-primary shadow-md"
-            : "bg-muted border-2 border-border",
+            : "bg-muted border-border border-2",
           canToggle && !isCompleted && "hover:border-primary",
           isCompleted && "scale-105"
         )}
       >
-        {isCompleted && <CheckIcon className="w-4 h-4 text-primary-foreground" />}
+        {isCompleted && (
+          <CheckIcon className="text-primary-foreground h-4 w-4" />
+        )}
       </div>
       {today && (
-        <span className="text-[10px] font-bold text-primary">TODAY</span>
+        <span className="text-primary text-[10px] font-bold">TODAY</span>
       )}
     </button>
   );

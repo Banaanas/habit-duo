@@ -6,7 +6,7 @@ import { QUERY_PARAMS } from "@/lib/query-params";
 
 const HomePage = ({ searchParams }: HomePageProps) => {
   return (
-    <div className="flex w-full justify-center items-center flex-col">
+    <div className="flex w-full flex-col items-center justify-center">
       <Suspense fallback={<DashboardSkeleton />}>
         <Dashboard searchParams={searchParams} />
       </Suspense>

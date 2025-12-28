@@ -5,12 +5,12 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export const SignInSuccess = ({ onTryAgain }: SignInSuccessProps) => {
   return (
-    <div className="flex flex-col items-center justify-center gap-y-8 w-full max-w-md">
+    <div className="flex w-full max-w-md flex-col items-center justify-center gap-y-8">
       <SuccessHeader />
 
       <Card className="w-full shadow-lg">
         <CardContent className="py-6">
-          <div className="flex flex-col w-full items-center gap-y-6">
+          <div className="flex w-full flex-col items-center gap-y-6">
             <SuccessMessage />
             <RetrySection onTryAgain={onTryAgain} />
           </div>
@@ -26,9 +26,9 @@ interface SignInSuccessProps {
 
 const SuccessHeader = () => {
   return (
-    <div className="flex flex-col gap-y-4 items-center text-center">
-      <div className="flex items-center justify-center size-24 rounded-full bg-primary shadow-lg">
-        <MailIcon className="w-12 h-12 text-white" strokeWidth={2} />
+    <div className="flex flex-col items-center gap-y-4 text-center">
+      <div className="bg-primary flex size-24 items-center justify-center rounded-full shadow-lg">
+        <MailIcon className="h-12 w-12 text-white" strokeWidth={2} />
       </div>
       <div className="flex flex-col gap-y-2">
         <h1 className="text-4xl font-bold">Check your inbox</h1>
@@ -40,9 +40,9 @@ const SuccessHeader = () => {
 
 const SuccessMessage = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-y-3 max-w-xs flex-1">
+    <div className="flex max-w-xs flex-1 flex-col items-center justify-center gap-y-3">
       <div className="flex items-center gap-x-3">
-        <CheckCircle2Icon className="w-6 h-6 text-primary shrink-0" />
+        <CheckCircle2Icon className="text-primary h-6 w-6 shrink-0" />
         <h2 className="text-xl font-bold">Email sent successfully</h2>
       </div>
       <p className="text-muted-foreground">
@@ -55,8 +55,8 @@ const SuccessMessage = () => {
 
 const RetrySection = ({ onTryAgain }: RetrySectionProps) => {
   return (
-    <div className="flex flex-col gap-y-4 pt-4 border-t">
-      <p className="text-sm text-muted-foreground text-center">
+    <div className="flex flex-col gap-y-4 border-t pt-4">
+      <p className="text-muted-foreground text-center text-sm">
         Didn't receive the email? Check your spam folder or try again.
       </p>
       <form action={onTryAgain}>

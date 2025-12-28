@@ -1,8 +1,9 @@
 "use cache";
 
 import { cacheLife, cacheTag } from "next/cache";
-import { createSupabaseBrowserClient } from "@/lib/supabase/clients/supabase-client";
+
 import { CACHE_TAGS } from "@/lib/cache-tags";
+import { createSupabaseBrowserClient } from "@/lib/supabase/clients/supabase-client";
 import {
   transformCompletion,
   transformGoal,

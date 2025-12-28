@@ -9,7 +9,10 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git mv:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(git rm:*)",
+      "Bash(convert:*)",
+      "Bash(ls:*)"
     ]
   }
 }

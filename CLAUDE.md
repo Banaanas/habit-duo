@@ -101,6 +101,7 @@ All imports use path aliases defined in `tsconfig.json`:
 ```
 
 **CRITICAL RULES**:
+
 - **Always use these aliases** instead of relative imports
 - **NEVER create new path aliases** without explicit user authorization
 - If you need a new alias, ask the user first before modifying `tsconfig.json`
@@ -122,6 +123,7 @@ export const appNavLinks = {
 ```
 
 **Rules**:
+
 - ✅ Use `appNavLinks.home.href` instead of hardcoded `"/"`
 - ✅ Only include **intentional navigation routes** (not error pages)
 - ❌ Never hardcode route strings - always use `appNavLinks`
@@ -138,12 +140,13 @@ export const QUERY_PARAMS = {
 ```
 
 **Usage**:
+
 ```typescript
 // ✅ Correct
-searchParams[QUERY_PARAMS.selectedUserId]
+searchParams[QUERY_PARAMS.selectedUserId];
 
 // ❌ Avoid
-searchParams["selected"]
+searchParams["selected"];
 ```
 
 #### Cache Tags (`@/lib/cache-tags.ts`)
@@ -159,6 +162,7 @@ export const CACHE_TAGS = {
 ```
 
 **Usage**:
+
 ```typescript
 // ✅ Correct
 cacheTag(CACHE_TAGS.users);
@@ -169,6 +173,7 @@ cacheTag("users");
 ```
 
 **Benefits**:
+
 - Type safety and autocomplete
 - Easy refactoring (change once, updates everywhere)
 - No typos in string literals

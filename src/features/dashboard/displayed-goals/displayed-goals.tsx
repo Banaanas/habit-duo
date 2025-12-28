@@ -63,7 +63,7 @@ const DisplayedGoalsHeader = ({
 
   return (
     <div className="flex items-center justify-center gap-x-2">
-      <div className="flex items-center justify-center size-10 rounded-md bg-primary/10">
+      <div className="bg-primary/10 flex size-10 items-center justify-center rounded-md">
         <span className="text-xl">{avatarEmoji}</span>
       </div>
       <h2 className="text-lg font-bold">{title}</h2>
@@ -127,7 +127,7 @@ const EmptyGoalsState = ({
     : `${userName} hasn't added any goals yet.`;
 
   return (
-    <div className="bg-card border border-border rounded-xl p-8 text-center">
+    <div className="bg-card border-border rounded-xl border p-8 text-center">
       <p className="text-muted-foreground max-w-[280px] text-pretty">
         {message}
       </p>

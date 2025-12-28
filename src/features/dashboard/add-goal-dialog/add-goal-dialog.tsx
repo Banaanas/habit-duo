@@ -60,7 +60,7 @@ export const AddGoalDialog = ({
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Add New Goal</DialogTitle>
-            <DialogDescription className="text-pretty text-left">
+            <DialogDescription className="text-left text-pretty">
               Create a new daily habit goal for this week. You can track up to{" "}
               {maxGoalsNumber} goals per week. All goals are daily commitments.
             </DialogDescription>

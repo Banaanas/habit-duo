@@ -11,10 +11,10 @@ export const BaseLayout = ({ children }: BaseLayoutProps) => {
     <AppProviders>
       <MaxWidthWrapper
         maxWidth={globalMaxWidth}
-        className={`flex flex-col gap-y-4 p-2 sm:py-8 min-w-[320px]`}
+        className={`flex min-w-[320px] flex-col gap-y-4 p-2 sm:py-8`}
       >
         <Header />
-        <main className="w-full flex justify-center flex-1">{children}</main>
+        <main className="flex w-full flex-1 justify-center">{children}</main>
         <Footer />
       </MaxWidthWrapper>
     </AppProviders>

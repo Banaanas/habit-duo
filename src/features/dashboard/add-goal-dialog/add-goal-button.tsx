@@ -23,9 +23,9 @@ export const AddGoalButton = ({ goalCount }: AddGoalButtonProps) => {
     <Button
       onClick={() => setShowAddGoal(true)}
       disabled={isMaxGoalsReached}
-      className="w-full py-6 text-base flex gap-y-3"
+      className="flex w-full gap-y-3 py-6 text-base"
     >
-      {!isMaxGoalsReached ? <PlusIcon className="w-5 h-5" /> : null}
+      {!isMaxGoalsReached ? <PlusIcon className="h-5 w-5" /> : null}
       {buttonText}
     </Button>
   );

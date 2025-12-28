@@ -32,7 +32,7 @@ export const Dashboard = async ({ searchParams }: DashboardProps) => {
 
   return (
     <div
-      className="flex flex-col gap-y-6 w-full"
+      className="flex w-full flex-col gap-y-6"
       style={{ maxWidth: dashboardMaxWidth }}
     >
       <CurrentWeekHeader />

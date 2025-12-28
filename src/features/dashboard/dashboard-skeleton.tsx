@@ -4,16 +4,16 @@ import { dashboardMaxWidth } from "@/styles/common-style";
 export const DashboardSkeleton = () => {
   return (
     <div
-      className="flex flex-col gap-y-6 justify-center w-full"
+      className="flex w-full flex-col justify-center gap-y-6"
       style={{ maxWidth: dashboardMaxWidth }}
     >
       {/* Week Header Skeleton */}
-      <div className="rounded-xl border bg-card p-6">
+      <div className="bg-card rounded-xl border p-6">
         <Skeleton className="h-7 w-48" />
       </div>
 
       {/* Scoreboard Skeleton */}
-      <div className="rounded-xl border bg-card p-6 flex flex-col justify-center items-center gap-y-10">
+      <div className="bg-card flex flex-col items-center justify-center gap-y-10 rounded-xl border p-6">
         <Skeleton className="h-6 w-32" />
         <Skeleton className="h-12 w-full" />
         <Skeleton className="h-12 w-full" />
@@ -36,9 +36,9 @@ export const DashboardSkeleton = () => {
 
 const GoalCardSkeleton = () => {
   return (
-    <div className="bg-card border border-border rounded-xl p-4 flex flex-col gap-y-4">
-      <div className="flex justify-between items-start">
-        <div className="flex flex-col gap-y-2 flex-1">
+    <div className="bg-card border-border flex flex-col gap-y-4 rounded-xl border p-4">
+      <div className="flex items-start justify-between">
+        <div className="flex flex-1 flex-col gap-y-2">
           <Skeleton className="h-5 w-3/4" />
           <Skeleton className="h-4 w-1/2" />
         </div>
@@ -46,7 +46,7 @@ const GoalCardSkeleton = () => {
       </div>
       <div className="flex w-full justify-between">
         {[...Array(7)].map((_, i) => (
-          <div key={i} className="flex flex-col gap-y-1 items-center">
+          <div key={i} className="flex flex-col items-center gap-y-1">
             <Skeleton className="h-3 w-6" />
             <Skeleton className="size-7 rounded-xl" />
           </div>

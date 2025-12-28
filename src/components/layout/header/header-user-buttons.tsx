@@ -12,14 +12,14 @@ export const HeaderUserButtons = async () => {
 
   return (
     <>
-      <div className="flex items-center gap-x-2 bg-background px-2 sm:px-4 py-1 rounded-md">
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-accent text-xl hidden sm:">
+      <div className="bg-background flex items-center gap-x-2 rounded-md px-2 py-1 sm:px-4">
+        <span className="bg-accent sm: hidden inline-flex h-10 w-10 items-center justify-center rounded-full text-xl">
           {avatarEmoji}
         </span>{" "}
-        <span className="font-bold hidden sm:inline-block">{name}</span>
+        <span className="hidden font-bold sm:inline-block">{name}</span>
       </div>
       <Button variant="ghost" size="icon" onClick={signOut}>
-        <LogOutIcon className="w-4 h-4" />
+        <LogOutIcon className="h-4 w-4" />
       </Button>
     </>
   );

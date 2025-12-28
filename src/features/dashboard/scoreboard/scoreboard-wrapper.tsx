@@ -1,7 +1,6 @@
-import { Scoreboard } from "@/features/dashboard/scoreboard/scoreboard";
-
 import { getUser } from "@/actions/auth";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Scoreboard } from "@/features/dashboard/scoreboard/scoreboard";
 import {
   getCompletionsForGoals,
   getCurrentWeek,

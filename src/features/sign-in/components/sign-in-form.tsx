@@ -8,14 +8,18 @@ import { appName } from "@/data/app-data";
 
 export const SignInForm = ({ onSubmit, isPending, error }: SignInFormProps) => {
   return (
-    <div className="flex flex-col items-center justify-center gap-y-8 w-full max-w-sm">
+    <div className="flex w-full max-w-sm flex-col items-center justify-center gap-y-8">
       <SignInHeader />
 
       <Card className="w-full shadow-lg">
         <CardContent className="pt-6 pb-6">
           <div className="flex flex-col gap-y-6">
             <SignInFormHeader />
-            <EmailForm onSubmit={onSubmit} isPending={isPending} error={error} />
+            <EmailForm
+              onSubmit={onSubmit}
+              isPending={isPending}
+              error={error}
+            />
           </div>
         </CardContent>
       </Card>
@@ -32,7 +36,7 @@ interface SignInFormProps {
 const SignInHeader = () => {
   return (
     <div className="flex flex-col gap-y-2 text-center">
-      <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent text-pretty">
+      <h1 className="from-primary to-accent bg-gradient-to-r bg-clip-text text-4xl font-bold text-pretty text-transparent">
         Welcome to {appName}
       </h1>
       <p className="text-muted-foreground text-pretty">
@@ -46,8 +50,8 @@ const SignInFormHeader = () => {
   return (
     <div className="flex flex-col gap-y-2">
       <div className="flex items-center gap-x-3">
-        <div className="flex items-center justify-center size-12 rounded-full bg-primary/10">
-          <MailIcon className="w-6 h-6 text-primary" />
+        <div className="bg-primary/10 flex size-12 items-center justify-center rounded-full">
+          <MailIcon className="text-primary h-6 w-6" />
         </div>
         <h2 className="text-2xl font-bold">Sign in with email</h2>
       </div>
@@ -75,14 +79,14 @@ const EmailForm = ({ onSubmit, isPending, error }: EmailFormProps) => {
         />
       </div>
 
-      {error ? <p className="text-sm text-destructive">{error}</p> : null}
+      {error ? <p className="text-destructive text-sm">{error}</p> : null}
 
       <Button
         type="submit"
-        className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity flex items-center gap-x-2"
+        className="from-primary to-accent flex w-full items-center gap-x-2 bg-gradient-to-r transition-opacity hover:opacity-90"
         disabled={isPending}
       >
-        <MailIcon className="w-4 h-4" />
+        <MailIcon className="h-4 w-4" />
         {isPending ? "Sending magic link..." : "Send magic link"}
       </Button>
 
@@ -99,9 +103,9 @@ interface EmailFormProps {
 
 const MagicLinkInfo = () => {
   return (
-    <div className="flex items-start gap-x-3 pt-2 border-t">
-      <SparklesIcon className="w-5 h-5 text-primary shrink-0" />
-      <p className="text-sm text-muted-foreground">
+    <div className="flex items-start gap-x-3 border-t pt-2">
+      <SparklesIcon className="text-primary h-5 w-5 shrink-0" />
+      <p className="text-muted-foreground text-sm">
         Magic links are secure and convenient. No password needed—just click the
         link in your email to sign in.
       </p>
