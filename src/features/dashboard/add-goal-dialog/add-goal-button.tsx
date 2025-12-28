@@ -1,5 +1,6 @@
 "use client";
 
+import { PlusIcon } from "lucide-react";
 import { parseAsBoolean, useQueryState } from "nuqs";
 
 import { Button } from "@/components/ui/button";
@@ -16,14 +17,17 @@ export const AddGoalButton = ({ goalCount }: AddGoalButtonProps) => {
 
   const buttonText = isMaxGoalsReached
     ? `Max Goals Reached (${goalCount}/${appLimits.maxGoalsPerWeek})`
-    : `+ Add Goal (${goalCount}/${appLimits.maxGoalsPerWeek})`;
+    : `Add Goal (${goalCount}/${appLimits.maxGoalsPerWeek})`;
 
   return (
-    <div className="flex justify-center">
-      <Button onClick={() => setShowAddGoal(true)} disabled={isMaxGoalsReached}>
-        {buttonText}
-      </Button>
-    </div>
+    <Button
+      onClick={() => setShowAddGoal(true)}
+      disabled={isMaxGoalsReached}
+      className="w-full py-6 text-base flex gap-y-3"
+    >
+      {!isMaxGoalsReached ? <PlusIcon className="w-5 h-5" /> : null}
+      {buttonText}
+    </Button>
   );
 };
 

@@ -13,7 +13,10 @@ export const UserScoreRow = ({
   const { percentage } = score;
 
   return (
-    <button onClick={onClick} className="w-full text-left group cursor-pointer">
+    <button
+      onClick={onClick}
+      className="w-full text-left group cursor-pointer p-3 rounded-lg transition-colors hover:bg-muted/50"
+    >
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
           <UserAvatar

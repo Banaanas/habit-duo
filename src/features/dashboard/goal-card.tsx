@@ -7,11 +7,7 @@ import { MouseEventHandler, useTransition } from "react";
 import { DayButton } from "./day-button";
 
 import type { Completion, Goal } from "@/types/database-camel-case";
-import {
-  formatDateToISO,
-  getCurrentWeekDates,
-  isPastOrToday,
-} from "@/utils/date";
+import { formatDateToISO, getCurrentWeekDates, isPastOrToday } from "@/utils/date";
 
 export const GoalCard = ({
   goal,
@@ -56,7 +52,7 @@ export const GoalCard = ({
         />
       </div>
 
-      <div className="flex flex-col gap-y-2">
+      <div className="flex flex-col gap-y-4">
         <DayButtons
           weekDates={weekDates}
           isCompleted={isCompleted}
@@ -64,8 +60,10 @@ export const GoalCard = ({
           onToggle={handleToggle}
         />
 
-        <p className="text-sm text-muted-foreground text-right italic">
-          {completedCount}/{totalDays} days completed
+        <hr />
+        <p className="text-sm text-muted-foreground text-left">
+          <span className="font-bold">{completedCount}</span>/{totalDays} days
+          completed
         </p>
       </div>
     </div>
