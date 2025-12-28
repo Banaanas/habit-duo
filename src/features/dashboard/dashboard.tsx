@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { getUser } from "@/actions/auth";
+import { Skeleton } from "@/components/ui/skeleton";
 import { appNavLinks } from "@/data/app-data";
 import { AddGoalButtonWrapper } from "@/features/dashboard/add-goal-dialog/add-goal-button-wrapper";
 import { AddGoalDialogWrapper } from "@/features/dashboard/add-goal-dialog/add-goal-dialog-wrapper";
@@ -31,7 +32,7 @@ export const Dashboard = async ({ searchParams }: DashboardProps) => {
 
   return (
     <div
-      className="flex flex-col gap-y-6"
+      className="flex flex-col gap-y-6 w-full"
       style={{ maxWidth: dashboardMaxWidth }}
     >
       <CurrentWeekHeader />

@@ -1,6 +1,7 @@
 import { Scoreboard } from "./scoreboard";
 
 import { getUser } from "@/actions/auth";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   getCompletionsForGoals,
   getCurrentWeek,
@@ -27,12 +28,14 @@ export const ScoreboardWrapper = async () => {
   const friendScore = calculateScoreForUser(friendUser.id, goals, completions);
 
   return (
-    <Scoreboard
-      currentUser={currentUser}
-      friendUser={friendUser}
-      currentScore={currentScore}
-      friendScore={friendScore}
-    />
+    <div className="flex flex-col">
+      <Scoreboard
+        currentUser={currentUser}
+        friendUser={friendUser}
+        currentScore={currentScore}
+        friendScore={friendScore}
+      />
+    </div>
   );
 };
 
