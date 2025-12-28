@@ -24,7 +24,7 @@ export const SignInView = () => {
   if (state.email && !state.error) {
     return (
       <div className="flex flex-col items-center justify-center w-full p-4">
-        <SignInSuccess email={state.email} onTryAgain={formAction} />
+        <SignInSuccess onTryAgain={formAction} />
       </div>
     );
   }
