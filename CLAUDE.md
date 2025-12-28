@@ -100,7 +100,10 @@ All imports use path aliases defined in `tsconfig.json`:
 @/utils/*       → src/utils/*
 ```
 
-**Always use these aliases** instead of relative imports.
+**CRITICAL RULES**:
+- **Always use these aliases** instead of relative imports
+- **NEVER create new path aliases** without explicit user authorization
+- If you need a new alias, ask the user first before modifying `tsconfig.json`
 
 ### 7. Feature-Based Structure
 
@@ -230,6 +233,35 @@ export const Input = () => { ... };
 
 // ✅ Default export (only for Next.js pages/layouts)
 export default function Page() { ... }
+```
+
+### CSS and Tailwind
+
+**Avoid margin utilities (`m-`, `mt-`, `mb-`, `ml-`, `mr-`)** for spacing. Instead, use flexbox with gap utilities on parent containers:
+
+```tsx
+// ❌ Avoid margins
+<div>
+  <h1 className="mb-4">Title</h1>
+  <p className="mb-2">Paragraph</p>
+</div>
+
+// ✅ Use flex with gap on parent
+<div className="flex flex-col gap-y-4">
+  <h1>Title</h1>
+  <p>Paragraph</p>
+</div>
+```
+
+**Always specify gap direction** (`gap-x-*` or `gap-y-*`) instead of using plain `gap-*`:
+
+```tsx
+// ❌ Avoid ambiguous gap
+<div className="flex gap-4">...</div>
+
+// ✅ Specify direction
+<div className="flex flex-col gap-y-4">...</div>
+<div className="flex flex-row gap-x-4">...</div>
 ```
 
 ## Database
