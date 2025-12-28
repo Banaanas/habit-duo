@@ -62,11 +62,11 @@ const DisplayedGoalsHeader = ({
   const title = isViewingCurrentUser ? "Your Goals" : `${userName}'s Goals`;
 
   return (
-    <div className="flex items-center gap-x-2">
+    <div className="flex items-center justify-center gap-x-2">
       <div className="flex items-center justify-center size-10 rounded-md bg-primary/10">
         <span className="text-xl">{avatarEmoji}</span>
       </div>
-      <h2 className="text-xl font-bold">{title}</h2>
+      <h2 className="text-lg font-bold">{title}</h2>
     </div>
   );
 };

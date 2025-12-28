@@ -13,10 +13,10 @@ export const DashboardSkeleton = () => {
       </div>
 
       {/* Scoreboard Skeleton */}
-      <div className="rounded-xl border bg-card p-6 flex flex-col justify-center items-center gap-y-4">
+      <div className="rounded-xl border bg-card p-6 flex flex-col justify-center items-center gap-y-10">
         <Skeleton className="h-6 w-32" />
-        <Skeleton className="h-8 w-full" />
-        <Skeleton className="h-8 w-full" />
+        <Skeleton className="h-12 w-full" />
+        <Skeleton className="h-12 w-full" />
       </div>
 
       {/* Goals Section Skeleton */}
