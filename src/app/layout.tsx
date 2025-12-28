@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${roboto.variable} ${robotoMono.variable} antialiased`}>
+      <body className={`${roboto.variable} ${robotoMono.variable} antialiased bg-gradient-to-br from-primary/5 via-background to-accent/5 min-h-screen`}>
         <BaseLayout>{children}</BaseLayout>
       </body>
     </html>
