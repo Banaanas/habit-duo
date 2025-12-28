@@ -9,8 +9,8 @@ export const SignInSuccess = ({ onTryAgain }: SignInSuccessProps) => {
       <SuccessHeader />
 
       <Card className="w-full shadow-lg">
-        <CardContent className="pt-6 pb-6">
-          <div className="flex flex-col gap-y-6">
+        <CardContent className="py-6">
+          <div className="flex flex-col w-full items-center gap-y-6">
             <SuccessMessage />
             <RetrySection onTryAgain={onTryAgain} />
           </div>
@@ -40,14 +40,14 @@ const SuccessHeader = () => {
 
 const SuccessMessage = () => {
   return (
-    <div className="flex flex-col gap-y-3">
+    <div className="flex flex-col items-center justify-center gap-y-3 max-w-xs flex-1">
       <div className="flex items-center gap-x-3">
         <CheckCircle2Icon className="w-6 h-6 text-primary shrink-0" />
         <h2 className="text-xl font-bold">Email sent successfully</h2>
       </div>
       <p className="text-muted-foreground">
-        Click the secure link in your email to sign in to your account. The
-        link will expire in 15 minutes.
+        Click the secure link in your email to sign in to your account. The link
+        will expire in 15 minutes.
       </p>
     </div>
   );
