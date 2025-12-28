@@ -2,7 +2,7 @@ import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 import { appNavLinks } from "@/data/app-data";
-import { createClient } from "@/lib/supabase/supabase-server";
+import { createSupabaseServerClient } from "@/lib/supabase/supabase-server";
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
@@ -10,7 +10,7 @@ export async function GET(request: Request) {
   const next = requestUrl.searchParams.get("next") ?? appNavLinks.home.href;
 
   if (code) {
-    const supabase = await createClient();
+    const supabase = await createSupabaseServerClient();
 
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 

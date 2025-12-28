@@ -4,10 +4,10 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { appNavLinks } from "@/data/app-data";
-import { createClient } from "@/lib/supabase/supabase-server";
+import { createSupabaseServerClient } from "@/lib/supabase/supabase-server";
 
 export async function signInWithEmail(email: string) {
-  const supabase = await createClient();
+  const supabase = await createSupabaseServerClient();
 
   const { error } = await supabase.auth.signInWithOtp({
     email,
@@ -24,7 +24,7 @@ export async function signInWithEmail(email: string) {
 }
 
 export async function signOut() {
-  const supabase = await createClient();
+  const supabase = await createSupabaseServerClient();
   await supabase.auth.signOut();
 
   // Clear cache so user sees sign-in page immediately
@@ -33,7 +33,7 @@ export async function signOut() {
 }
 
 export async function getUser() {
-  const supabase = await createClient();
+  const supabase = await createSupabaseServerClient();
 
   const {
     data: { user },

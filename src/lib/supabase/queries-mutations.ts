@@ -1,6 +1,6 @@
 import { appLimits } from "@/data/app-data";
 
-import { createClient } from "./supabase-server";
+import { createSupabaseServerClient } from "./supabase-server";
 import { transformGoal } from "./transformers";
 
 import type { Goal } from "@/types/database-camel-case";
@@ -16,7 +16,7 @@ export const createGoal = async (
   description?: string,
   targetDays: number = appLimits.maxDaysPerGoal
 ): Promise<Goal> => {
-  const supabase = await createClient();
+  const supabase = await createSupabaseServerClient();
 
   const { data, error } = await supabase
     .from("goals")
@@ -35,7 +35,7 @@ export const createGoal = async (
 };
 
 export const deleteGoal = async (goalId: string): Promise<void> => {
-  const supabase = await createClient();
+  const supabase = await createSupabaseServerClient();
 
   const { error } = await supabase.from("goals").delete().eq("id", goalId);
 
@@ -46,7 +46,7 @@ export const toggleCompletion = async (
   goalId: string,
   date: string
 ): Promise<void> => {
-  const supabase = await createClient();
+  const supabase = await createSupabaseServerClient();
 
   // Check if completion exists
   const { data: existing } = await supabase
