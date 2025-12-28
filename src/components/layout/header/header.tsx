@@ -2,10 +2,7 @@ import { Users } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import {
-  HeaderUserButtons,
-  HeaderUserButtonsSkeleton,
-} from "@/components/layout/header/header-user-buttons";
+import { HeaderUserButtons, HeaderUserButtonsSkeleton } from "@/components/layout/header/header-user-buttons";
 import { ToggleThemeButton } from "@/components/layout/theme-button";
 import { appNavLinks } from "@/data/app-data";
 
@@ -25,15 +22,18 @@ export const Header = () => {
           </Link>
 
           <div>
-            <div className="text-2xl font-bold tracking-tight text-foreground">
+            <div
+              className="font-bold tracking-tight text-foreground"
+              style={{ fontSize: "clamp(16px, 1vw + 1rem, 40px)" }}
+            >
               HabitDuo
             </div>
-            <div className="text-sm text-muted-foreground">
+            <div className="hidden sm:block text-sm text-muted-foreground">
               Build habits together
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center">
           <Suspense fallback={<HeaderUserButtonsSkeleton />}>
             <HeaderUserButtons />
           </Suspense>

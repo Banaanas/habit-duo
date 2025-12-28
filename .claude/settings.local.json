@@ -5,7 +5,9 @@
       "Bash(mkdir:*)",
       "Bash(pnpm install:*)",
       "Bash(npx shadcn@latest add:*)",
-      "Bash(pnpm add:*)"
+      "Bash(pnpm add:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }

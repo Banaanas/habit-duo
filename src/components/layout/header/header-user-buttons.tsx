@@ -12,9 +12,11 @@ export const HeaderUserButtons = async () => {
 
   return (
     <>
-      <div className="flex items-center gap-x-1">
-        <span className="text-xl">{avatarEmoji}</span>
-        <span>{name}</span>
+      <div className="flex items-center gap-x-2 bg-background px-2 sm:px-4 py-1 rounded-md">
+        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-accent text-xl hidden sm:">
+          {avatarEmoji}
+        </span>{" "}
+        <span className="font-bold hidden sm:inline-block">{name}</span>
       </div>
       <Button variant="ghost" size="icon" onClick={signOut}>
         <LogOut className="w-4 h-4" />
@@ -26,11 +28,10 @@ export const HeaderUserButtons = async () => {
 export const HeaderUserButtonsSkeleton = () => {
   return (
     <>
-      <div className="flex items-center gap-x-1">
-        <Skeleton className="h-6 w-6 rounded-full" />
-        <Skeleton className="h-5 w-12" />
+      <div className="flex items-center gap-x-2">
+        <Skeleton className="h-9 w-26 rounded-md" />
+        <Skeleton className="size-7 rounded-sm" />
       </div>
-      <Skeleton className="h-9 w-9 rounded-md" />
     </>
   );
 };
