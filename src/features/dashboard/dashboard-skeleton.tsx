@@ -9,7 +9,7 @@ export const DashboardSkeleton = () => {
     >
       {/* Week Header Skeleton */}
       <div className="rounded-xl border bg-card p-6">
-        <Skeleton className="h-7 w-48 mb-2" />
+        <Skeleton className="h-7 w-48" />
       </div>
 
       {/* Scoreboard Skeleton */}
@@ -47,12 +47,14 @@ const GoalCardSkeleton = () => {
       <div className="flex w-full justify-between">
         {[...Array(7)].map((_, i) => (
           <div key={i} className="flex flex-col gap-y-1 items-center">
-            <Skeleton className="h-3 w-6 " />
+            <Skeleton className="h-3 w-6" />
             <Skeleton className="size-7 rounded-xl" />
           </div>
         ))}
       </div>
-      <Skeleton className="h-4 w-24 ml-auto" />
+      <div className="flex justify-end">
+        <Skeleton className="h-4 w-24" />
+      </div>
     </div>
   );
 };

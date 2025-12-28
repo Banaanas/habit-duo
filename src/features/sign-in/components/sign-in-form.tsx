@@ -79,10 +79,10 @@ const EmailForm = ({ onSubmit, isPending, error }: EmailFormProps) => {
 
       <Button
         type="submit"
-        className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity"
+        className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity flex items-center gap-x-2"
         disabled={isPending}
       >
-        <MailIcon className="w-4 h-4 mr-2" />
+        <MailIcon className="w-4 h-4" />
         {isPending ? "Sending magic link..." : "Send magic link"}
       </Button>
 
@@ -100,7 +100,7 @@ interface EmailFormProps {
 const MagicLinkInfo = () => {
   return (
     <div className="flex items-start gap-x-3 pt-2 border-t">
-      <SparklesIcon className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+      <SparklesIcon className="w-5 h-5 text-primary shrink-0" />
       <p className="text-sm text-muted-foreground">
         Magic links are secure and convenient. No password needed—just click the
         link in your email to sign in.

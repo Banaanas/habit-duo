@@ -35,7 +35,7 @@ export const Scoreboard = ({
   return (
     <div className="bg-card border border-border flex flex-col gap-y-4 rounded-2xl shadow-sm p-6">
       <div className="flex flex-col items-center justify-center">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-x-2">
           <div className="flex items-center justify-center size-9 rounded-full bg-gradient-to-br from-primary to-accent">
             <SwordsIcon className="w-5 h-5 text-white" />
           </div>
@@ -43,7 +43,7 @@ export const Scoreboard = ({
             Battle of the Week
           </h2>
         </div>
-        {leadingUser ?<LeaderIndicator leadingUser={leadingUser} /> : null}
+        {leadingUser ? <LeaderIndicator leadingUser={leadingUser} /> : null}
       </div>
 
       <div className="flex flex-col gap-y-6">
@@ -86,7 +86,7 @@ const TiedGameText = () => {
 
 const LeaderIndicator = ({ leadingUser }: LeaderIndicatorProps) => {
   return (
-    <div className="flex items-center gap-1 justify-center text-sm text-muted-foreground">
+    <div className="flex items-center gap-x-1 justify-center text-sm text-muted-foreground">
       <FlameIcon className="w-4 h-4 text-orange-500" />
       <span className="font-medium">{leadingUser.name} leads!</span>
     </div>
