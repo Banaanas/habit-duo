@@ -12,6 +12,9 @@ export const ToggleThemeButton = () => {
 
   const IconComponent = theme === "dark" ? Sun : Moon;
 
+  const iconClassname = "h-5 w-5";
+  const isDarkTheme = theme === "dark";
+
   return (
     <Button
       variant="ghost"
@@ -19,7 +22,7 @@ export const ToggleThemeButton = () => {
       onClick={toggleTheme}
       className="rounded-full"
     >
-      <IconComponent className="h-5 w-5" />
+      {isDarkTheme ? <Moon className={iconClassname} /> : <Sun className={iconClassname} />}
     </Button>
   );
 };
