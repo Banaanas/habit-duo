@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function AuthErrorPage() {
   return (
-    <div className="flex h-screen flex-col items-center justify-center gap-y-8 p-4">
+    <div className="flex flex-col items-center justify-center gap-y-8 p-4">
       <ErrorHeader />
 
       <Card className="w-full max-w-md shadow-lg">
