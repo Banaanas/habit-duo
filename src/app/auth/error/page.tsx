@@ -1,10 +1,19 @@
 import { AlertCircleIcon, RefreshCwIcon } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
+import { getUser } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { appNavLinks } from "@/data/app-data";
 
-export default function AuthErrorPage() {
+export default async function AuthErrorPage() {
+  const currentUser = await getUser();
+
+  if (currentUser) {
+    redirect(appNavLinks.home.href);
+  }
+
   return (
     <div className="flex flex-col items-center justify-center gap-y-8 p-4">
       <ErrorHeader />
