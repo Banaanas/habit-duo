@@ -21,7 +21,9 @@ export const CurrentWeekHeader = async () => {
   return (
     <Card>
       <CardHeader className="flex gap-x-2 items-center justify-center">
-        <CalendarIcon className="size-4 bg-accent text-foreground" />
+        <div className="flex items-center justify-center size-8 rounded-md bg-primary/10">
+          <CalendarIcon className="size-4 text-primary" />
+        </div>
         <CardTitle className="text-center">
           Week of {formattedWeekStart} - {formattedWeekEnd}
         </CardTitle>

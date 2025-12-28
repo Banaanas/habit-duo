@@ -1,6 +1,6 @@
 "use client";
 
-import { TrophyIcon } from "lucide-react";
+import { FlameIcon, SwordsIcon, TrophyIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { parseAsString, useQueryState } from "nuqs";
 
@@ -30,13 +30,20 @@ export const Scoreboard = ({
     friendScore
   );
 
+  const leadingUser = currentWinning ? currentUser : friendWinning ? friendUser : null;
+
   return (
     <div className="bg-card border border-border flex flex-col gap-y-4 rounded-2xl shadow-sm p-6">
-      <div className="flex items-center justify-center gap-2">
-        <TrophyIcon className="w-5 h-5 text-primary" />
-        <h2 className="font-bold text-lg text-foreground">
-          This Week's Battle
-        </h2>
+      <div className="flex flex-col items-center justify-center">
+        <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center size-9 rounded-full bg-gradient-to-br from-primary to-accent">
+            <SwordsIcon className="w-5 h-5 text-white" />
+          </div>
+          <h2 className="font-bold text-lg text-foreground">
+            Battle of the Week
+          </h2>
+        </div>
+        {leadingUser ?<LeaderIndicator leadingUser={leadingUser} /> : null}
       </div>
 
       <div className="flex flex-col gap-y-2">
@@ -76,6 +83,19 @@ const TiedGameText = () => {
     </div>
   );
 };
+
+const LeaderIndicator = ({ leadingUser }: LeaderIndicatorProps) => {
+  return (
+    <div className="flex items-center gap-1 justify-center text-sm text-muted-foreground">
+      <FlameIcon className="w-4 h-4 text-orange-500" />
+      <span className="font-medium">{leadingUser.name} leads!</span>
+    </div>
+  );
+};
+
+interface LeaderIndicatorProps {
+  leadingUser: User;
+}
 
 const calculateWinningStatus = (
   currentScore: { percentage: number },
