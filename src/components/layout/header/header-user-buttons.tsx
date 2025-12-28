@@ -1,4 +1,4 @@
-import { LogOut } from "lucide-react";
+import { LogOutIcon } from "lucide-react";
 
 import { getUser, signOut } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,7 @@ export const HeaderUserButtons = async () => {
         <span className="font-bold hidden sm:inline-block">{name}</span>
       </div>
       <Button variant="ghost" size="icon" onClick={signOut}>
-        <LogOut className="w-4 h-4" />
+        <LogOutIcon className="w-4 h-4" />
       </Button>
     </>
   );

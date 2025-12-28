@@ -1,6 +1,6 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
+import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ export const ToggleThemeButton = () => {
 
   const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
 
-  const IconComponent = theme === "dark" ? Sun : Moon;
+  const IconComponent = theme === "dark" ? SunIcon : MoonIcon;
 
   const iconClassname = "h-5 w-5";
   const isDarkTheme = theme === "dark";
@@ -22,7 +22,7 @@ export const ToggleThemeButton = () => {
       onClick={toggleTheme}
       className="rounded-full"
     >
-      {isDarkTheme ? <Moon className={iconClassname} /> : <Sun className={iconClassname} />}
+      {isDarkTheme ? <MoonIcon className={iconClassname} /> : <SunIcon className={iconClassname} />}
     </Button>
   );
 };

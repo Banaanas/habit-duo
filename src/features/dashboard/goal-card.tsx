@@ -1,6 +1,6 @@
 "use client";
 
-import { Trash2 } from "lucide-react";
+import { Trash2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { MouseEventHandler, useTransition } from "react";
 
@@ -95,7 +95,7 @@ const RemoveGoalButton = ({
       disabled={isPending}
       className="p-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors disabled:opacity-50"
     >
-      <Trash2 className="w-4 h-4" />
+      <Trash2Icon className="w-4 h-4" />
     </button>
   );
 };

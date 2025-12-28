@@ -1,4 +1,4 @@
-import { Users } from "lucide-react";
+import { UsersIcon } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -17,7 +17,7 @@ export const Header = () => {
             style={{ height: "clamp(32px, 10vw, 64px)" }}
           >
             <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary to-chart-1 rounded-xl">
-              <Users className="w-6 h-6 text-primary-foreground" />
+              <UsersIcon className="w-6 h-6 text-primary-foreground" />
             </div>{" "}
           </Link>
 

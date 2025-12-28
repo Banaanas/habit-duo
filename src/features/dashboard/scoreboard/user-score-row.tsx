@@ -1,4 +1,4 @@
-import { Crown } from "lucide-react";
+import { CrownIcon } from "lucide-react";
 
 import { User } from "@/types/database-camel-case";
 
@@ -15,7 +15,7 @@ export const UserScoreRow = ({
         <div className="relative">
           <span className="text-3xl">{user.avatarEmoji}</span>
           {isWinning && (
-            <Crown className="absolute -top-2 -right-1 w-4 h-4 text-yellow-500" />
+            <CrownIcon className="absolute -top-2 -right-1 w-4 h-4 text-yellow-500" />
           )}
         </div>
         <div className="flex-1">

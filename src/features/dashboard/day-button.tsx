@@ -1,6 +1,6 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { CheckIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 
@@ -69,7 +69,7 @@ export const DayButton = ({
           isCompleted && "scale-105"
         )}
       >
-        {isCompleted && <Check className="w-4 h-4 text-primary-foreground" />}
+        {isCompleted && <CheckIcon className="w-4 h-4 text-primary-foreground" />}
       </div>
       {today && (
         <span className="text-[10px] font-bold text-primary">TODAY</span>

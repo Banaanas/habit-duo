@@ -1,6 +1,6 @@
 "use client";
 
-import { Trophy } from "lucide-react";
+import { TrophyIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { parseAsString, useQueryState } from "nuqs";
 
@@ -33,7 +33,7 @@ export const Scoreboard = ({
   return (
     <div className="bg-card border border-border flex flex-col gap-y-4 rounded-2xl shadow-sm p-6">
       <div className="flex items-center justify-center gap-2">
-        <Trophy className="w-5 h-5 text-primary" />
+        <TrophyIcon className="w-5 h-5 text-primary" />
         <h2 className="font-bold text-lg text-foreground">
           This Week's Battle
         </h2>
