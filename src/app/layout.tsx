@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import "../styles/globals.css";
 
 import { BaseLayout } from "@/components/layout/base-layout";
-import { appName, appSlogan } from "@/data/app-data";
+import { appDescription, appName, appSlogan } from "@/data/app-data";
 import { roboto, robotoMono } from "@/lib/fonts";
 
 export default function RootLayout({
@@ -32,7 +32,22 @@ export const metadata: Metadata = {
     default: appName,
     template: `%s | ${appName}`,
   },
-  description: appSlogan,
+  description: appDescription,
+  keywords: [
+    "habit tracking",
+    "accountability partner",
+    "habit duo",
+    "productivity",
+    "goal tracking",
+    "weekly goals",
+    "friendship",
+    "competition",
+  ],
+  authors: [{ name: appName }],
+  creator: appName,
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+  ),
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
@@ -41,13 +56,15 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: appName,
-    description: appSlogan,
     type: "website",
+    locale: "en_US",
+    siteName: appName,
+    title: appName,
+    description: appDescription,
   },
   twitter: {
     card: "summary",
     title: appName,
-    description: appSlogan,
+    description: appDescription,
   },
 };

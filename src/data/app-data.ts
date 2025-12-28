@@ -1,5 +1,7 @@
 export const appName = "Habit Duo";
-export const appSlogan = "Friendship can be productive.";
+export const appSlogan = "Build habits together";
+export const appDescription =
+  "Track your habits with a friend and compete for the highest weekly score. Habit Duo makes accountability fun through friendly competition.";
 
 export const appLimits = {
   maxGoalsPerWeek: 2,

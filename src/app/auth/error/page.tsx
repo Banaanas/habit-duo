@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { AlertCircleIcon, RefreshCwIcon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -70,4 +71,9 @@ const RetryButton = () => {
       </Button>
     </Link>
   );
+};
+
+export const metadata: Metadata = {
+  title: "Authentication Error",
+  description: "There was a problem signing you in. Please try again.",
 };
