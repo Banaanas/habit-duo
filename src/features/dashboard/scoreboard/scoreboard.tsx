@@ -46,7 +46,7 @@ export const Scoreboard = ({
         {leadingUser ?<LeaderIndicator leadingUser={leadingUser} /> : null}
       </div>
 
-      <div className="flex flex-col gap-y-2">
+      <div className="flex flex-col gap-y-6">
         <UserScoreRow
           user={currentUser}
           score={currentScore}

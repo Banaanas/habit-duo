@@ -1,2 +1,2 @@
 export const globalMaxWidth = "800px";
-export const dashboardMaxWidth = "400px";
+export const dashboardMaxWidth = "500px";

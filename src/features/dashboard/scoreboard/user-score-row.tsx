@@ -1,3 +1,5 @@
+import { TrophyIcon } from "lucide-react";
+
 import { User } from "@/types/database-camel-case";
 
 export const UserScoreRow = ({
@@ -12,20 +14,21 @@ export const UserScoreRow = ({
 
   return (
     <button onClick={onClick} className="w-full text-left group cursor-pointer">
-      <div className="flex items-center gap-3 mb-2">
-        <UserAvatar
-          avatarEmoji={avatarEmoji}
-          isWinning={isWinning}
-          isCurrentUser={isCurrentUser}
-        />
-        <div className="flex-1">
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center gap-2">
+          <UserAvatar
+            avatarEmoji={avatarEmoji}
+            isWinning={isWinning}
+            isCurrentUser={isCurrentUser}
+          />
           <UserInfo
             userName={name}
             percentage={percentage}
+            isWinning={isWinning}
             isCurrentUser={isCurrentUser}
           />
-          <ScoreProgressBar score={score} isCurrentUser={isCurrentUser} />
         </div>
+        <ScoreProgressBar score={score} isCurrentUser={isCurrentUser} />
       </div>
     </button>
   );
@@ -61,18 +64,26 @@ interface UserAvatarProps {
   isCurrentUser: boolean;
 }
 
-const UserInfo = ({ userName, percentage, isCurrentUser }: UserInfoProps) => {
+const UserInfo = ({
+  userName,
+  percentage,
+  isWinning,
+  isCurrentUser,
+}: UserInfoProps) => {
   const percentageColor = isCurrentUser ? "text-primary" : "text-accent";
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between flex-1">
       <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
         {userName}
         {isCurrentUser ? (
           <span className="text-muted-foreground text-sm"> (You)</span>
         ) : null}
       </span>
-      <span className={`font-bold ${percentageColor}`}>{percentage}%</span>
+      <div className="flex items-center gap-1">
+        {isWinning ? <TrophyIcon className="w-4 h-4 text-yellow-500" /> : null}
+        <span className={`font-bold ${percentageColor}`}>{percentage}%</span>
+      </div>
     </div>
   );
 };
@@ -80,6 +91,7 @@ const UserInfo = ({ userName, percentage, isCurrentUser }: UserInfoProps) => {
 interface UserInfoProps {
   userName: string;
   percentage: number;
+  isWinning: boolean;
   isCurrentUser: boolean;
 }
 
@@ -88,14 +100,14 @@ const ScoreProgressBar = ({ score, isCurrentUser }: ScoreProgressBarProps) => {
   const progressBarColor = isCurrentUser ? "bg-primary" : "bg-accent";
 
   return (
-    <div className="flex items-center gap-2">
-      <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+    <div className="flex items-center justify-between gap-x-10">
+      <div className="flex-1 h-3 bg-muted rounded-full overflow-hidden">
         <div
           className={`h-full rounded-full transition-all duration-500 ${progressBarColor}`}
           style={{ width: `${percentage}%` }}
         />
       </div>
-      <span className="text-xs text-muted-foreground w-12">
+      <span className="text-xs text-muted-foreground">
         {completed}/{total}
       </span>
     </div>
