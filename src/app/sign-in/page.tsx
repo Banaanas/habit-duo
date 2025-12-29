@@ -1,18 +1,16 @@
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
-import { getUser } from "@/actions/auth";
-import { appNavLinks, appPageMetadata } from "@/data/app-data";
+import { appPageMetadata } from "@/data/app-data";
 import { SignInView } from "@/features/sign-in/components/sign-in-view";
+import { SignInViewSkeleton } from "@/features/sign-in/components/sign-in-view-skeleton";
 
-const SignInPage = async () => {
-  const currentUser = await getUser();
-
-  if (currentUser) {
-    redirect(appNavLinks.home.href);
-  }
-
-  return <SignInView />;
+const SignInPage = () => {
+  return (
+    <Suspense fallback={<SignInViewSkeleton />}>
+      <SignInView />
+    </Suspense>
+  );
 };
 
 export default SignInPage;

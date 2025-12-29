@@ -12,7 +12,10 @@
       "Bash(tree:*)",
       "Bash(git rm:*)",
       "Bash(convert:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "WebSearch",
+      "WebFetch(domain:supabase.com)",
+      "Bash(pnpm build:*)"
     ]
   }
 }
