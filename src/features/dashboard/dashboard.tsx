@@ -17,13 +17,16 @@ import { dashboardMaxWidth } from "@/styles/common-style";
  *
  * This component is async and must be rendered inside a Suspense boundary
  * because it accesses dynamic data (searchParams, cookies) that requires
- * request-time rendering in Next.js 15+.
+ * request-time rendering in Next.js 16+.
+ *
+ * Authentication is handled by RequireAuth wrapper - this component assumes user is authenticated.
  */
 export const Dashboard = async ({ searchParams }: DashboardProps) => {
   const params = await searchParams;
   const currentUser = await getUser();
   const currentWeek = await getCurrentWeek();
 
+  // RequireAuth guarantees currentUser exists, but we still need to handle missing week data
   if (!currentUser || !currentWeek) {
     redirect(appNavLinks.signIn.href);
   }

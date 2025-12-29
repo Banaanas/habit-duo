@@ -2,28 +2,23 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import { AlertCircleIcon, RefreshCwIcon } from "lucide-react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
-import { getUser } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { appNavLinks, appPageMetadata } from "@/data/app-data";
+import { appPageMetadata } from "@/data/app-data";
+import { RequireGuest } from "@/features/auth/require-guest";
 
 export default function AuthErrorPage() {
   return (
     <Suspense fallback={<div className="h-screen" />}>
-      <AuthErrorContent />
+      <RequireGuest>
+        <AuthErrorView />
+      </RequireGuest>
     </Suspense>
   );
 }
 
-const AuthErrorContent = async () => {
-  const currentUser = await getUser();
-
-  if (currentUser) {
-    redirect(appNavLinks.home.href);
-  }
-
+const AuthErrorView = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-y-8 p-4">
       <ErrorHeader />
