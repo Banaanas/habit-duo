@@ -1,19 +1,30 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
+import { redirect } from "next/navigation";
 
-import { appPageMetadata } from "@/data/app-data";
+import { getUser } from "@/actions/auth";
+import { appNavLinks, appPageMetadata } from "@/data/app-data";
 import { SignInView } from "@/features/sign-in/components/sign-in-view";
-import { SignInViewSkeleton } from "@/features/sign-in/components/sign-in-view-skeleton";
 
 const SignInPage = () => {
   return (
-    <Suspense fallback={<SignInViewSkeleton />}>
-      <SignInView />
+    <Suspense fallback={<div className="h-screen" />}>
+      <SignInContent />
     </Suspense>
   );
 };
 
 export default SignInPage;
+
+const SignInContent = async () => {
+  const currentUser = await getUser();
+
+  if (currentUser) {
+    redirect(appNavLinks.home.href);
+  }
+
+  return <SignInView />;
+};
 
 export const metadata: Metadata = {
   title: appPageMetadata.signIn.title,

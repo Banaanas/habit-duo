@@ -1,15 +1,46 @@
-import { redirect } from "next/navigation";
+"use client";
 
-import { getUser } from "@/actions/auth";
-import { appNavLinks } from "@/data/app-data";
-import { SignInViewClient } from "@/features/sign-in/components/sign-in-view-client";
+import { useActionState } from "react";
 
-export const SignInView = async () => {
-  const currentUser = await getUser();
+import { signInWithEmail } from "@/actions/auth";
+import { SignInForm } from "@/features/sign-in/components/sign-in-form";
+import { SignInSuccess } from "@/features/sign-in/components/sign-in-success";
 
-  if (currentUser) {
-    redirect(appNavLinks.home.href);
+export const SignInView = () => {
+  const [state, formAction, isPending] = useActionState<FormState, FormData>(
+    async (_prevState, formData) => {
+      const email = formData.get("email") as string;
+      const result = await signInWithEmail(email);
+
+      if (result.error) {
+        return { error: result.error, email: null };
+      }
+
+      return { error: null, email };
+    },
+    { error: null, email: null }
+  );
+
+  if (state.email && !state.error) {
+    return (
+      <div className="flex w-full flex-col items-center justify-center p-4">
+        <SignInSuccess onTryAgain={formAction} />
+      </div>
+    );
   }
 
-  return <SignInViewClient />;
+  return (
+    <div className="flex w-full flex-col items-center justify-center p-4">
+      <SignInForm
+        onSubmit={formAction}
+        isPending={isPending}
+        error={state.error}
+      />
+    </div>
+  );
 };
+
+interface FormState {
+  error: string | null;
+  email: string | null;
+}
