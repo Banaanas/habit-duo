@@ -1,16 +1,17 @@
-import { Metadata } from "next";
-import { Suspense } from "react";
 import { AlertCircleIcon, RefreshCwIcon } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { appPageMetadata } from "@/data/app-data";
+import { AuthErrorViewSkeleton } from "@/features/auth/auth-error-view-skeleton";
 import { RequireGuest } from "@/features/auth/require-guest";
 
 export default function AuthErrorPage() {
   return (
-    <Suspense fallback={<div className="h-screen" />}>
+    <Suspense fallback={<AuthErrorViewSkeleton />}>
       <RequireGuest>
         <AuthErrorView />
       </RequireGuest>
@@ -20,17 +21,21 @@ export default function AuthErrorPage() {
 
 const AuthErrorView = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-y-8 p-4">
-      <ErrorHeader />
+    <div className="flex w-full flex-col items-center gap-y-4">
+      <div className="flex w-full flex-col items-center justify-center p-4">
+        <div className="flex w-full max-w-md flex-col gap-y-8">
+          <ErrorHeader />
 
-      <Card className="w-full max-w-md shadow-lg">
-        <CardContent className="py-6">
-          <div className="flex flex-col gap-y-6">
-            <ErrorMessage />
-            <RetryButton />
-          </div>
-        </CardContent>
-      </Card>
+          <Card className="w-full shadow-lg">
+            <CardContent className="py-6">
+              <div className="flex flex-col gap-y-6">
+                <ErrorMessage />
+                <RetryButton />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 };

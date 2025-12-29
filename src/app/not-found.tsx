@@ -1,7 +1,8 @@
+import { FileQuestionIcon, HomeIcon } from "lucide-react";
 import Link from "next/link";
 
-import { HabitDuoLogo } from "@/components/layout/header/habit-duo";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { appNavLinks } from "@/data/app-data";
 
 {
@@ -13,26 +14,63 @@ Alternative solution: https://github.com/vercel/next.js/issues/45620#issuecommen
 
 const NotFound = () => {
   return (
-    <div className="bg-background flex h-full max-w-xl grow flex-col items-center gap-6 p-8 pt-48 text-center">
-      <HabitDuoLogo />
-      <div className="flex flex-col">
-        <h1
-          className="text-foreground font-semibold"
-          style={{ fontSize: "clamp(24px, 5vw, 48px)" }}
-        >
-          404 - Page not found
-        </h1>
+    <div className="flex w-full flex-col items-center gap-y-4">
+      <NotFoundHeader />
+      <div className="flex w-full flex-col items-center justify-center p-4">
+        <div className="flex w-full max-w-md flex-col gap-y-8">
+          <Card className="w-full shadow-lg">
+            <CardContent className="py-6">
+              <div className="flex flex-col gap-y-6">
+                <ErrorMessage />
+                <ReturnHomeButton />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-      <Button asChild variant="outline">
-        <Link
-          href={appNavLinks.home.href}
-          className="text-muted-foreground hover:text-foreground text-sm"
-        >
-          ← Back to Home
-        </Link>
-      </Button>
     </div>
   );
 };
 
 export default NotFound;
+
+const NotFoundHeader = () => {
+  return (
+    <div className="flex flex-col items-center gap-y-4 text-center">
+      <div className="bg-muted/50 flex size-24 items-center justify-center rounded-full">
+        <FileQuestionIcon
+          className="text-muted-foreground h-12 w-12"
+          strokeWidth={2}
+        />
+      </div>
+      <div className="flex flex-col gap-y-2">
+        <h1 className="text-4xl font-bold">Page Not Found</h1>
+        <p className="text-muted-foreground">404 Error</p>
+      </div>
+    </div>
+  );
+};
+
+const ErrorMessage = () => {
+  return (
+    <div className="flex flex-col gap-y-3 text-center">
+      <p className="text-muted-foreground">
+        The page you're looking for doesn't exist or may have been moved.
+      </p>
+      <p className="text-muted-foreground text-sm">
+        Let's get you back on track.
+      </p>
+    </div>
+  );
+};
+
+const ReturnHomeButton = () => {
+  return (
+    <Link href={appNavLinks.home.href}>
+      <Button className="flex w-full items-center gap-x-2">
+        <HomeIcon className="h-4 w-4" />
+        Back to Home
+      </Button>
+    </Link>
+  );
+};
