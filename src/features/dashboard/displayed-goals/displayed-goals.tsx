@@ -127,8 +127,8 @@ const EmptyGoalsState = ({
     : `${userName} hasn't added any goals yet.`;
 
   return (
-    <div className="bg-card border-border rounded-xl border p-8 text-center">
-      <p className="text-muted-foreground max-w-[280px] text-pretty">
+    <div className="bg-card border-border flex justify-center rounded-xl border p-8">
+      <p className="text-muted-foreground max-w-70 text-center text-pretty">
         {message}
       </p>
     </div>
