@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 
+import { appPageMetadata } from "@/data/app-data";
 import { Dashboard } from "@/features/dashboard/dashboard";
 import { DashboardSkeleton } from "@/features/dashboard/dashboard-skeleton";
 import { QUERY_PARAMS } from "@/lib/query-params";
@@ -22,7 +23,6 @@ interface HomePageProps {
 }
 
 export const metadata: Metadata = {
-  title: "Dashboard",
-  description:
-    "Track your weekly habits and compete with your friend for the highest score",
+  title: appPageMetadata.home.title,
+  description: appPageMetadata.home.description,
 };

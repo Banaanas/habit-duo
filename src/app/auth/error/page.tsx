@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { getUser } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { appNavLinks } from "@/data/app-data";
+import { appNavLinks, appPageMetadata } from "@/data/app-data";
 
 export default async function AuthErrorPage() {
   const currentUser = await getUser();
@@ -74,6 +74,6 @@ const RetryButton = () => {
 };
 
 export const metadata: Metadata = {
-  title: "Authentication Error",
-  description: "There was a problem signing you in. Please try again.",
+  title: appPageMetadata.authError.title,
+  description: appPageMetadata.authError.description,
 };
