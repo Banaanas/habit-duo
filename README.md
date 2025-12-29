@@ -6,7 +6,7 @@
 <br/>
 
 <p align="center">
-  <img src="public/habit-duo-logo.svg" alt="Habit Duo logo" width="120" />
+  <img src="public/assets/README/screenshot-1.png" alt="Habit Duo screenshot" width="600" />
 </p>
 
 <h1 align="center">🎯 Habit Duo 🎯</h1>
@@ -47,19 +47,8 @@ The app encourages consistency through:
 
 ## Screenshots
 
-> **Note:** Add screenshots here after running the app
-
-### Dashboard
-<!-- ![Dashboard](public/assets/README/dashboard.png) -->
-*Coming soon - Main dashboard showing weekly goals and scoreboard*
-
-### Sign In
-<!-- ![Sign In](public/assets/README/sign-in.png) -->
-*Coming soon - Magic link authentication flow*
-
-### Goal Tracking
-<!-- ![Goal Tracking](public/assets/README/goal-tracking.png) -->
-*Coming soon - Daily completion tracking*
+![Habit Duo Dashboard](public/assets/README/screenshot-1.png)
+*Main dashboard showing weekly goals, scoreboard, and daily completion tracking*
 
 ---
 
