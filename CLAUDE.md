@@ -384,6 +384,49 @@ interface FormProps {
 }
 ```
 
+**JSX Readability**: Assign function results and complex expressions to constants before using in JSX, rather than calling functions directly in JSX:
+
+```typescript
+// ❌ Avoid calling functions directly in JSX
+return (
+  <button className={getButtonClassNames({ today, canToggle })}>
+    <Label />
+  </button>
+);
+
+// ✅ Assign to const first for better readability
+const buttonClassNames = getButtonClassNames({ today, canToggle });
+
+return (
+  <button className={buttonClassNames}>
+    <Label />
+  </button>
+);
+```
+
+**Conditional Rendering**: Use ternary operators for conditional rendering instead of chaining with `&&`. This is more explicit and readable:
+
+```typescript
+// ❌ Avoid chaining with &&
+return (
+  <div>
+    {isLoading && <Spinner />}
+    {showButton && <Button />}
+  </div>
+);
+
+// ✅ Use ternary operators
+const spinner = isLoading ? <Spinner /> : null;
+const button = showButton ? <Button /> : null;
+
+return (
+  <div>
+    {spinner}
+    {button}
+  </div>
+);
+```
+
 ### CSS and Tailwind
 
 **Avoid margin utilities (`m-`, `mt-`, `mb-`, `ml-`, `mr-`)** for spacing. Instead, use flexbox with gap utilities on parent containers:
