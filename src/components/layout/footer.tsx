@@ -3,7 +3,7 @@ import { appSlogan } from "@/data/app-data";
 
 export const Footer = () => {
   return (
-    <footer className="border-border/30 bg-background/80 border-t p-4 backdrop-blur-sm">
+    <footer className="border-border/30 bg-background border-t p-4">
       <div className="flex flex-col items-center gap-y-2">
         <div className="flex items-center justify-center gap-x-2">
           <Logo size={32} variant="gradient" />

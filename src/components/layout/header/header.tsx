@@ -11,7 +11,7 @@ import { appNavLinks } from "@/data/app-data";
 
 export const Header = () => {
   return (
-    <header className="border-border/30 bg-background/80 sticky top-0 z-50 border-b backdrop-blur-md">
+    <header className="border-border/30 bg-background sticky top-0 z-50 border-b">
       <div className="mx-auto flex flex-wrap items-center justify-between px-4 py-4">
         <HeaderBranding />
         <div className="flex items-center">
