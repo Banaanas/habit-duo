@@ -570,7 +570,7 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000  # Optional in development
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=your-project-url.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-NEXT_PUBLIC_SITE_URL=https://your-production-domain.com  # REQUIRED in production
+NEXT_PUBLIC_SITE_URL=https://habitduo.vercel.app  # REQUIRED in production
 ```
 
 **Why `NEXT_PUBLIC_SITE_URL` is required in production:**
@@ -585,7 +585,10 @@ NEXT_PUBLIC_SITE_URL=https://your-production-domain.com  # REQUIRED in productio
 **Vercel:**
 
 1. Go to `Project Settings > Environment Variables`
-2. Add all three variables
+2. Add all three variables:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `NEXT_PUBLIC_SITE_URL` = `https://habitduo.vercel.app`
 3. Select "Production" (and optionally "Preview")
 4. Redeploy
 
@@ -606,7 +609,7 @@ NEXT_PUBLIC_SITE_URL=https://your-production-domain.com  # REQUIRED in productio
 **Solution**:
 
 1. Add `NEXT_PUBLIC_SITE_URL` to your deployment platform's environment variables (see above)
-2. Set it to your production URL (e.g., `https://habit-duo.vercel.app`)
+2. Set it to your production URL: `https://habitduo.vercel.app`
 3. Redeploy your application
 4. Request a new magic link (old links will still use the wrong URL)
 
