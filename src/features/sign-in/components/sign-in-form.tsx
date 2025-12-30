@@ -57,7 +57,7 @@ const SignInFormHeader = () => {
       </div>
 
       <p className="text-muted-foreground">
-        We'll send you a passwordless magic link
+        We&apos;ll send you a passwordless magic link
       </p>
     </div>
   );

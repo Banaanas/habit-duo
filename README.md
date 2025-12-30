@@ -38,6 +38,7 @@
 Habit Duo is a collaborative habit tracking application designed for **two users** who want to build better habits together. Set weekly goals, track daily completions, and compete with your friend for the highest score.
 
 The app encourages consistency through:
+
 - **Friendly competition** - See who completes more goals each week
 - **Shared accountability** - Both users can view each other's progress
 - **Simple goal setting** - Maximum 2 goals per week, up to 7 days each
@@ -48,7 +49,7 @@ The app encourages consistency through:
 ## Screenshots
 
 ![Habit Duo Dashboard](public/assets/README/screenshot-1.png)
-*Main dashboard showing weekly goals, scoreboard, and daily completion tracking*
+_Main dashboard showing weekly goals, scoreboard, and daily completion tracking_
 
 ---
 
@@ -69,6 +70,7 @@ The app encourages consistency through:
 ## Built With
 
 ### Frontend
+
 - [Next.js 16](https://nextjs.org/) - React framework with App Router
 - [React 19](https://reactjs.org/) - UI library
 - [TypeScript](https://www.typescriptlang.org/) - Type safety
@@ -77,11 +79,13 @@ The app encourages consistency through:
 - [Lucide Icons](https://lucide.dev/) - Icon system
 
 ### Backend
+
 - [Supabase](https://supabase.com/) - PostgreSQL database + Auth
 - [Next.js Server Actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations) - Backend mutations
 - [Next.js Cache Components](https://nextjs.org/docs/app/api-reference/directives/use-cache) - Advanced caching
 
 ### Developer Tools
+
 - [pnpm](https://pnpm.io/) - Package manager
 - [ESLint](https://eslint.org/) - Code linting
 - [Prettier](https://prettier.io/) - Code formatting
@@ -94,25 +98,30 @@ The app encourages consistency through:
 ### Key Patterns
 
 **Supabase Dual Client Pattern**
+
 - Separate clients for browser and server contexts
 - Server client for Server Components and actions
 - Browser client for Client Components
 
 **Data Transformation Layer**
+
 - Database types in snake_case (Supabase schema)
 - Application types in camelCase (JavaScript conventions)
 - Transformers convert between formats
 
 **Query/Mutation Separation**
+
 - `queries-read.ts` - Cached read operations with `"use cache"`
 - `queries-mutations.ts` - Write operations with cache invalidation
 
 **Next.js 16 Caching**
+
 - `cacheLife()` for duration control
 - `cacheTag()` for selective invalidation
 - Partial Prerender for optimal performance
 
 **Feature-Based Structure**
+
 ```
 src/
 ├── app/              # Next.js App Router (routes, pages)
@@ -218,12 +227,14 @@ See [CLAUDE.md](CLAUDE.md) for detailed conventions.
 ## Database
 
 Uses **Supabase PostgreSQL** with:
+
 - Row Level Security (RLS) for data access control
 - UUID primary keys
 - Database view for `weekly_scores` calculation
 - Migrations in `supabase/migrations/`
 
 **Key Tables:**
+
 - `users` - User profiles
 - `weeks` - Weekly tracking periods
 - `goals` - User goals (max 2 per user per week)

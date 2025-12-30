@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import "../styles/globals.css";
 
 import { BaseLayout } from "@/components/layout/base-layout";
-import { appDescription, appName, appSlogan } from "@/data/app-data";
+import { appDescription, appName } from "@/data/app-data";
 import { roboto, robotoMono } from "@/lib/fonts";
 
 export default function RootLayout({

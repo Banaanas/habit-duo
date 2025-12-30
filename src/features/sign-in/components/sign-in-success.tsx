@@ -32,7 +32,9 @@ const SuccessHeader = () => {
       </div>
       <div className="flex flex-col gap-y-2">
         <h1 className="text-4xl font-bold">Check your inbox</h1>
-        <p className="text-muted-foreground">We've sent you a magic link</p>
+        <p className="text-muted-foreground">
+          We&apos;ve sent you a magic link
+        </p>
       </div>
     </div>
   );
@@ -57,7 +59,7 @@ const RetrySection = ({ onTryAgain }: RetrySectionProps) => {
   return (
     <div className="flex flex-col gap-y-4 border-t pt-4">
       <p className="text-muted-foreground text-center text-sm">
-        Didn't receive the email? Check your spam folder or try again.
+        Didn&apos;t receive the email? Check your spam folder or try again.
       </p>
       <form action={onTryAgain}>
         <Button type="submit" variant="outline" className="w-full">

@@ -55,10 +55,11 @@ const ErrorMessage = () => {
   return (
     <div className="flex flex-col gap-y-3 text-center">
       <p className="text-muted-foreground">
-        The page you're looking for doesn't exist or may have been moved.
+        The page you&apos;re looking for doesn&apos;t exist or may have been
+        moved.
       </p>
       <p className="text-muted-foreground text-sm">
-        Let's get you back on track.
+        Let&apos;s get you back on track.
       </p>
     </div>
   );

@@ -493,6 +493,7 @@ const containerStyle = {
 ```
 
 **When to use `common-style.ts`**:
+
 - Values that need to be consistent across multiple components
 - Values used in both Tailwind classes and style objects
 - Complex calculated values or theme-dependent values

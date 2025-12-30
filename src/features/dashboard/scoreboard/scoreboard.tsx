@@ -1,6 +1,6 @@
 "use client";
 
-import { FlameIcon, SwordsIcon, TrophyIcon } from "lucide-react";
+import { FlameIcon, SwordsIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { parseAsString, useQueryState } from "nuqs";
 

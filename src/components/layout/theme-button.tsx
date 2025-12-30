@@ -10,8 +10,6 @@ export const ToggleThemeButton = () => {
 
   const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
 
-  const IconComponent = theme === "dark" ? SunIcon : MoonIcon;
-
   const iconClassname = "h-5 w-5";
   const isDarkTheme = theme === "dark";
 

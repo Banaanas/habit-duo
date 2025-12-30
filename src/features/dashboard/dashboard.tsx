@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 
 import { getUser } from "@/actions/auth";
-import { Skeleton } from "@/components/ui/skeleton";
 import { appNavLinks } from "@/data/app-data";
 import { AddGoalButtonWrapper } from "@/features/dashboard/add-goal-dialog/add-goal-button-wrapper";
 import { AddGoalDialogWrapper } from "@/features/dashboard/add-goal-dialog/add-goal-dialog-wrapper";
