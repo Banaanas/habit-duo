@@ -497,6 +497,35 @@ const containerStyle = {
 - Values used in both Tailwind classes and style objects
 - Complex calculated values or theme-dependent values
 
+## Git Workflow
+
+### Branch Strategy
+
+**Always work on the `development` branch** for active development:
+
+- `main`: Production-ready code, stable releases
+- `development`: Active development branch (default working branch)
+
+**CRITICAL RULES**:
+
+- All new features, fixes, and changes should be made on `development`
+- Only merge to `main` when code is tested and production-ready
+- Both branches are protected by continuous integration checks
+- Push to both branches is allowed (CI runs on all pushes and pull requests)
+
+### Continuous Integration
+
+The project uses GitHub Actions for automated quality checks on all pushes and pull requests:
+
+- **ESLint**: Code linting
+- **Prettier**: Code formatting validation
+- **TypeScript**: Type checking
+- **Next.js Build**: Build validation
+
+Workflow configuration: `.github/workflows/continuous-integration.yml`
+
+All checks must pass before merging code.
+
 ## Database
 
 Uses **Supabase Postgres** with migrations in `supabase/migrations/`:
