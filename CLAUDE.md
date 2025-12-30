@@ -433,6 +433,70 @@ interface FormProps {
 <div className="flex flex-row gap-x-4">...</div>
 ```
 
+**NEVER use viewport height utilities (`h-screen`, `min-h-screen`, `max-h-screen`)**: These create poor UX on many devices (especially mobile with dynamic address bars). Use alternative layout strategies:
+
+```tsx
+// ❌ Avoid viewport height utilities
+<div className="min-h-screen">...</div>
+<main className="h-screen">...</main>
+
+// ✅ Use flexbox or natural flow
+<div className="flex flex-col">...</div>
+<main className="flex-1">...</main>
+```
+
+### Single Source of Truth for CSS
+
+**`html` and `body` elements MUST be styled exclusively in `globals.css`**. Never add Tailwind classes to these elements in `layout.tsx` (except for font CSS variables needed for Tailwind):
+
+```tsx
+// ❌ Avoid adding styling classes to body
+<body className="bg-background antialiased">
+  {children}
+</body>
+
+// ✅ Only font variables (needed for Tailwind config)
+<body className={`${roboto.variable} ${robotoMono.variable}`}>
+  {children}
+</body>
+
+// ✅ All body/html styling goes in globals.css
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+```
+
+**For other components**: Use Tailwind utilities directly. Only use `globals.css` for true global styles (resets, base element styling, CSS variables).
+
+### Shared Styles Configuration
+
+For styles that need to be shared across components (whether as `className` strings or style object properties), use `@/styles/common-style.ts`:
+
+```typescript
+// @/styles/common-style.ts
+export const globalMaxWidth = "800px";
+export const dashboardMaxWidth = "500px";
+
+// Usage in components
+import { globalMaxWidth } from "@/styles/common-style";
+
+// As Tailwind className
+<div className="w-full" style={{ maxWidth: globalMaxWidth }}>
+
+// Or in style object
+const containerStyle = {
+  maxWidth: globalMaxWidth,
+  padding: "1rem",
+};
+```
+
+**When to use `common-style.ts`**:
+- Values that need to be consistent across multiple components
+- Values used in both Tailwind classes and style objects
+- Complex calculated values or theme-dependent values
+
 ## Database
 
 Uses **Supabase Postgres** with migrations in `supabase/migrations/`:

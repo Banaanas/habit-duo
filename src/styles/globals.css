@@ -132,7 +132,7 @@
     @apply h-full;
   }
   body {
-    @apply text-foreground flex h-full min-h-full flex-col;
+    @apply text-foreground antialiased flex h-full min-h-full flex-col;
   }
   body:not(.dark *):not(.dark) {
     background: linear-gradient(
