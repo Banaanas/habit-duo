@@ -21,10 +21,15 @@ export const SignInView = () => {
     { error: null, email: null }
   );
 
+  const handleTryAgain = () => {
+    // Reset the form state to show the sign-in form again
+    window.location.reload();
+  };
+
   if (state.email && !state.error) {
     return (
       <div className="flex w-full flex-col items-center justify-center p-4">
-        <SignInSuccess onTryAgain={formAction} />
+        <SignInSuccess onTryAgain={handleTryAgain} />
       </div>
     );
   }

@@ -1,3 +1,5 @@
+"use client";
+
 import { CheckCircle2Icon, MailIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -21,7 +23,7 @@ export const SignInSuccess = ({ onTryAgain }: SignInSuccessProps) => {
 };
 
 interface SignInSuccessProps {
-  onTryAgain: (formData: FormData) => void;
+  onTryAgain: () => void;
 }
 
 const SuccessHeader = () => {
@@ -61,15 +63,18 @@ const RetrySection = ({ onTryAgain }: RetrySectionProps) => {
       <p className="text-muted-foreground text-center text-sm">
         Didn&apos;t receive the email? Check your spam folder or try again.
       </p>
-      <form action={onTryAgain}>
-        <Button type="submit" variant="outline" className="w-full">
-          Try a different email
-        </Button>
-      </form>
+      <Button
+        type="button"
+        variant="outline"
+        className="w-full"
+        onClick={onTryAgain}
+      >
+        Try a different email
+      </Button>
     </div>
   );
 };
 
 interface RetrySectionProps {
-  onTryAgain: (formData: FormData) => void;
+  onTryAgain: () => void;
 }
