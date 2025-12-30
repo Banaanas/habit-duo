@@ -176,10 +176,41 @@ pnpm install
 
 3. Set up Supabase:
 
-```bash
-# Run migrations (if using Supabase CLI)
-# See supabase/migrations/ for schema
-```
+   a. **Create a Supabase project** at [supabase.com](https://supabase.com)
+
+   b. **Run migrations** to set up the database schema:
+
+   ```bash
+   # Option 1: Using Supabase CLI (recommended)
+   supabase link --project-ref your-project-ref
+   supabase db push
+
+   # Option 2: Manual (copy/paste each file in SQL Editor)
+   # Go to Supabase Dashboard > SQL Editor
+   # Run migrations in order: 001, 002, 003
+   ```
+
+   c. **Configure the 2 users** with your actual emails:
+
+   ```sql
+   -- In Supabase SQL Editor, update the placeholder emails
+   UPDATE users SET email = 'your-email@example.com' WHERE name = 'Cyril';
+   UPDATE users SET email = 'partner-email@example.com' WHERE name = 'Andrea';
+   ```
+
+   d. **First-time authentication setup**:
+   - Go to your app and request a magic link with one of your emails
+   - Click the link in your email (creates auth account)
+   - In Supabase, find your auth user ID from Authentication > Users
+   - Link your auth account to app user:
+
+   ```sql
+   UPDATE users
+   SET auth_user_id = 'your-auth-uid-from-auth-users-table'
+   WHERE email = 'your-email@example.com';
+   ```
+
+   - Repeat for the second user
 
 4. Run the development server:
 
