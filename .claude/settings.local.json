@@ -16,7 +16,11 @@
       "WebSearch",
       "WebFetch(domain:supabase.com)",
       "Bash(pnpm build:*)",
-      "Bash(pnpm type-check:*)"
+      "Bash(pnpm type-check:*)",
+      "Bash(git checkout:*)",
+      "Bash(git merge:*)",
+      "Bash(git push:*)",
+      "Bash(git stash:*)"
     ]
   }
 }
