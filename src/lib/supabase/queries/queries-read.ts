@@ -34,7 +34,6 @@ export async function getUsers(): Promise<User[]> {
 
   if (error) throw error;
 
-  console.log(data);
   return (data || []).map(transformUser);
 }
 
