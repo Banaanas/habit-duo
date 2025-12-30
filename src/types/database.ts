@@ -4,6 +4,7 @@
 export type DbUser = {
   id: string;
   name: string;
+  email: string;
   avatar_emoji: string;
   auth_user_id: string | null;
   created_at: string;

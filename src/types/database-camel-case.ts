@@ -4,6 +4,7 @@
 export type User = {
   id: string;
   name: string;
+  email: string;
   avatarEmoji: string;
   authUserId: string | null;
   createdAt: string;

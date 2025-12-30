@@ -16,6 +16,7 @@ import type {
 export const transformUser = (dbUser: DbUser): User => ({
   id: dbUser.id,
   name: dbUser.name,
+  email: dbUser.email,
   avatarEmoji: dbUser.avatar_emoji,
   authUserId: dbUser.auth_user_id,
   createdAt: dbUser.created_at,

@@ -9,6 +9,20 @@ import { createSupabaseServerClient } from "@/lib/supabase/clients/supabase-serv
 export async function signInWithEmail(email: string) {
   const supabase = await createSupabaseServerClient();
 
+  // Check if email is authorized (exists in users table)
+  const { data: authorizedUser } = await supabase
+    .from("users")
+    .select("email")
+    .eq("email", email.toLowerCase())
+    .single();
+
+  if (!authorizedUser) {
+    return {
+      error:
+        "This email is not authorized. Only the 2 registered users can sign in.",
+    };
+  }
+
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
@@ -54,6 +68,7 @@ export async function getUser() {
   return {
     id: appUser.id,
     name: appUser.name,
+    email: appUser.email,
     avatarEmoji: appUser.avatar_emoji,
     authUserId: appUser.auth_user_id,
     createdAt: appUser.created_at,
