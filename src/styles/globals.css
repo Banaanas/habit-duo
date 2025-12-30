@@ -134,4 +134,14 @@
   body {
     @apply text-foreground flex h-full min-h-full flex-col;
   }
+  body:not(.dark *):not(.dark) {
+    background: linear-gradient(
+      135deg,
+      oklch(0.62 0.24 290 / 0.1) 0%,
+      oklch(1 0 0) 25%,
+      oklch(1 0 0) 50%,
+      oklch(1 0 0) 75%,
+      oklch(0.78 0.15 350 / 0.1) 100%
+    );
+  }
 }
