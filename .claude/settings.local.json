@@ -20,7 +20,13 @@
       "Bash(git checkout:*)",
       "Bash(git merge:*)",
       "Bash(git push:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(test:*)",
+      "Bash(pnpm run prettier-check:*)",
+      "Bash(pnpm run type-check:*)",
+      "Bash(pnpm run prettier-write:*)",
+      "Bash(pnpm run lint:*)",
+      "Bash(pnpm run build:*)"
     ]
   }
 }
