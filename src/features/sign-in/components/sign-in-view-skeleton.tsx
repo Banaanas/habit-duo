@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export const SignInViewSkeleton = () => {
   return (
-    <div className="flex w-full flex-col items-center gap-y-8">
+    <div className="flex w-full flex-col items-center justify-center gap-y-8 p-4">
       <div className="flex w-full flex-col items-center gap-y-2">
         <Skeleton className="h-8 w-full max-w-[320px]" />
         <Skeleton className="h-6 w-full max-w-[280px]" />
