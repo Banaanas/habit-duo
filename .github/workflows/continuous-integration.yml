@@ -35,6 +35,24 @@ jobs:
       - name: TypeScript Compiler
         run: pnpm run type-check
 
+      - name: Verify Environment Variables
+        run: |
+          if [ -z "$NEXT_PUBLIC_SUPABASE_URL" ]; then
+            echo "❌ NEXT_PUBLIC_SUPABASE_URL is not set"
+            exit 1
+          else
+            echo "✅ NEXT_PUBLIC_SUPABASE_URL is set (starts with: ${NEXT_PUBLIC_SUPABASE_URL:0:20}...)"
+          fi
+          if [ -z "$NEXT_PUBLIC_SUPABASE_ANON_KEY" ]; then
+            echo "❌ NEXT_PUBLIC_SUPABASE_ANON_KEY is not set"
+            exit 1
+          else
+            echo "✅ NEXT_PUBLIC_SUPABASE_ANON_KEY is set (length: ${#NEXT_PUBLIC_SUPABASE_ANON_KEY})"
+          fi
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+
       - name: Next.js Build
         run: pnpm run build
         env:
