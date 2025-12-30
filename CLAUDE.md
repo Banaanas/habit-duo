@@ -527,6 +527,15 @@ Workflow configuration: `.github/workflows/continuous-integration.yml`
 
 All checks must pass before merging code.
 
+#### GitHub Secrets Setup
+
+The CI workflow requires the following **Repository Secrets** to be configured in your GitHub repository settings (`Settings > Secrets and variables > Actions > Repository secrets`):
+
+- `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anonymous key
+
+**Note**: Use Repository Secrets (not Environment secrets) since the CI runs on all branches. These secrets are only needed for the build step to compile successfully.
+
 ## Database
 
 Uses **Supabase Postgres** with migrations in `supabase/migrations/`:
@@ -544,13 +553,59 @@ Uses **Supabase Postgres** with migrations in `supabase/migrations/`:
 
 ## Environment Variables
 
-Required in `.env.local`:
+### Local Development (`.env.local`)
+
+Required for local development:
 
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=          # Supabase project URL
-NEXT_PUBLIC_SUPABASE_ANON_KEY=     # Supabase anonymous key
-NEXT_PUBLIC_SITE_URL=              # App URL (for magic link redirects)
+NEXT_PUBLIC_SUPABASE_URL=your-project-url.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+NEXT_PUBLIC_SITE_URL=http://localhost:3000  # Optional in development
 ```
+
+### Production Deployment
+
+**CRITICAL**: When deploying to production (Vercel, Netlify, etc.), you MUST set these environment variables in your deployment platform:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=your-project-url.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+NEXT_PUBLIC_SITE_URL=https://your-production-domain.com  # REQUIRED in production
+```
+
+**Why `NEXT_PUBLIC_SITE_URL` is required in production:**
+
+- **Magic Link Authentication**: Supabase sends email links that redirect to this URL after authentication
+- **SEO & Metadata**: Used for Open Graph tags, canonical URLs, and social media previews
+
+**Without it in production**, magic links will redirect to `http://localhost:3000/auth/callback` instead of your actual production URL, causing authentication to fail.
+
+### Deployment Platform Setup Examples
+
+**Vercel:**
+1. Go to `Project Settings > Environment Variables`
+2. Add all three variables
+3. Select "Production" (and optionally "Preview")
+4. Redeploy
+
+**Netlify:**
+1. Go to `Site Settings > Environment Variables`
+2. Add all three variables
+3. Redeploy
+
+## Troubleshooting
+
+### Magic Link Redirects to localhost in Production
+
+**Symptom**: After clicking the magic link email in production, you're redirected to `http://localhost:3000/auth/error`
+
+**Cause**: `NEXT_PUBLIC_SITE_URL` is not set in your production environment variables
+
+**Solution**:
+1. Add `NEXT_PUBLIC_SITE_URL` to your deployment platform's environment variables (see above)
+2. Set it to your production URL (e.g., `https://habit-duo.vercel.app`)
+3. Redeploy your application
+4. Request a new magic link (old links will still use the wrong URL)
 
 ## Testing
 
