@@ -1,12 +1,14 @@
 "use client";
 
 import { useActionState } from "react";
+import { useRouter } from "next/navigation";
 
 import { signInWithEmail } from "@/actions/auth";
 import { SignInForm } from "@/features/sign-in/components/sign-in-form";
 import { SignInSuccess } from "@/features/sign-in/components/sign-in-success";
 
 export const SignInView = () => {
+  const router = useRouter();
   const [state, formAction, isPending] = useActionState<FormState, FormData>(
     async (_prevState, formData) => {
       const email = formData.get("email") as string;
@@ -22,8 +24,8 @@ export const SignInView = () => {
   );
 
   const handleTryAgain = () => {
-    // Reset the form state to show the sign-in form again
-    window.location.reload();
+    // Refresh to reset form state
+    router.refresh();
   };
 
   if (state.email && !state.error) {
