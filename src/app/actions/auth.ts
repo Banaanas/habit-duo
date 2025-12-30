@@ -23,19 +23,10 @@ export async function signInWithEmail(email: string) {
     };
   }
 
-  // Ensure NEXT_PUBLIC_SITE_URL is set (required for production)
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-  if (!siteUrl) {
-    console.error("NEXT_PUBLIC_SITE_URL is not set - cannot send magic link");
-    return {
-      error: "Server configuration error. Please contact support.",
-    };
-  }
-
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: `${siteUrl}/auth/callback`,
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/auth/callback`,
     },
   });
 
