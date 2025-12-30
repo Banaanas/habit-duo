@@ -583,12 +583,14 @@ NEXT_PUBLIC_SITE_URL=https://your-production-domain.com  # REQUIRED in productio
 ### Deployment Platform Setup Examples
 
 **Vercel:**
+
 1. Go to `Project Settings > Environment Variables`
 2. Add all three variables
 3. Select "Production" (and optionally "Preview")
 4. Redeploy
 
 **Netlify:**
+
 1. Go to `Site Settings > Environment Variables`
 2. Add all three variables
 3. Redeploy
@@ -602,6 +604,7 @@ NEXT_PUBLIC_SITE_URL=https://your-production-domain.com  # REQUIRED in productio
 **Cause**: `NEXT_PUBLIC_SITE_URL` is not set in your production environment variables
 
 **Solution**:
+
 1. Add `NEXT_PUBLIC_SITE_URL` to your deployment platform's environment variables (see above)
 2. Set it to your production URL (e.g., `https://habit-duo.vercel.app`)
 3. Redeploy your application
