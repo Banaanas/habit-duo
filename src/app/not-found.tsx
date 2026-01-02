@@ -36,17 +36,17 @@ export default NotFound;
 
 const NotFoundHeader = () => {
   return (
-    <div className="flex flex-col items-center gap-y-4 text-center">
-      <div className="bg-muted/50 flex size-24 items-center justify-center rounded-full">
-        <FileQuestionIcon
-          className="text-muted-foreground h-12 w-12"
-          strokeWidth={2}
-        />
-      </div>
-      <div className="flex flex-col gap-y-2">
+    <div className="flex flex-col items-center gap-y-2 text-center">
+      <div className="flex items-center gap-x-3">
+        <div className="bg-muted/50 flex size-10 items-center justify-center rounded-full">
+          <FileQuestionIcon
+            className="text-muted-foreground h-5 w-5"
+            strokeWidth={2}
+          />
+        </div>
         <h1 className="text-4xl font-bold">Page Not Found</h1>
-        <p className="text-muted-foreground">404 Error</p>
       </div>
+      <p className="text-muted-foreground">404 Error</p>
     </div>
   );
 };

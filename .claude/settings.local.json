@@ -26,7 +26,9 @@
       "Bash(pnpm run type-check:*)",
       "Bash(pnpm run prettier-write:*)",
       "Bash(pnpm run lint:*)",
-      "Bash(pnpm run build:*)"
+      "Bash(pnpm run build:*)",
+      "Bash(git revert:*)",
+      "Bash(pnpm test:*)"
     ]
   }
 }

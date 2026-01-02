@@ -42,17 +42,17 @@ const AuthErrorView = () => {
 
 const ErrorHeader = () => {
   return (
-    <div className="flex flex-col items-center gap-y-4 text-center">
-      <div className="bg-destructive/10 flex size-24 items-center justify-center rounded-full">
-        <AlertCircleIcon
-          className="text-destructive h-12 w-12"
-          strokeWidth={2}
-        />
-      </div>
-      <div className="flex flex-col gap-y-2">
+    <div className="flex flex-col items-center gap-y-2 text-center">
+      <div className="flex items-center gap-x-3">
+        <div className="bg-destructive/10 flex size-10 items-center justify-center rounded-full">
+          <AlertCircleIcon
+            className="text-destructive h-5 w-5"
+            strokeWidth={2}
+          />
+        </div>
         <h1 className="text-4xl font-bold">Authentication Error</h1>
-        <p className="text-muted-foreground">Something went wrong</p>
       </div>
+      <p className="text-muted-foreground">Something went wrong</p>
     </div>
   );
 };

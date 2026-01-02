@@ -28,16 +28,14 @@ interface SignInSuccessProps {
 
 const SuccessHeader = () => {
   return (
-    <div className="flex flex-col items-center gap-y-4 text-center">
-      <div className="bg-primary flex size-24 items-center justify-center rounded-full shadow-lg">
-        <MailIcon className="h-12 w-12 text-white" strokeWidth={2} />
-      </div>
-      <div className="flex flex-col gap-y-2">
-        <h1 className="text-4xl font-bold">Check your inbox</h1>
-        <p className="text-muted-foreground">
-          We&apos;ve sent you a magic link
-        </p>
-      </div>
+    <div className="flex flex-col items-center gap-y-2 text-center">
+      <h1 className="text-4xl font-bold">Check your inbox</h1>
+      <p className="text-muted-foreground flex items-center gap-x-2">
+        We&apos;ve sent you a magic link
+        <span className="bg-primary inline-flex size-5 items-center justify-center rounded-full shadow-lg">
+          <MailIcon className="size-3 text-white" strokeWidth={2} />
+        </span>
+      </p>
     </div>
   );
 };
