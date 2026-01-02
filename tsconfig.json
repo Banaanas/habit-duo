@@ -26,6 +26,7 @@
       "@/lib/*": ["./src/lib/*"],
       "@/public/*": ["./public/*"],
       "@/styles/*": ["./src/styles/*"],
+      "@/tests/*": ["./src/tests/*"],
       "@/types/*": ["./src/types/*"],
       "@/utils/*": ["./src/utils/*"]
     }
