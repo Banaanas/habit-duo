@@ -1,4 +1,4 @@
-import { FileQuestionIcon, HomeIcon } from "lucide-react";
+import { HomeIcon } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -14,19 +14,18 @@ Alternative solution: https://github.com/vercel/next.js/issues/45620#issuecommen
 
 const NotFound = () => {
   return (
-    <div className="flex w-full flex-col items-center gap-y-4">
-      <NotFoundHeader />
-      <div className="flex w-full flex-col items-center justify-center p-4">
-        <div className="flex w-full max-w-md flex-col gap-y-8">
-          <Card className="w-full shadow-lg">
-            <CardContent className="py-6">
-              <div className="flex flex-col gap-y-6">
-                <ErrorMessage />
-                <ReturnHomeButton />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+    <div className="flex w-full flex-col items-center justify-center p-4">
+      <div className="flex w-full max-w-md flex-col items-center justify-center gap-y-8">
+        <NotFoundHeader />
+
+        <Card className="w-full shadow-lg">
+          <CardContent className="py-6">
+            <div className="flex w-full flex-col items-center gap-y-6">
+              <ErrorMessage />
+              <ReturnHomeButton />
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
@@ -37,15 +36,7 @@ export default NotFound;
 const NotFoundHeader = () => {
   return (
     <div className="flex flex-col items-center gap-y-2 text-center">
-      <div className="flex items-center gap-x-3">
-        <div className="bg-muted/50 flex size-10 items-center justify-center rounded-full">
-          <FileQuestionIcon
-            className="text-muted-foreground h-5 w-5"
-            strokeWidth={2}
-          />
-        </div>
-        <h1 className="text-4xl font-bold">Page Not Found</h1>
-      </div>
+      <h1 className="text-4xl font-bold text-pretty">Page Not Found</h1>
       <p className="text-muted-foreground">404 Error</p>
     </div>
   );

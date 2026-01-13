@@ -1,4 +1,4 @@
-import { AlertCircleIcon, RefreshCwIcon } from "lucide-react";
+import { RefreshCwIcon } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -21,20 +21,17 @@ export default function AuthErrorPage() {
 
 const AuthErrorView = () => {
   return (
-    <div className="flex w-full flex-col items-center gap-y-4">
-      <div className="flex w-full flex-col items-center justify-center p-4">
-        <div className="flex w-full max-w-md flex-col gap-y-8">
-          <ErrorHeader />
-
-          <Card className="w-full shadow-lg">
-            <CardContent className="py-6">
-              <div className="flex flex-col gap-y-6">
-                <ErrorMessage />
-                <RetryButton />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+    <div className="flex w-full flex-col items-center justify-center p-4">
+      <div className="flex w-full max-w-md flex-col items-center justify-center gap-y-8">
+        <ErrorHeader />
+        <Card className="w-full shadow-lg">
+          <CardContent className="py-6">
+            <div className="flex w-full flex-col items-center gap-y-6">
+              <ErrorMessage />
+              <RetryButton />
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
@@ -43,15 +40,7 @@ const AuthErrorView = () => {
 const ErrorHeader = () => {
   return (
     <div className="flex flex-col items-center gap-y-2 text-center">
-      <div className="flex items-center gap-x-3">
-        <div className="bg-destructive/10 flex size-10 items-center justify-center rounded-full">
-          <AlertCircleIcon
-            className="text-destructive h-5 w-5"
-            strokeWidth={2}
-          />
-        </div>
-        <h1 className="text-4xl font-bold">Authentication Error</h1>
-      </div>
+      <h1 className="text-4xl font-bold text-pretty">Authentication Error</h1>
       <p className="text-muted-foreground">Something went wrong</p>
     </div>
   );
