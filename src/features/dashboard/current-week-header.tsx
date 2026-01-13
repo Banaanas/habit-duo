@@ -3,6 +3,7 @@ import { CalendarIcon } from "lucide-react";
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { getCurrentWeek } from "@/lib/supabase/queries/queries";
+import { parseLocalDate } from "@/utils/date";
 
 export const CurrentWeekHeader = async () => {
   const currentWeek = await getCurrentWeek();
@@ -11,8 +12,8 @@ export const CurrentWeekHeader = async () => {
 
   const { startDate: weekStartDate, endDate: weekEndDate } = currentWeek;
 
-  const weekStart = new Date(weekStartDate);
-  const weekEnd = new Date(weekEndDate);
+  const weekStart = parseLocalDate(weekStartDate);
+  const weekEnd = parseLocalDate(weekEndDate);
 
   const formattedWeekStart = format(weekStart, "MMM d");
 

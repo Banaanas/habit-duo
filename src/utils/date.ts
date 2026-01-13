@@ -6,13 +6,24 @@ import {
   startOfDay,
 } from "date-fns";
 
+/**
+ * Parses a date string (YYYY-MM-DD) as a local date.
+ *
+ * This avoids timezone issues where `new Date("2026-01-12")` is interpreted
+ * as UTC midnight, which can shift to a different day in other timezones.
+ */
+export const parseLocalDate = (dateString: string): Date => {
+  const [year, month, day] = dateString.split("-").map(Number);
+  return new Date(year, month - 1, day);
+};
+
 export const getCurrentWeekDates = (
   startDate: string,
   endDate: string
 ): Date[] => {
   return eachDayOfInterval({
-    start: new Date(startDate),
-    end: new Date(endDate),
+    start: parseLocalDate(startDate),
+    end: parseLocalDate(endDate),
   });
 };
 
