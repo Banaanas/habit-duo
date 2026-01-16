@@ -44,19 +44,6 @@ All data from Supabase is transformed to camelCase before use.
 - **`queries-read.ts`**: Read operations with `"use cache"`, `cacheLife()`, `cacheTag()`
 - **`queries-mutations.ts`**: Write operations, invalidate cache tags after mutations
 
-### Next.js 16 Caching
-
-```typescript
-export async function getUsers(): Promise<User[]> {
-  "use cache";
-  cacheLife("hours");
-  cacheTag(CACHE_TAGS.users);
-  // ... fetch logic
-}
-```
-
-Cache tags defined in `@/lib/cache-tags.ts`. Invalidate with `revalidateTag()`.
-
 ### Authentication
 
 Supabase Auth with magic links:
@@ -67,41 +54,6 @@ Supabase Auth with magic links:
 4. App looks up user by `auth_user_id` in `users` table
 
 Server actions in `@/app/actions/auth.ts`: `signInWithEmail()`, `signOut()`, `getUser()`
-
-### Path Aliases
-
-```typescript
-@/actions/*     → src/app/actions/*
-@/components/*  → src/components/*
-@/data/*        → src/data/*
-@/features/*    → src/features/*
-@/lib/*         → src/lib/*
-@/types/*       → src/types/*
-@/utils/*       → src/utils/*
-```
-
-**Never create new aliases without explicit authorization.**
-
-### Project Structure
-
-```
-src/
-├── app/           # Routes, server actions
-├── components/    # Shared/layout components
-├── data/          # App configuration
-├── features/      # Feature-specific components
-├── lib/           # Utilities, Supabase logic
-├── styles/        # Global styles
-├── types/         # TypeScript definitions
-└── utils/         # Utility functions
-```
-
-## Git Workflow
-
-- `main`: Production-ready code
-- `development`: Active development (default working branch)
-
-All changes go to `development` first. CI runs on all pushes.
 
 ## Database
 
