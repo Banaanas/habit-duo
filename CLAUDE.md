@@ -2,10 +2,10 @@
 
 ## Skills
 
-@../../_config/claude/skills/nextjs-react/SKILL.md
-@../../_config/claude/skills/typescript/SKILL.md
-@../../_config/claude/skills/supabase/SKILL.md
-@../../_config/claude/skills/tailwind/SKILL.md
+@../../\_config/claude/skills/nextjs-react/SKILL.md
+@../../\_config/claude/skills/typescript/SKILL.md
+@../../\_config/claude/skills/supabase/SKILL.md
+@../../\_config/claude/skills/tailwind/SKILL.md
 
 ## Project Overview
 
