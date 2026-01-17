@@ -9,7 +9,7 @@ import { appPageMetadata } from "@/data/app-data";
 import { AuthErrorViewSkeleton } from "@/features/auth/auth-error-view-skeleton";
 import { RequireGuest } from "@/features/auth/require-guest";
 
-export default function AuthErrorPage() {
+const AuthErrorPage = () => {
   return (
     <Suspense fallback={<AuthErrorViewSkeleton />}>
       <RequireGuest>
@@ -17,7 +17,9 @@ export default function AuthErrorPage() {
       </RequireGuest>
     </Suspense>
   );
-}
+};
+
+export default AuthErrorPage;
 
 const AuthErrorView = () => {
   return (

@@ -49,7 +49,7 @@ export const GoalCard = ({
       <div className="flex items-start justify-between">
         <GoalHeader goal={goal} />
         <RemoveGoalButton
-          handleDelete={handleDelete}
+          onDelete={handleDelete}
           isCurrentUser={isCurrentUser}
           isPending={isPending}
         />
@@ -84,7 +84,7 @@ interface GoalCardProps {
 }
 
 const RemoveGoalButton = ({
-  handleDelete,
+  onDelete,
   isPending,
   isCurrentUser,
 }: RemoveGoalButtonProps) => {
@@ -92,7 +92,7 @@ const RemoveGoalButton = ({
 
   return (
     <button
-      onClick={handleDelete}
+      onClick={onDelete}
       disabled={isPending}
       className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg p-2 transition-colors disabled:opacity-50"
     >
@@ -102,7 +102,7 @@ const RemoveGoalButton = ({
 };
 
 interface RemoveGoalButtonProps {
-  handleDelete: MouseEventHandler<HTMLButtonElement>;
+  onDelete: MouseEventHandler<HTMLButtonElement>;
   isPending: boolean;
   isCurrentUser: boolean;
 }

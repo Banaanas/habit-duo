@@ -8,11 +8,7 @@ import { roboto, robotoMono } from "@/lib/fonts";
 
 export const metadata = siteMetadata;
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: ReactNode;
-}>) {
+const RootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${roboto.variable} ${robotoMono.variable}`}>
@@ -20,4 +16,10 @@ export default function RootLayout({
       </body>
     </html>
   );
+};
+
+export default RootLayout;
+
+interface RootLayoutProps {
+  readonly children: ReactNode;
 }
