@@ -1,8 +1,11 @@
 # Habit Duo
 
-## Conventions
+## Skills
 
-Before writing code, read: `/workspace/_config/claude/skills/nextjs-react-conventions.md`
+@../../_config/claude/skills/nextjs-react/SKILL.md
+@../../_config/claude/skills/typescript/SKILL.md
+@../../_config/claude/skills/supabase/SKILL.md
+@../../_config/claude/skills/tailwind/SKILL.md
 
 ## Project Overview
 
@@ -13,7 +16,6 @@ Habit Duo is a Next.js 16 App Router application for competitive habit tracking 
 ```bash
 pnpm dev              # Start dev server on localhost:3000
 pnpm build            # Production build
-pnpm start            # Start production server
 pnpm lint             # Run ESLint
 pnpm type-check       # TypeScript type checking
 pnpm prettier-check   # Check formatting
@@ -23,8 +25,6 @@ pnpm prettier-write   # Auto-format
 ## Architecture
 
 ### Supabase Dual Client Pattern
-
-Separate clients for browser and server:
 
 - **Browser**: `@/lib/supabase/supabase-client`
 - **Server**: `@/lib/supabase/supabase-server`
@@ -36,8 +36,6 @@ Never mix them.
 - **Database types** (`@/types/database`): snake_case
 - **App types** (`@/types/database-camel-case`): camelCase
 - **Transformers** (`@/lib/supabase/transformers`): Convert between them
-
-All data from Supabase is transformed to camelCase before use.
 
 ### Query/Mutation Separation
 
