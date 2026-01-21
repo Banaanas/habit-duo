@@ -30,7 +30,11 @@ export const GoalCard = ({
     return completions.some((c) => c.completionDate === dateStr);
   };
 
-  const completedCount = completions.length;
+  // Only count completions within the week's date range to match the visual display
+  const validCompletions = completions.filter(
+    (c) => c.completionDate >= weekStartDate && c.completionDate <= weekEndDate
+  );
+  const completedCount = validCompletions.length;
   const totalDays = weekDates.filter(isPastOrToday).length;
 
   const handleDelete = async () => {
