@@ -32,7 +32,7 @@ export const siteMetadata: Metadata = {
       },
       { url: "/assets/favicons/icon.svg", type: "image/svg+xml" },
     ],
-    apple: "/assets/favicons/apple-icon.png",
+    apple: "/assets/favicons/apple-touch-icon.png",
   },
   openGraph: {
     type: "website",
