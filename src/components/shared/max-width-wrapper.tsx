@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 
+import { cn } from "@/lib/utils";
+
 export const MaxWidthWrapper = ({
   maxWidth,
   className = "",
@@ -8,7 +10,7 @@ export const MaxWidthWrapper = ({
 }: MaxWidthWrapperProps) => {
   return (
     <div
-      className={`${autoMargin ? "mx-auto" : ""} size-full ${className}`}
+      className={cn(autoMargin && "mx-auto", className)}
       style={{ maxWidth: maxWidth }}
     >
       {children}
