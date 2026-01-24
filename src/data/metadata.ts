@@ -41,9 +41,4 @@ export const siteMetadata: Metadata = {
     title: appName,
     description: appDescription,
   },
-  twitter: {
-    card: "summary_large_image",
-    title: appName,
-    description: appDescription,
-  },
 };
