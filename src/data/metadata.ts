@@ -40,19 +40,10 @@ export const siteMetadata: Metadata = {
     siteName: appName,
     title: appName,
     description: appDescription,
-    images: [
-      {
-        url: "/assets/habitduo-meta-image.png",
-        width: 1200,
-        height: 630,
-        alt: appName,
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: appName,
     description: appDescription,
-    images: ["/assets/habitduo-meta-image.png"],
   },
 };
