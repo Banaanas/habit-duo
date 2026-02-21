@@ -69,20 +69,15 @@ export async function getAllWeeks(): Promise<Week[]> {
 
 // ============= GOALS =============
 
-export async function getGoalsForWeek(
-  weekId: string,
-  userId?: string
-): Promise<Goal[]> {
+export async function getGoalsForUser(userId: string): Promise<Goal[]> {
   cacheLife("minutes");
   cacheTag(CACHE_TAGS.goals);
 
-  let query = supabase.from("goals").select("*").eq("week_id", weekId);
-
-  if (userId) {
-    query = query.eq("user_id", userId);
-  }
-
-  const { data, error } = await query.order("created_at");
+  const { data, error } = await supabase
+    .from("goals")
+    .select("*")
+    .eq("user_id", userId)
+    .order("created_at");
 
   if (error) throw error;
   return (data || []).map(transformGoal);

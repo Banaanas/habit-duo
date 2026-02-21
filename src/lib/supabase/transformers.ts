@@ -34,7 +34,6 @@ export const transformWeek = (dbWeek: DbWeek): Week => ({
 export const transformGoal = (dbGoal: DbGoal): Goal => ({
   id: dbGoal.id,
   userId: dbGoal.user_id,
-  weekId: dbGoal.week_id,
   title: dbGoal.title,
   description: dbGoal.description,
   targetDays: dbGoal.target_days,

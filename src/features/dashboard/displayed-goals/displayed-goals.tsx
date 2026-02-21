@@ -10,6 +10,7 @@ export const DisplayedGoals = ({
   weekEndDate,
   onToggle,
   onDelete,
+  onEdit,
 }: DisplayedGoalsProps) => {
   const hasGoals = displayedGoals.length > 0;
 
@@ -36,6 +37,7 @@ export const DisplayedGoals = ({
           weekEndDate={weekEndDate}
           onToggle={onToggle}
           onDelete={onDelete}
+          onEdit={onEdit}
           isViewingCurrentUser={isViewingCurrentUser}
         />
       ) : null}
@@ -52,7 +54,14 @@ interface DisplayedGoalsProps {
   weekEndDate: string;
   onToggle: (goalId: string, date: string) => Promise<void>;
   onDelete: (goalId: string) => Promise<void>;
+  onEdit: OnEditGoal;
 }
+
+type OnEditGoal = (
+  goalId: string,
+  title: string,
+  description?: string
+) => Promise<void>;
 
 const DisplayedGoalsHeader = ({
   isViewingCurrentUser,
@@ -84,6 +93,7 @@ const GoalsList = ({
   weekEndDate,
   onToggle,
   onDelete,
+  onEdit,
   isViewingCurrentUser,
 }: GoalsListProps) => {
   return (
@@ -100,6 +110,7 @@ const GoalsList = ({
             weekEndDate={weekEndDate}
             onToggle={onToggle}
             onDelete={onDelete}
+            onEdit={onEdit}
             isCurrentUser={isViewingCurrentUser}
           />
         );
@@ -115,6 +126,7 @@ interface GoalsListProps {
   weekEndDate: string;
   onToggle: (goalId: string, date: string) => Promise<void>;
   onDelete: (goalId: string) => Promise<void>;
+  onEdit: OnEditGoal;
   isViewingCurrentUser: boolean;
 }
 

@@ -22,7 +22,6 @@ export type Week = {
 export type Goal = {
   id: string;
   userId: string;
-  weekId: string;
   title: string;
   description: string | null;
   targetDays: number;

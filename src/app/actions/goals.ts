@@ -8,21 +8,36 @@ import {
   createGoal,
   deleteGoal,
   toggleCompletion,
+  updateGoal,
 } from "@/lib/supabase/queries/queries";
 
 export const createGoalAction = async (
   userId: string,
-  weekId: string,
   title: string,
   description?: string,
   targetDays: number = appLimits.maxDaysPerGoal
 ) => {
   try {
-    await createGoal(userId, weekId, title, description, targetDays);
+    await createGoal(userId, title, description, targetDays);
     revalidateTag(CACHE_TAGS.goals, "max");
     revalidatePath(appNavLinks.home.href, "page");
   } catch (error) {
     console.error("Failed to create goal:", error);
+    throw error;
+  }
+};
+
+export const updateGoalAction = async (
+  goalId: string,
+  title: string,
+  description?: string
+) => {
+  try {
+    await updateGoal(goalId, title, description);
+    revalidateTag(CACHE_TAGS.goals, "max");
+    revalidatePath(appNavLinks.home.href, "page");
+  } catch (error) {
+    console.error("Failed to update goal:", error);
     throw error;
   }
 };

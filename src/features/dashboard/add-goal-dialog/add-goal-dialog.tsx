@@ -20,7 +20,6 @@ export const AddGoalDialog = ({
   open,
   onOpenChange,
   userId,
-  weekId,
 }: AddGoalDialogProps) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -36,7 +35,6 @@ export const AddGoalDialog = ({
       setIsSubmitting(true);
       await createGoalAction(
         userId,
-        weekId,
         title.trim(),
         description.trim() || undefined
       );
@@ -61,8 +59,8 @@ export const AddGoalDialog = ({
           <DialogHeader>
             <DialogTitle>Add New Goal</DialogTitle>
             <DialogDescription className="text-left text-pretty">
-              Create a new daily habit goal for this week. You can track up to{" "}
-              {maxGoalsNumber} goals per week. All goals are daily commitments.
+              Create a new daily habit goal. You can track up to{" "}
+              {maxGoalsNumber} goals at a time. All goals are daily commitments.
             </DialogDescription>
           </DialogHeader>
 
@@ -116,5 +114,4 @@ interface AddGoalDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   userId: string;
-  weekId: string;
 }

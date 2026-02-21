@@ -3,7 +3,7 @@ import { Scoreboard } from "@/features/dashboard/scoreboard/scoreboard";
 import {
   getCompletionsForGoals,
   getCurrentWeek,
-  getGoalsForWeek,
+  getGoalsForUser,
   getUsers,
 } from "@/lib/supabase/queries/queries";
 import { Completion, Goal, Week } from "@/types/database-camel-case";
@@ -55,7 +55,11 @@ const getScoreboardData = async () => {
   if (!currentWeek) return null;
   if (!currentUser || !friendUser) return null;
 
-  const goals = await getGoalsForWeek(currentWeek.id);
+  const [currentUserGoals, friendUserGoals] = await Promise.all([
+    getGoalsForUser(currentUser.id),
+    getGoalsForUser(friendUser.id),
+  ]);
+  const goals = [...currentUserGoals, ...friendUserGoals];
   const goalIds = goals.map((g) => g.id);
   const completions =
     goalIds.length > 0 ? await getCompletionsForGoals(goalIds) : [];

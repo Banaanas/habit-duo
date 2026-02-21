@@ -3,7 +3,7 @@ export {
   getUsers,
   getWeekById,
   getAllWeeks,
-  getGoalsForWeek,
+  getGoalsForUser,
   getCompletionsForGoal,
   getCompletionsForGoals,
   getWeeklyScores,
@@ -15,6 +15,7 @@ export { getCurrentWeek } from "@/lib/supabase/queries/queries-weeks";
 // Re-export mutations (not cached)
 export {
   createGoal,
+  updateGoal,
   deleteGoal,
   toggleCompletion,
 } from "@/lib/supabase/queries/queries-mutations";

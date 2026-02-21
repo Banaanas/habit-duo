@@ -9,7 +9,6 @@ import type { Goal } from "@/types/database-camel-case";
 
 export const createGoal = async (
   userId: string,
-  weekId: string,
   title: string,
   description?: string,
   targetDays: number = appLimits.maxDaysPerGoal
@@ -20,11 +19,28 @@ export const createGoal = async (
     .from("goals")
     .insert({
       user_id: userId,
-      week_id: weekId,
       title,
       description,
       target_days: targetDays,
     })
+    .select()
+    .single();
+
+  if (error) throw error;
+  return transformGoal(data);
+};
+
+export const updateGoal = async (
+  goalId: string,
+  title: string,
+  description?: string
+): Promise<Goal> => {
+  const supabase = await createSupabaseServerClient();
+
+  const { data, error } = await supabase
+    .from("goals")
+    .update({ title, description })
+    .eq("id", goalId)
     .select()
     .single();
 

@@ -41,7 +41,7 @@ export const Dashboard = async ({ searchParams }: DashboardProps) => {
       <ScoreboardWrapper />
       <DisplayedGoalsWrapper selectedUserId={selectedUserId} />
       <AddGoalButtonWrapper selectedUserId={selectedUserId} />
-      <AddGoalDialogWrapper userId={currentUser.id} weekId={currentWeek.id} />
+      <AddGoalDialogWrapper userId={currentUser.id} />
     </div>
   );
 };

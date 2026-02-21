@@ -68,7 +68,6 @@ describe("transformGoal", () => {
     const dbGoal: DbGoal = {
       id: "goal-123",
       user_id: "user-456",
-      week_id: "week-789",
       title: "Exercise daily",
       description: "30 minutes of cardio",
       target_days: 5,
@@ -80,7 +79,6 @@ describe("transformGoal", () => {
     expect(result).toEqual({
       id: "goal-123",
       userId: "user-456",
-      weekId: "week-789",
       title: "Exercise daily",
       description: "30 minutes of cardio",
       targetDays: 5,

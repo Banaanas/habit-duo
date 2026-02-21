@@ -22,7 +22,6 @@ export type DbWeek = {
 export type DbGoal = {
   id: string;
   user_id: string;
-  week_id: string;
   title: string;
   description: string | null;
   target_days: number;

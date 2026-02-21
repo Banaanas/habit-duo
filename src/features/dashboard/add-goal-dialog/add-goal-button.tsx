@@ -13,11 +13,11 @@ export const AddGoalButton = ({ goalCount }: AddGoalButtonProps) => {
     parseAsBoolean.withDefault(false)
   );
 
-  const isMaxGoalsReached = goalCount >= appLimits.maxGoalsPerWeek;
+  const isMaxGoalsReached = goalCount >= appLimits.maxGoals;
 
   const buttonText = isMaxGoalsReached
-    ? `Max Goals Reached (${goalCount}/${appLimits.maxGoalsPerWeek})`
-    : `Add Goal (${goalCount}/${appLimits.maxGoalsPerWeek})`;
+    ? `Max Goals Reached (${goalCount}/${appLimits.maxGoals})`
+    : `Add Goal (${goalCount}/${appLimits.maxGoals})`;
 
   return (
     <Button

@@ -1,10 +1,14 @@
 import { getUser } from "@/actions/auth";
-import { deleteGoalAction, toggleCompletionAction } from "@/actions/goals";
+import {
+  deleteGoalAction,
+  toggleCompletionAction,
+  updateGoalAction,
+} from "@/actions/goals";
 import { DisplayedGoals } from "@/features/dashboard/displayed-goals/displayed-goals";
 import {
   getCompletionsForGoals,
   getCurrentWeek,
-  getGoalsForWeek,
+  getGoalsForUser,
   getUsers,
 } from "@/lib/supabase/queries/queries";
 
@@ -18,15 +22,11 @@ export const DisplayedGoalsWrapper = async ({
   const targetUserId = selectedUserId || currentUser?.id;
   const selectedUser = users.find((u) => u.id === targetUserId);
 
-  if (!currentUser || !selectedUser || !currentWeek) {
+  if (!currentUser || !selectedUser || !currentWeek || !targetUserId) {
     return null;
   }
 
-  // Fetch all goals for the week
-  const allGoals = await getGoalsForWeek(currentWeek.id);
-
-  // Filter goals for selected user
-  const displayedGoals = allGoals.filter((g) => g.userId === targetUserId);
+  const displayedGoals = await getGoalsForUser(targetUserId);
 
   // Fetch completions for displayed goals
   const goalIds = displayedGoals.map((g) => g.id);
@@ -44,6 +44,7 @@ export const DisplayedGoalsWrapper = async ({
       weekEndDate={currentWeek.endDate}
       onToggle={toggleCompletionAction}
       onDelete={deleteGoalAction}
+      onEdit={updateGoalAction}
     />
   );
 };

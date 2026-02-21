@@ -1,24 +1,19 @@
 import { getUser } from "@/actions/auth";
 import { AddGoalButton } from "@/features/dashboard/add-goal-dialog/add-goal-button";
-import {
-  getCurrentWeek,
-  getGoalsForWeek,
-} from "@/lib/supabase/queries/queries";
+import { getGoalsForUser } from "@/lib/supabase/queries/queries";
 
 export const AddGoalButtonWrapper = async ({
   selectedUserId,
 }: AddGoalButtonWrapperProps) => {
   const currentUser = await getUser();
-  const currentWeek = await getCurrentWeek();
-  if (!currentUser || !currentWeek) return null;
+  if (!currentUser) return null;
 
   const isCurrentUser = selectedUserId === currentUser.id;
   if (!isCurrentUser) return null;
 
-  const allGoals = await getGoalsForWeek(currentWeek.id);
-  const userGoalsThisWeek = allGoals.filter((g) => g.userId === selectedUserId);
+  const userGoals = await getGoalsForUser(selectedUserId);
 
-  return <AddGoalButton goalCount={userGoalsThisWeek.length} />;
+  return <AddGoalButton goalCount={userGoals.length} />;
 };
 
 interface AddGoalButtonWrapperProps {

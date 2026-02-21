@@ -6,10 +6,7 @@ import { parseAsBoolean, useQueryState } from "nuqs";
 import { AddGoalDialog } from "@/features/dashboard/add-goal-dialog/add-goal-dialog";
 import { QUERY_PARAMS } from "@/lib/query-params";
 
-export const AddGoalDialogWrapper = ({
-  userId,
-  weekId,
-}: AddGoalDialogWrapperProps) => {
+export const AddGoalDialogWrapper = ({ userId }: AddGoalDialogWrapperProps) => {
   const router = useRouter();
   const [showAddGoal, setShowAddGoal] = useQueryState(
     QUERY_PARAMS.addGoal,
@@ -28,12 +25,10 @@ export const AddGoalDialogWrapper = ({
       open={showAddGoal ?? false}
       onOpenChange={handleOpenChange}
       userId={userId}
-      weekId={weekId}
     />
   );
 };
 
 interface AddGoalDialogWrapperProps {
   userId: string;
-  weekId: string;
 }
