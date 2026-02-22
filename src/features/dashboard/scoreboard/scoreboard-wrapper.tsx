@@ -38,6 +38,8 @@ export const ScoreboardWrapper = async () => {
         friendUser={friendUser}
         currentScore={currentScore}
         friendScore={friendScore}
+        goals={goals}
+        completions={completions}
       />
     </div>
   );
