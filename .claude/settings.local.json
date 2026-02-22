@@ -1,34 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "Bash(find:*)",
       "Bash(mkdir:*)",
-      "Bash(pnpm install:*)",
       "Bash(npx shadcn@latest add:*)",
-      "Bash(pnpm add:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git mv:*)",
-      "Bash(tree:*)",
       "Bash(git rm:*)",
-      "Bash(convert:*)",
-      "Bash(ls:*)",
-      "WebSearch",
-      "WebFetch(domain:supabase.com)",
-      "Bash(pnpm build:*)",
-      "Bash(pnpm type-check:*)",
-      "Bash(git checkout:*)",
-      "Bash(git merge:*)",
-      "Bash(git push:*)",
-      "Bash(git stash:*)",
-      "Bash(test:*)",
-      "Bash(pnpm run prettier-check:*)",
-      "Bash(pnpm run type-check:*)",
-      "Bash(pnpm run prettier-write:*)",
-      "Bash(pnpm run lint:*)",
-      "Bash(pnpm run build:*)",
       "Bash(git revert:*)",
-      "Bash(pnpm test:*)"
+      "Bash(git merge:*)",
+      "Bash(convert:*)",
+      "Bash(test:*)",
+      "WebFetch(domain:supabase.com)"
     ]
   }
 }
