@@ -5,8 +5,9 @@ import "../styles/globals.css";
 import { BaseLayout } from "@/components/layout/base-layout";
 import { siteMetadata } from "@/data/metadata";
 import { roboto, robotoMono } from "@/lib/fonts";
+import { Metadata } from "next";
 
-export const metadata = siteMetadata;
+export const metadata: Metadata = siteMetadata;
 
 const RootLayout = ({ children }: RootLayoutProps) => {
   return (
