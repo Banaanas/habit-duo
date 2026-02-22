@@ -81,11 +81,7 @@ interface HeatmapTriggerProps {
 }
 
 const StreakLabel = ({ streak }: StreakLabelProps) =>
-  streak > 0 ? (
-    <span>🔥 {streak} day streak</span>
-  ) : (
-    <span>Activity</span>
-  );
+  streak > 0 ? <span>🔥 {streak} day streak</span> : <span>Activity</span>;
 
 interface StreakLabelProps {
   streak: number;

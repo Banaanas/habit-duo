@@ -3,6 +3,17 @@ import { eachDayOfInterval, startOfWeek, subDays, subWeeks } from "date-fns";
 import { Completion, Goal } from "@/types/database-camel-case";
 import { formatDateToISO, parseLocalDate } from "@/utils/date";
 
+export interface HeatmapGoal {
+  id: string;
+  title: string;
+}
+
+export interface HeatmapDay {
+  date: string;
+  completedGoals: HeatmapGoal[];
+  totalGoals: number;
+}
+
 export const buildHeatmapData = (
   goals: Goal[],
   completions: Completion[],
@@ -20,17 +31,6 @@ export const buildHeatmapData = (
     mapDateToHeatmapDay(date, completionsByDate, goalById, goals.length)
   );
 };
-
-export interface HeatmapGoal {
-  id: string;
-  title: string;
-}
-
-export interface HeatmapDay {
-  date: string;
-  completedGoals: HeatmapGoal[];
-  totalGoals: number;
-}
 
 export const calculateCurrentStreak = (completionDates: string[]): number => {
   if (completionDates.length === 0) return 0;
