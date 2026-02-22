@@ -3,30 +3,24 @@ import { eachDayOfInterval, startOfWeek, subDays, subWeeks } from "date-fns";
 import { Completion, Goal } from "@/types/database-camel-case";
 import { formatDateToISO, parseLocalDate } from "@/utils/date";
 
-export type HeatmapDay = {
+export interface HeatmapDay {
   date: string;
   completedGoals: { id: string; title: string }[];
   totalGoals: number;
-};
+}
 
-export function buildHeatmapData(
+export const buildHeatmapData = (
   goals: Goal[],
   completions: Completion[],
   weeks = 12
-): HeatmapDay[] {
+): HeatmapDay[] => {
   const today = new Date();
   const startDate = startOfWeek(subWeeks(today, weeks - 1), {
     weekStartsOn: 1,
   });
 
   const goalById = new Map(goals.map((g) => [g.id, g]));
-
-  const completionsByDate = new Map<string, Completion[]>();
-  for (const c of completions) {
-    const list = completionsByDate.get(c.completionDate) ?? [];
-    list.push(c);
-    completionsByDate.set(c.completionDate, list);
-  }
+  const completionsByDate = groupCompletionsByDate(completions);
 
   return eachDayOfInterval({ start: startDate, end: today }).map((date) => {
     const dateStr = formatDateToISO(date);
@@ -36,33 +30,20 @@ export function buildHeatmapData(
       .filter((g): g is Goal => g !== undefined)
       .map((g) => ({ id: g.id, title: g.title }));
 
-    return {
-      date: dateStr,
-      completedGoals,
-      totalGoals: goals.length,
-    };
+    return { date: dateStr, completedGoals, totalGoals: goals.length };
   });
-}
+};
 
-export function calculateCurrentStreak(completionDates: string[]): number {
+export const calculateCurrentStreak = (completionDates: string[]): number => {
   if (completionDates.length === 0) return 0;
 
   const dateSet = new Set(completionDates);
-  const today = new Date();
-  const todayStr = formatDateToISO(today);
-  const yesterdayStr = formatDateToISO(subDays(today, 1));
+  const startDate = findStreakStartDate(dateSet);
 
-  let startStr: string;
-  if (dateSet.has(todayStr)) {
-    startStr = todayStr;
-  } else if (dateSet.has(yesterdayStr)) {
-    startStr = yesterdayStr;
-  } else {
-    return 0;
-  }
+  if (startDate === null) return 0;
 
   let streak = 0;
-  let current = parseLocalDate(startStr);
+  let current = parseLocalDate(startDate);
 
   while (dateSet.has(formatDateToISO(current))) {
     streak++;
@@ -70,4 +51,28 @@ export function calculateCurrentStreak(completionDates: string[]): number {
   }
 
   return streak;
-}
+};
+
+const groupCompletionsByDate = (
+  completions: Completion[]
+): Map<string, Completion[]> => {
+  const map = new Map<string, Completion[]>();
+
+  for (const c of completions) {
+    const list = map.get(c.completionDate) ?? [];
+    list.push(c);
+    map.set(c.completionDate, list);
+  }
+
+  return map;
+};
+
+const findStreakStartDate = (dateSet: Set<string>): string | null => {
+  const todayStr = formatDateToISO(new Date());
+  const yesterdayStr = formatDateToISO(subDays(new Date(), 1));
+
+  if (dateSet.has(todayStr)) return todayStr;
+  if (dateSet.has(yesterdayStr)) return yesterdayStr;
+
+  return null;
+};
