@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { ReactNode } from "react";
 
 import "../styles/globals.css";
@@ -5,7 +6,6 @@ import "../styles/globals.css";
 import { BaseLayout } from "@/components/layout/base-layout";
 import { siteMetadata } from "@/data/metadata";
 import { roboto, robotoMono } from "@/lib/fonts";
-import { Metadata } from "next";
 
 export const metadata: Metadata = siteMetadata;
 
