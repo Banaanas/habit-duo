@@ -18,6 +18,7 @@ import { Completion, Goal } from "@/types/database-camel-case";
 import { parseLocalDate } from "@/utils/date";
 import {
   HeatmapDay,
+  HeatmapGoal,
   buildHeatmapData,
   calculateCurrentStreak,
 } from "@/utils/streak";
@@ -121,30 +122,27 @@ interface HeatmapGridProps {
 }
 
 const HeatmapCell = ({ day, variant }: HeatmapCellProps) => {
-  const colorClass = getColorClass(
-    day.completedGoals.length,
-    day.totalGoals,
-    variant
-  );
-  const formattedDate = format(parseLocalDate(day.date), "EEE, MMM d");
+  const { completedGoals, totalGoals, date } = day;
+  const colorClass = getColorClass(completedGoals.length, totalGoals, variant);
+  const formattedDate = format(parseLocalDate(date), "EEE, MMM d");
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <div
           className={`size-2 rounded-sm md:size-2.5 ${colorClass}`}
-          aria-label={`${formattedDate}: ${day.completedGoals.length} goal${day.completedGoals.length !== 1 ? "s" : ""} completed`}
+          aria-label={`${formattedDate}: ${completedGoals.length} goal${completedGoals.length !== 1 ? "s" : ""} completed`}
           tabIndex={0}
         />
       </TooltipTrigger>
       <TooltipContent>
         <div className="space-y-1">
           <div className="font-medium">{formattedDate}</div>
-          {day.completedGoals.length === 0 ? (
+          {completedGoals.length === 0 ? (
             <div>No completions</div>
           ) : (
             <ul className="space-y-0.5">
-              {day.completedGoals.map((g) => (
+              {completedGoals.map((g: HeatmapGoal) => (
                 <li key={g.id}>• {g.title}</li>
               ))}
             </ul>

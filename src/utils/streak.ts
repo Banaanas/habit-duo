@@ -3,9 +3,14 @@ import { eachDayOfInterval, startOfWeek, subDays, subWeeks } from "date-fns";
 import { Completion, Goal } from "@/types/database-camel-case";
 import { formatDateToISO, parseLocalDate } from "@/utils/date";
 
+export interface HeatmapGoal {
+  id: string;
+  title: string;
+}
+
 export interface HeatmapDay {
   date: string;
-  completedGoals: { id: string; title: string }[];
+  completedGoals: HeatmapGoal[];
   totalGoals: number;
 }
 
