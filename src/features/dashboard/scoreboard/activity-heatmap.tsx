@@ -36,11 +36,7 @@ export const ActivityHeatmap = ({
     ...new Set(completions.map((c) => c.completionDate)),
   ];
   const streak = calculateCurrentStreak(uniqueCompletionDates);
-
-  const padded: (HeatmapDay | null)[] = [...heatmapData];
-  while (padded.length % 7 !== 0) {
-    padded.push(null);
-  }
+  const padded = padToGrid(heatmapData);
 
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
@@ -68,23 +64,30 @@ interface ActivityHeatmapProps {
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-const HeatmapTrigger = ({ open, streak }: HeatmapTriggerProps) => (
-  <CollapsibleTrigger className="text-muted-foreground hover:text-foreground flex cursor-pointer items-center gap-1 text-xs font-medium transition-colors">
-    {streak > 0 ? (
-      <span>🔥 {streak} day streak</span>
-    ) : (
-      <span>Activity</span>
-    )}
-    {open ? (
-      <ChevronUpIcon className="h-3 w-3" />
-    ) : (
-      <ChevronDownIcon className="h-3 w-3" />
-    )}
-  </CollapsibleTrigger>
-);
+const HeatmapTrigger = ({ open, streak }: HeatmapTriggerProps) => {
+  const ChevronIcon = open ? ChevronUpIcon : ChevronDownIcon;
+
+  return (
+    <CollapsibleTrigger className="text-muted-foreground hover:text-foreground flex cursor-pointer items-center gap-1 text-xs font-medium transition-colors">
+      <StreakLabel streak={streak} />
+      <ChevronIcon className="h-3 w-3" />
+    </CollapsibleTrigger>
+  );
+};
 
 interface HeatmapTriggerProps {
   open: boolean;
+  streak: number;
+}
+
+const StreakLabel = ({ streak }: StreakLabelProps) =>
+  streak > 0 ? (
+    <span>🔥 {streak} day streak</span>
+  ) : (
+    <span>Activity</span>
+  );
+
+interface StreakLabelProps {
   streak: number;
 }
 
@@ -141,11 +144,7 @@ const HeatmapCell = ({ day, variant }: HeatmapCellProps) => {
           {completedGoals.length === 0 ? (
             <div>No completions</div>
           ) : (
-            <ul className="space-y-0.5">
-              {completedGoals.map((g: HeatmapGoal) => (
-                <li key={g.id}>• {g.title}</li>
-              ))}
-            </ul>
+            <CompletedGoalsList goals={completedGoals} />
           )}
         </div>
       </TooltipContent>
@@ -156,6 +155,18 @@ const HeatmapCell = ({ day, variant }: HeatmapCellProps) => {
 interface HeatmapCellProps {
   day: HeatmapDay;
   variant: "primary" | "accent";
+}
+
+const CompletedGoalsList = ({ goals }: CompletedGoalsListProps) => (
+  <ul className="space-y-0.5">
+    {goals.map((g) => (
+      <li key={g.id}>• {g.title}</li>
+    ))}
+  </ul>
+);
+
+interface CompletedGoalsListProps {
+  goals: HeatmapGoal[];
 }
 
 const HeatmapLegend = ({ variant }: HeatmapLegendProps) => (
@@ -191,4 +202,12 @@ const getColorClass = (
     return variant === "primary" ? "bg-primary" : "bg-accent";
   }
   return variant === "primary" ? "bg-primary/40" : "bg-accent/40";
+};
+
+const padToGrid = (days: HeatmapDay[]): (HeatmapDay | null)[] => {
+  const padded: (HeatmapDay | null)[] = [...days];
+  while (padded.length % 7 !== 0) {
+    padded.push(null);
+  }
+  return padded;
 };

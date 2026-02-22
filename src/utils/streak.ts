@@ -3,17 +3,6 @@ import { eachDayOfInterval, startOfWeek, subDays, subWeeks } from "date-fns";
 import { Completion, Goal } from "@/types/database-camel-case";
 import { formatDateToISO, parseLocalDate } from "@/utils/date";
 
-export interface HeatmapGoal {
-  id: string;
-  title: string;
-}
-
-export interface HeatmapDay {
-  date: string;
-  completedGoals: HeatmapGoal[];
-  totalGoals: number;
-}
-
 export const buildHeatmapData = (
   goals: Goal[],
   completions: Completion[],
@@ -27,17 +16,21 @@ export const buildHeatmapData = (
   const goalById = new Map(goals.map((g) => [g.id, g]));
   const completionsByDate = groupCompletionsByDate(completions);
 
-  return eachDayOfInterval({ start: startDate, end: today }).map((date) => {
-    const dateStr = formatDateToISO(date);
-    const dayCmps = completionsByDate.get(dateStr) ?? [];
-    const completedGoals = dayCmps
-      .map((c) => goalById.get(c.goalId))
-      .filter((g): g is Goal => g !== undefined)
-      .map((g) => ({ id: g.id, title: g.title }));
-
-    return { date: dateStr, completedGoals, totalGoals: goals.length };
-  });
+  return eachDayOfInterval({ start: startDate, end: today }).map((date) =>
+    mapDateToHeatmapDay(date, completionsByDate, goalById, goals.length)
+  );
 };
+
+export interface HeatmapGoal {
+  id: string;
+  title: string;
+}
+
+export interface HeatmapDay {
+  date: string;
+  completedGoals: HeatmapGoal[];
+  totalGoals: number;
+}
 
 export const calculateCurrentStreak = (completionDates: string[]): number => {
   if (completionDates.length === 0) return 0;
@@ -70,6 +63,35 @@ const groupCompletionsByDate = (
   }
 
   return map;
+};
+
+const mapDateToHeatmapDay = (
+  date: Date,
+  completionsByDate: Map<string, Completion[]>,
+  goalById: Map<string, Goal>,
+  totalGoals: number
+): HeatmapDay => {
+  const dateStr = formatDateToISO(date);
+  const completedGoals = getCompletedGoalsForDate(
+    dateStr,
+    completionsByDate,
+    goalById
+  );
+
+  return { date: dateStr, completedGoals, totalGoals };
+};
+
+const getCompletedGoalsForDate = (
+  dateStr: string,
+  completionsByDate: Map<string, Completion[]>,
+  goalById: Map<string, Goal>
+): HeatmapGoal[] => {
+  const dayCmps = completionsByDate.get(dateStr) ?? [];
+
+  return dayCmps
+    .map((c) => goalById.get(c.goalId))
+    .filter((g): g is Goal => g !== undefined)
+    .map((g) => ({ id: g.id, title: g.title }));
 };
 
 const findStreakStartDate = (dateSet: Set<string>): string | null => {
