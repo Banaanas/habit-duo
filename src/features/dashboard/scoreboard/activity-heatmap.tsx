@@ -43,8 +43,8 @@ export const ActivityHeatmap = ({
       <HeatmapTrigger open={open} streak={streak} />
 
       <CollapsibleContent>
-        <div className="flex flex-col items-center gap-2 pt-2">
-          <div className="flex gap-1">
+        <div className="flex flex-col items-center gap-y-2 pt-2">
+          <div className="flex gap-x-1">
             <DayAxisLabels />
             <HeatmapGrid padded={padded} variant={variant} />
           </div>
@@ -68,9 +68,9 @@ const HeatmapTrigger = ({ open, streak }: HeatmapTriggerProps) => {
   const ChevronIcon = open ? ChevronUpIcon : ChevronDownIcon;
 
   return (
-    <CollapsibleTrigger className="text-muted-foreground hover:text-foreground flex cursor-pointer items-center gap-1 text-xs font-medium transition-colors">
+    <CollapsibleTrigger className="text-muted-foreground hover:text-foreground flex cursor-pointer items-center gap-x-1 text-xs font-medium transition-colors">
       <StreakLabel streak={streak} />
-      <ChevronIcon className="h-3 w-3" />
+      <ChevronIcon className="size-3" />
     </CollapsibleTrigger>
   );
 };
@@ -135,7 +135,7 @@ const HeatmapCell = ({ day, variant }: HeatmapCellProps) => {
         />
       </TooltipTrigger>
       <TooltipContent>
-        <div className="space-y-1">
+        <div className="flex flex-col gap-y-1">
           <div className="font-medium">{formattedDate}</div>
           {completedGoals.length === 0 ? (
             <div>No completions</div>
@@ -154,7 +154,7 @@ interface HeatmapCellProps {
 }
 
 const CompletedGoalsList = ({ goals }: CompletedGoalsListProps) => (
-  <ul className="space-y-0.5">
+  <ul className="flex flex-col gap-y-0.5">
     {goals.map((g) => (
       <li key={g.id}>• {g.title}</li>
     ))}
@@ -166,7 +166,7 @@ interface CompletedGoalsListProps {
 }
 
 const HeatmapLegend = ({ variant }: HeatmapLegendProps) => (
-  <div className="text-muted-foreground flex items-center gap-1 text-[10px]">
+  <div className="text-muted-foreground flex items-center gap-x-1 text-[10px]">
     <span>Less</span>
     <div className="bg-muted size-2 rounded-sm" />
     <div
