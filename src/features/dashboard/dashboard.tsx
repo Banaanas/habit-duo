@@ -33,10 +33,7 @@ export const Dashboard = async ({ searchParams }: DashboardProps) => {
 
   const selectedUserId = params[QUERY_PARAMS.selectedUserId] || currentUser.id;
 
-  const rawOffset = parseInt(params[QUERY_PARAMS.weekOffset] ?? "0", 10);
-  const weekOffset = isNaN(rawOffset)
-    ? 0
-    : Math.max(-appLimits.pastWeeksLimit, Math.min(0, rawOffset));
+  const weekOffset = parseWeekOffset(params[QUERY_PARAMS.weekOffset]);
 
   const displayedWeek = getOffsetWeekDates(
     currentWeek.startDate,
@@ -64,6 +61,14 @@ export const Dashboard = async ({ searchParams }: DashboardProps) => {
       <AddGoalDialogWrapper userId={currentUser.id} />
     </div>
   );
+};
+
+const parseWeekOffset = (raw: string | undefined): number => {
+  const parsed = parseInt(raw ?? "0", 10);
+
+  if (isNaN(parsed)) return 0;
+
+  return Math.max(-appLimits.pastWeeksLimit, Math.min(0, parsed));
 };
 
 interface DashboardProps {
