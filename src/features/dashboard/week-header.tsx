@@ -10,11 +10,11 @@ import { appLimits } from "@/data/app-data";
 import { QUERY_PARAMS } from "@/lib/query-params";
 import { parseLocalDate } from "@/utils/date";
 
-export const CurrentWeekHeader = ({
+export const WeekHeader = ({
   weekStartDate,
   weekEndDate,
   weekOffset,
-}: CurrentWeekHeaderProps) => {
+}: WeekHeaderProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -28,14 +28,7 @@ export const CurrentWeekHeader = ({
   const canGoForward = weekOffset < 0;
 
   const navigate = (newOffset: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (newOffset === 0) {
-      params.delete(QUERY_PARAMS.weekOffset);
-    } else {
-      params.set(QUERY_PARAMS.weekOffset, String(newOffset));
-    }
-    const query = params.toString();
-    router.push(query ? `?${query}` : "/");
+    router.push(buildWeekUrl(searchParams.toString(), newOffset));
   };
 
   return (
@@ -82,8 +75,23 @@ export const CurrentWeekHeader = ({
   );
 };
 
-interface CurrentWeekHeaderProps {
+interface WeekHeaderProps {
   weekStartDate: string;
   weekEndDate: string;
   weekOffset: number;
 }
+
+const buildWeekUrl = (currentSearch: string, newOffset: number): string => {
+  const params = new URLSearchParams(currentSearch);
+
+  // Back to current week - remove offset param
+  if (newOffset === 0) {
+    params.delete(QUERY_PARAMS.weekOffset);
+    const query = params.toString();
+    return query ? `?${query}` : "/";
+  }
+
+  // Navigate to offset week
+  params.set(QUERY_PARAMS.weekOffset, String(newOffset));
+  return `?${params.toString()}`;
+};

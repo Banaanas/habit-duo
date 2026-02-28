@@ -4,7 +4,7 @@ import { getUser } from "@/actions/auth";
 import { appLimits, appNavLinks } from "@/data/app-data";
 import { AddGoalButtonWrapper } from "@/features/dashboard/add-goal-dialog/add-goal-button-wrapper";
 import { AddGoalDialogWrapper } from "@/features/dashboard/add-goal-dialog/add-goal-dialog-wrapper";
-import { CurrentWeekHeader } from "@/features/dashboard/current-week-header";
+import { WeekHeader } from "@/features/dashboard/week-header";
 import { DisplayedGoalsWrapper } from "@/features/dashboard/displayed-goals/displayed-goals-wrapper";
 import { ScoreboardWrapper } from "@/features/dashboard/scoreboard/scoreboard-wrapper";
 import { QUERY_PARAMS } from "@/lib/query-params";
@@ -49,7 +49,7 @@ export const Dashboard = async ({ searchParams }: DashboardProps) => {
       className="flex w-full flex-col gap-y-6"
       style={{ maxWidth: dashboardMaxWidth }}
     >
-      <CurrentWeekHeader
+      <WeekHeader
         weekStartDate={displayedWeek.startDate}
         weekEndDate={displayedWeek.endDate}
         weekOffset={weekOffset}
