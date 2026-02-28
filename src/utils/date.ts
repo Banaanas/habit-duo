@@ -1,4 +1,5 @@
 import {
+  addWeeks,
   eachDayOfInterval,
   format,
   isAfter,
@@ -53,4 +54,17 @@ export const isFutureDate = (date: Date): boolean => {
   const today = startOfDay(new Date());
   const compareDate = startOfDay(date);
   return isAfter(compareDate, today);
+};
+
+export const getOffsetWeekDates = (
+  startDate: string,
+  endDate: string,
+  offset: number
+): { startDate: string; endDate: string } => {
+  const start = addWeeks(parseLocalDate(startDate), offset);
+  const end = addWeeks(parseLocalDate(endDate), offset);
+  return {
+    startDate: formatDateToISO(start),
+    endDate: formatDateToISO(end),
+  };
 };

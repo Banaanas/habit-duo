@@ -1,15 +1,16 @@
 import { redirect } from "next/navigation";
 
 import { getUser } from "@/actions/auth";
-import { appNavLinks } from "@/data/app-data";
+import { appLimits, appNavLinks } from "@/data/app-data";
 import { AddGoalButtonWrapper } from "@/features/dashboard/add-goal-dialog/add-goal-button-wrapper";
 import { AddGoalDialogWrapper } from "@/features/dashboard/add-goal-dialog/add-goal-dialog-wrapper";
-import { CurrentWeekHeader } from "@/features/dashboard/current-week-header";
 import { DisplayedGoalsWrapper } from "@/features/dashboard/displayed-goals/displayed-goals-wrapper";
 import { ScoreboardWrapper } from "@/features/dashboard/scoreboard/scoreboard-wrapper";
+import { WeekHeader } from "@/features/dashboard/week-header";
 import { QUERY_PARAMS } from "@/lib/query-params";
 import { getCurrentWeek } from "@/lib/supabase/queries/queries";
 import { dashboardMaxWidth } from "@/styles/common-style";
+import { getOffsetWeekDates } from "@/utils/date";
 
 /**
  * Main Dashboard component that fetches and displays user habit tracking data.
@@ -32,14 +33,30 @@ export const Dashboard = async ({ searchParams }: DashboardProps) => {
 
   const selectedUserId = params[QUERY_PARAMS.selectedUserId] || currentUser.id;
 
+  const weekOffset = parseWeekOffset(params[QUERY_PARAMS.weekOffset]);
+
+  const displayedWeek = getOffsetWeekDates(
+    currentWeek.startDate,
+    currentWeek.endDate,
+    weekOffset
+  );
+
   return (
     <div
       className="flex w-full flex-col gap-y-6"
       style={{ maxWidth: dashboardMaxWidth }}
     >
-      <CurrentWeekHeader />
+      <WeekHeader
+        weekStartDate={displayedWeek.startDate}
+        weekEndDate={displayedWeek.endDate}
+        weekOffset={weekOffset}
+      />
       <ScoreboardWrapper />
-      <DisplayedGoalsWrapper selectedUserId={selectedUserId} />
+      <DisplayedGoalsWrapper
+        selectedUserId={selectedUserId}
+        weekStartDate={displayedWeek.startDate}
+        weekEndDate={displayedWeek.endDate}
+      />
       <AddGoalButtonWrapper selectedUserId={selectedUserId} />
       <AddGoalDialogWrapper userId={currentUser.id} />
     </div>
@@ -47,5 +64,18 @@ export const Dashboard = async ({ searchParams }: DashboardProps) => {
 };
 
 interface DashboardProps {
-  searchParams: Promise<{ [QUERY_PARAMS.selectedUserId]?: string }>;
+  searchParams: Promise<DashboardSearchParams>;
 }
+
+interface DashboardSearchParams {
+  [QUERY_PARAMS.selectedUserId]?: string;
+  [QUERY_PARAMS.weekOffset]?: string;
+}
+
+const parseWeekOffset = (raw: string | undefined): number => {
+  const parsed = parseInt(raw ?? "0", 10);
+
+  if (isNaN(parsed)) return 0;
+
+  return Math.max(-appLimits.pastWeeksLimit, Math.min(0, parsed));
+};
