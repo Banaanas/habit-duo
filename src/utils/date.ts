@@ -59,7 +59,7 @@ export const isFutureDate = (date: Date): boolean => {
 export const getOffsetWeekDates = (
   startDate: string,
   endDate: string,
-  offset: number,
+  offset: number
 ): { startDate: string; endDate: string } => {
   const start = addWeeks(parseLocalDate(startDate), offset);
   const end = addWeeks(parseLocalDate(endDate), offset);

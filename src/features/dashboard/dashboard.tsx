@@ -41,7 +41,11 @@ export const Dashboard = async ({ searchParams }: DashboardProps) => {
   const displayedWeek =
     weekOffset === 0
       ? { startDate: currentWeek.startDate, endDate: currentWeek.endDate }
-      : getOffsetWeekDates(currentWeek.startDate, currentWeek.endDate, weekOffset);
+      : getOffsetWeekDates(
+          currentWeek.startDate,
+          currentWeek.endDate,
+          weekOffset
+        );
 
   return (
     <div
