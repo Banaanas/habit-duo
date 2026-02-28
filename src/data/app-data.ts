@@ -6,6 +6,7 @@ export const appDescription =
 export const appLimits = {
   maxGoals: 2,
   maxDaysPerGoal: 7,
+  pastWeeksLimit: 2,
 } as const;
 
 export const appNavLinks: AppNavLinks = {

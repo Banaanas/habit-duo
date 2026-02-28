@@ -7,22 +7,22 @@ import {
 import { DisplayedGoals } from "@/features/dashboard/displayed-goals/displayed-goals";
 import {
   getCompletionsForGoals,
-  getCurrentWeek,
   getGoalsForUser,
   getUsers,
 } from "@/lib/supabase/queries/queries";
 
 export const DisplayedGoalsWrapper = async ({
   selectedUserId,
+  weekStartDate,
+  weekEndDate,
 }: DisplayedGoalsWrapperProps) => {
   const currentUser = await getUser();
   const users = await getUsers();
-  const currentWeek = await getCurrentWeek();
 
   const targetUserId = selectedUserId || currentUser?.id;
   const selectedUser = users.find((u) => u.id === targetUserId);
 
-  if (!currentUser || !selectedUser || !currentWeek || !targetUserId) {
+  if (!currentUser || !selectedUser || !targetUserId) {
     return null;
   }
 
@@ -40,8 +40,8 @@ export const DisplayedGoalsWrapper = async ({
       completions={completions}
       selectedUser={selectedUser}
       isViewingCurrentUser={isViewingCurrentUser}
-      weekStartDate={currentWeek.startDate}
-      weekEndDate={currentWeek.endDate}
+      weekStartDate={weekStartDate}
+      weekEndDate={weekEndDate}
       onToggle={toggleCompletionAction}
       onDelete={deleteGoalAction}
       onEdit={updateGoalAction}
@@ -51,4 +51,6 @@ export const DisplayedGoalsWrapper = async ({
 
 interface DisplayedGoalsWrapperProps {
   selectedUserId?: string;
+  weekStartDate: string;
+  weekEndDate: string;
 }
