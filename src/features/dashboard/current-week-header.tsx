@@ -2,7 +2,7 @@
 
 import { format } from "date-fns";
 import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,18 +10,13 @@ import { appLimits } from "@/data/app-data";
 import { QUERY_PARAMS } from "@/lib/query-params";
 import { parseLocalDate } from "@/utils/date";
 
-interface CurrentWeekHeaderProps {
-  weekStartDate: string;
-  weekEndDate: string;
-  weekOffset: number;
-}
-
 export const CurrentWeekHeader = ({
   weekStartDate,
   weekEndDate,
   weekOffset,
 }: CurrentWeekHeaderProps) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const weekStart = parseLocalDate(weekStartDate);
   const weekEnd = parseLocalDate(weekEndDate);
@@ -33,7 +28,7 @@ export const CurrentWeekHeader = ({
   const canGoForward = weekOffset < 0;
 
   const navigate = (newOffset: number) => {
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(searchParams.toString());
     if (newOffset === 0) {
       params.delete(QUERY_PARAMS.weekOffset);
     } else {
@@ -45,7 +40,7 @@ export const CurrentWeekHeader = ({
 
   return (
     <Card>
-      <CardHeader className="flex items-center justify-between gap-x-2">
+      <CardHeader className="flex items-center justify-between">
         <Button
           variant="ghost"
           size="icon"
@@ -65,11 +60,11 @@ export const CurrentWeekHeader = ({
               Week of {formattedWeekStart} - {formattedWeekEnd}
             </CardTitle>
           </div>
-          {weekOffset < 0 && (
+          {weekOffset < 0 ? (
             <span className="bg-muted text-muted-foreground rounded-md px-2 py-0.5 text-xs font-medium">
               Past week
             </span>
-          )}
+          ) : null}
         </div>
 
         <Button
@@ -77,7 +72,7 @@ export const CurrentWeekHeader = ({
           size="icon"
           onClick={() => navigate(weekOffset + 1)}
           disabled={!canGoForward}
-          className={canGoForward ? "" : "invisible"}
+          className={!canGoForward ? "invisible" : undefined}
           aria-label="Next week"
         >
           <ChevronRightIcon className="size-4" />
@@ -86,3 +81,9 @@ export const CurrentWeekHeader = ({
     </Card>
   );
 };
+
+interface CurrentWeekHeaderProps {
+  weekStartDate: string;
+  weekEndDate: string;
+  weekOffset: number;
+}

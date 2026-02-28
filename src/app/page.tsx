@@ -22,10 +22,12 @@ const HomePage = ({ searchParams }: HomePageProps) => {
 export default HomePage;
 
 interface HomePageProps {
-  searchParams: Promise<{
-    [QUERY_PARAMS.selectedUserId]?: string;
-    [QUERY_PARAMS.weekOffset]?: string;
-  }>;
+  searchParams: Promise<HomePageSearchParams>;
+}
+
+interface HomePageSearchParams {
+  [QUERY_PARAMS.selectedUserId]?: string;
+  [QUERY_PARAMS.weekOffset]?: string;
 }
 
 export const metadata: Metadata = {

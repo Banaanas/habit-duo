@@ -38,14 +38,11 @@ export const Dashboard = async ({ searchParams }: DashboardProps) => {
     ? 0
     : Math.max(-appLimits.pastWeeksLimit, Math.min(0, rawOffset));
 
-  const displayedWeek =
-    weekOffset === 0
-      ? { startDate: currentWeek.startDate, endDate: currentWeek.endDate }
-      : getOffsetWeekDates(
-          currentWeek.startDate,
-          currentWeek.endDate,
-          weekOffset
-        );
+  const displayedWeek = getOffsetWeekDates(
+    currentWeek.startDate,
+    currentWeek.endDate,
+    weekOffset
+  );
 
   return (
     <div
@@ -70,8 +67,10 @@ export const Dashboard = async ({ searchParams }: DashboardProps) => {
 };
 
 interface DashboardProps {
-  searchParams: Promise<{
-    [QUERY_PARAMS.selectedUserId]?: string;
-    [QUERY_PARAMS.weekOffset]?: string;
-  }>;
+  searchParams: Promise<DashboardSearchParams>;
+}
+
+interface DashboardSearchParams {
+  [QUERY_PARAMS.selectedUserId]?: string;
+  [QUERY_PARAMS.weekOffset]?: string;
 }
