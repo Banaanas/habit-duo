@@ -63,14 +63,6 @@ export const Dashboard = async ({ searchParams }: DashboardProps) => {
   );
 };
 
-const parseWeekOffset = (raw: string | undefined): number => {
-  const parsed = parseInt(raw ?? "0", 10);
-
-  if (isNaN(parsed)) return 0;
-
-  return Math.max(-appLimits.pastWeeksLimit, Math.min(0, parsed));
-};
-
 interface DashboardProps {
   searchParams: Promise<DashboardSearchParams>;
 }
@@ -79,3 +71,11 @@ interface DashboardSearchParams {
   [QUERY_PARAMS.selectedUserId]?: string;
   [QUERY_PARAMS.weekOffset]?: string;
 }
+
+const parseWeekOffset = (raw: string | undefined): number => {
+  const parsed = parseInt(raw ?? "0", 10);
+
+  if (isNaN(parsed)) return 0;
+
+  return Math.max(-appLimits.pastWeeksLimit, Math.min(0, parsed));
+};
