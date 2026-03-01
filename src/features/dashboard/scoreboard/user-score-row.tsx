@@ -1,6 +1,6 @@
 import { TrophyIcon } from "lucide-react";
 
-import { User } from "@/types/database-camel-case";
+import type { User } from "@/types/database-camel-case";
 
 export const UserScoreRow = ({
   user,

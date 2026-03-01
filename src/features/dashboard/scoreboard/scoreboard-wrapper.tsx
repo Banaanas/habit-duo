@@ -6,7 +6,7 @@ import {
   getGoalsForUser,
   getUsers,
 } from "@/lib/supabase/queries/queries";
-import { Completion, Goal, Week } from "@/types/database-camel-case";
+import type { Completion, Goal, Week } from "@/types/database-camel-case";
 
 export const ScoreboardWrapper = async () => {
   const data = await getScoreboardData();
@@ -61,42 +61,52 @@ const getScoreboardData = async () => {
     getGoalsForUser(currentUser.id),
     getGoalsForUser(friendUser.id),
   ]);
-  const goals = [...currentUserGoals, ...friendUserGoals];
-  const goalIds = goals.map((g) => g.id);
-  const completions =
-    goalIds.length > 0 ? await getCompletionsForGoals(goalIds) : [];
+
+  // Fetch completions per user separately to reuse the same cache entries
+  // as DisplayedGoalsWrapper — ensures the scoreboard always shows consistent data
+  const [currentUserCompletions, friendUserCompletions] = await Promise.all([
+    currentUserGoals.length > 0
+      ? getCompletionsForGoals(currentUserGoals.map((g) => g.id))
+      : Promise.resolve([]),
+    friendUserGoals.length > 0
+      ? getCompletionsForGoals(friendUserGoals.map((g) => g.id))
+      : Promise.resolve([]),
+  ]);
 
   return {
     currentUser,
     friendUser,
-    goals,
-    completions,
+    goals: [...currentUserGoals, ...friendUserGoals],
+    completions: [...currentUserCompletions, ...friendUserCompletions],
     currentWeek,
   };
 };
 
-function calculateScoreForUser(
+const calculateScoreForUser = (
   userId: string,
   goals: Goal[],
   completions: Completion[],
   week: Week
-) {
+): Score => {
   const userGoals = goals.filter((g) => g.userId === userId);
+  const userGoalIds = new Set(userGoals.map((g) => g.id));
 
   const total = userGoals.reduce((sum, goal) => sum + goal.targetDays, 0);
 
-  // Filter completions to only those within the week's date range
-  // This ensures the scoreboard matches the visual display in goal cards
-  const validCompletions = completions.filter((c) => {
-    const isUserGoal = userGoals.some((g) => g.id === c.goalId);
-    const isWithinWeek =
-      c.completionDate >= week.startDate && c.completionDate <= week.endDate;
-    return isUserGoal && isWithinWeek;
-  });
-
-  const completed = validCompletions.length;
+  const completed = completions.filter(
+    (c) =>
+      userGoalIds.has(c.goalId) &&
+      c.completionDate >= week.startDate &&
+      c.completionDate <= week.endDate
+  ).length;
 
   const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
 
   return { completed, total, percentage };
+};
+
+interface Score {
+  completed: number;
+  total: number;
+  percentage: number;
 }

@@ -1,6 +1,6 @@
 import { eachDayOfInterval, startOfWeek, subDays, subWeeks } from "date-fns";
 
-import { Completion, Goal } from "@/types/database-camel-case";
+import type { Completion, Goal } from "@/types/database-camel-case";
 import { formatDateToISO, parseLocalDate } from "@/utils/date";
 
 export interface HeatmapGoal {

@@ -7,7 +7,7 @@ import { parseAsString, useQueryState } from "nuqs";
 import { ActivityHeatmap } from "@/features/dashboard/scoreboard/activity-heatmap";
 import { UserScoreRow } from "@/features/dashboard/scoreboard/user-score-row";
 import { QUERY_PARAMS } from "@/lib/query-params";
-import { Completion, Goal, User } from "@/types/database-camel-case";
+import type { Completion, Goal, User } from "@/types/database-camel-case";
 
 export const Scoreboard = ({
   currentUser,

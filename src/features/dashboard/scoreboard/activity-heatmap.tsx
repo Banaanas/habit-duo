@@ -14,7 +14,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Completion, Goal } from "@/types/database-camel-case";
+import type { Completion, Goal } from "@/types/database-camel-case";
 import { parseLocalDate } from "@/utils/date";
 import {
   HeatmapDay,

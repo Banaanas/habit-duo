@@ -1,41 +1,41 @@
 // App types (camelCase) - what the application uses
 // These follow JavaScript naming conventions
 
-export type User = {
+export interface User {
   id: string;
   name: string;
   email: string;
   avatarEmoji: string;
   authUserId: string | null;
   createdAt: string;
-};
+}
 
-export type Week = {
+export interface Week {
   id: string;
   startDate: string;
   endDate: string;
   winnerId: string | null;
   isFinalized: boolean;
   createdAt: string;
-};
+}
 
-export type Goal = {
+export interface Goal {
   id: string;
   userId: string;
   title: string;
   description: string | null;
   targetDays: number;
   createdAt: string;
-};
+}
 
-export type Completion = {
+export interface Completion {
   id: string;
   goalId: string;
   completionDate: string;
   createdAt: string;
-};
+}
 
-export type WeeklyScore = {
+export interface WeeklyScore {
   weekId: string;
   startDate: string;
   endDate: string;
@@ -46,4 +46,4 @@ export type WeeklyScore = {
   points: number;
   totalGoals: number;
   maxPossiblePoints: number;
-};
+}
