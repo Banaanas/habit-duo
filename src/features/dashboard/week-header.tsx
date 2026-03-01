@@ -1,8 +1,14 @@
 "use client";
 
 import { format } from "date-fns";
-import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import {
+  CalendarIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  Loader2Icon,
+} from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useTransition } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
@@ -17,6 +23,10 @@ export const WeekHeader = ({
 }: WeekHeaderProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
+  const [loadingDirection, setLoadingDirection] = useState<
+    "back" | "forward" | null
+  >(null);
 
   const weekStart = parseLocalDate(weekStartDate);
   const weekEnd = parseLocalDate(weekEndDate);
@@ -27,9 +37,15 @@ export const WeekHeader = ({
   const canGoBack = weekOffset > -appLimits.pastWeeksLimit;
   const canGoForward = weekOffset < 0;
 
-  const navigate = (newOffset: number) => {
-    router.push(buildWeekUrl(searchParams.toString(), newOffset));
+  const navigate = (newOffset: number, direction: "back" | "forward") => {
+    setLoadingDirection(direction);
+    startTransition(() => {
+      router.push(buildWeekUrl(searchParams.toString(), newOffset));
+    });
   };
+
+  const isLoadingBack = isPending && loadingDirection === "back";
+  const isLoadingForward = isPending && loadingDirection === "forward";
 
   return (
     <Card>
@@ -38,11 +54,15 @@ export const WeekHeader = ({
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => navigate(weekOffset - 1)}
-            disabled={!canGoBack}
+            onClick={() => navigate(weekOffset - 1, "back")}
+            disabled={!canGoBack || isPending}
             aria-label="Previous week"
           >
-            <ChevronLeftIcon className="size-4" />
+            {isLoadingBack ? (
+              <Loader2Icon className="text-muted-foreground size-4 animate-spin" />
+            ) : (
+              <ChevronLeftIcon className="size-4" />
+            )}
           </Button>
 
           <div className="flex items-center gap-x-2">
@@ -57,12 +77,16 @@ export const WeekHeader = ({
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => navigate(weekOffset + 1)}
-            disabled={!canGoForward}
+            onClick={() => navigate(weekOffset + 1, "forward")}
+            disabled={!canGoForward || isPending}
             className={!canGoForward ? "invisible" : undefined}
             aria-label="Next week"
           >
-            <ChevronRightIcon className="size-4" />
+            {isLoadingForward ? (
+              <Loader2Icon className="text-muted-foreground size-4 animate-spin" />
+            ) : (
+              <ChevronRightIcon className="size-4" />
+            )}
           </Button>
         </div>
 
