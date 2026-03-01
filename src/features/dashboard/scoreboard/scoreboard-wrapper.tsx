@@ -5,8 +5,9 @@ import {
   getCurrentWeek,
   getGoalsForUser,
   getUsers,
+  getWeeklyScores,
 } from "@/lib/supabase/queries/queries";
-import type { Completion, Goal, Week } from "@/types/database-camel-case";
+import type { WeeklyScore } from "@/types/database-camel-case";
 
 export const ScoreboardWrapper = async () => {
   const data = await getScoreboardData();
@@ -15,20 +16,14 @@ export const ScoreboardWrapper = async () => {
     return null;
   }
 
-  const { currentUser, friendUser, goals, completions, currentWeek } = data;
+  const { currentUser, friendUser, goals, completions, weeklyScores } = data;
 
-  const currentScore = calculateScoreForUser(
-    currentUser.id,
-    goals,
-    completions,
-    currentWeek
+  const currentScore = toScore(
+    weeklyScores.find((s) => s.userId === currentUser.id)
   );
 
-  const friendScore = calculateScoreForUser(
-    friendUser.id,
-    goals,
-    completions,
-    currentWeek
+  const friendScore = toScore(
+    weeklyScores.find((s) => s.userId === friendUser.id)
   );
 
   return (
@@ -57,13 +52,12 @@ const getScoreboardData = async () => {
   if (!currentWeek) return null;
   if (!currentUser || !friendUser) return null;
 
-  const [currentUserGoals, friendUserGoals] = await Promise.all([
+  const [currentUserGoals, friendUserGoals, weeklyScores] = await Promise.all([
     getGoalsForUser(currentUser.id),
     getGoalsForUser(friendUser.id),
+    getWeeklyScores(currentWeek.id),
   ]);
 
-  // Fetch completions per user separately to reuse the same cache entries
-  // as DisplayedGoalsWrapper — ensures the scoreboard always shows consistent data
   const [currentUserCompletions, friendUserCompletions] = await Promise.all([
     currentUserGoals.length > 0
       ? getCompletionsForGoals(currentUserGoals.map((g) => g.id))
@@ -78,31 +72,19 @@ const getScoreboardData = async () => {
     friendUser,
     goals: [...currentUserGoals, ...friendUserGoals],
     completions: [...currentUserCompletions, ...friendUserCompletions],
-    currentWeek,
+    weeklyScores,
   };
 };
 
-const calculateScoreForUser = (
-  userId: string,
-  goals: Goal[],
-  completions: Completion[],
-  week: Week
-): Score => {
-  const userGoals = goals.filter((g) => g.userId === userId);
-  const userGoalIds = new Set(userGoals.map((g) => g.id));
+// Maps the DB view result to the Score format used by the Scoreboard
+const toScore = (weeklyScore: WeeklyScore | undefined): Score => {
+  if (!weeklyScore) return { completed: 0, total: 0, percentage: 0 };
 
-  const total = userGoals.reduce((sum, goal) => sum + goal.targetDays, 0);
+  const { points, maxPossiblePoints } = weeklyScore;
+  const percentage =
+    maxPossiblePoints > 0 ? Math.round((points / maxPossiblePoints) * 100) : 0;
 
-  const completed = completions.filter(
-    (c) =>
-      userGoalIds.has(c.goalId) &&
-      c.completionDate >= week.startDate &&
-      c.completionDate <= week.endDate
-  ).length;
-
-  const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
-
-  return { completed, total, percentage };
+  return { completed: points, total: maxPossiblePoints, percentage };
 };
 
 interface Score {

@@ -46,6 +46,7 @@ export const toggleCompletionAction = async (goalId: string, date: string) => {
   try {
     await toggleCompletion(goalId, date);
     revalidateTag(CACHE_TAGS.completions, "max");
+    revalidateTag(CACHE_TAGS.scores, "max");
     revalidatePath(appNavLinks.home.href, "page");
   } catch (error) {
     console.error("Failed to toggle completion:", error);
