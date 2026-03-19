@@ -6,20 +6,27 @@ import { redirect } from "next/navigation";
 import { appNavLinks } from "@/data/app-data";
 import { createSupabaseServerClient } from "@/lib/supabase/clients/supabase-server";
 
-export async function signInWithEmail(email: string) {
+export async function signInWithEmail(
+  _prevState: SignInFormState,
+  formData: FormData
+): Promise<SignInFormState> {
+  const email = String(formData.get("email") ?? "")
+    .trim()
+    .toLowerCase();
   const supabase = await createSupabaseServerClient();
 
   // Check if email is authorized (exists in users table)
   const { data: authorizedUser } = await supabase
     .from("users")
     .select("email")
-    .eq("email", email.toLowerCase())
+    .eq("email", email)
     .single();
 
   if (!authorizedUser) {
     return {
       error:
         "This email is not authorized. Only the 2 registered users can sign in.",
+      email: null,
     };
   }
 
@@ -31,10 +38,15 @@ export async function signInWithEmail(email: string) {
   });
 
   if (error) {
-    return { error: error.message };
+    return { error: error.message, email: null };
   }
 
-  return { success: true };
+  return { error: null, email };
+}
+
+export interface SignInFormState {
+  error: string | null;
+  email: string | null;
 }
 
 export async function signOut() {

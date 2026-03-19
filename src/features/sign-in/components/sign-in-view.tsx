@@ -1,34 +1,25 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState } from "react";
 
-import { signInWithEmail } from "@/actions/auth";
+import { type SignInFormState, signInWithEmail } from "@/actions/auth";
 import { SignInForm } from "@/features/sign-in/components/sign-in-form";
 import { SignInSuccess } from "@/features/sign-in/components/sign-in-success";
 
 export const SignInView = () => {
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [state, formAction, isPending] = useActionState<FormState, FormData>(
-    async (_prevState, formData) => {
-      const email = formData.get("email") as string;
-      const result = await signInWithEmail(email);
-
-      if (result.error) {
-        setShowSuccess(false);
-        return { error: result.error, email: null };
-      }
-
-      setShowSuccess(true);
-      return { error: null, email };
-    },
-    { error: null, email: null }
-  );
+  const [state, formAction, isPending] = useActionState<
+    SignInFormState,
+    FormData
+  >(signInWithEmail, {
+    error: null,
+    email: null,
+  });
 
   const handleTryAgain = () => {
-    setShowSuccess(false);
+    window.location.assign("/sign-in");
   };
 
-  if (showSuccess) {
+  if (state.email && !state.error) {
     return (
       <div className="flex w-full flex-col items-center justify-center p-4">
         <SignInSuccess onTryAgain={handleTryAgain} />
@@ -46,8 +37,3 @@ export const SignInView = () => {
     </div>
   );
 };
-
-interface FormState {
-  error: string | null;
-  email: string | null;
-}
