@@ -19,13 +19,14 @@ import type {
   WeeklyScore,
 } from "@/types/database-camel-case";
 
+const supabase = createSupabaseBrowserClient();
+
 // ============= USERS =============
 
 export async function getUsers(): Promise<User[]> {
   cacheLife("hours");
   cacheTag(CACHE_TAGS.users);
 
-  const supabase = createSupabaseBrowserClient();
   const { data, error } = await supabase
     .from("users")
     .select("*")
@@ -43,7 +44,6 @@ export async function getWeekById(weekId: string): Promise<Week | null> {
   cacheLife("hours");
   cacheTag(CACHE_TAGS.weeks);
 
-  const supabase = createSupabaseBrowserClient();
   const { data, error } = await supabase
     .from("weeks")
     .select("*")
@@ -58,7 +58,6 @@ export async function getAllWeeks(): Promise<Week[]> {
   cacheLife("hours");
   cacheTag(CACHE_TAGS.weeks);
 
-  const supabase = createSupabaseBrowserClient();
   const { data, error } = await supabase
     .from("weeks")
     .select("*")
@@ -74,7 +73,6 @@ export async function getGoalsForUser(userId: string): Promise<Goal[]> {
   cacheLife("minutes");
   cacheTag(CACHE_TAGS.goals);
 
-  const supabase = createSupabaseBrowserClient();
   const { data, error } = await supabase
     .from("goals")
     .select("*")
@@ -93,7 +91,6 @@ export async function getCompletionsForGoal(
   cacheLife("minutes");
   cacheTag(CACHE_TAGS.completions);
 
-  const supabase = createSupabaseBrowserClient();
   const { data, error } = await supabase
     .from("completions")
     .select("*")
@@ -112,7 +109,6 @@ export async function getCompletionsForGoals(
 
   if (goalIds.length === 0) return [];
 
-  const supabase = createSupabaseBrowserClient();
   const { data, error } = await supabase
     .from("completions")
     .select("*")
@@ -129,7 +125,6 @@ export async function getWeeklyScores(weekId: string): Promise<WeeklyScore[]> {
   cacheLife("minutes");
   cacheTag(CACHE_TAGS.scores);
 
-  const supabase = createSupabaseBrowserClient();
   const { data, error } = await supabase
     .from("weekly_scores")
     .select("*")
