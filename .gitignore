@@ -33,6 +33,10 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# one-off maintenance scripts & data snapshots (kept local only)
+/scripts
+/backups
+
 # vercel
 .vercel
 
