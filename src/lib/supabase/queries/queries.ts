@@ -4,6 +4,7 @@ export {
   getWeekById,
   getAllWeeks,
   getGoalsForUser,
+  getActiveGoalsForUser,
   getCompletionsForGoal,
   getCompletionsForGoals,
   getWeeklyScores,

@@ -1,6 +1,6 @@
 import { getUser } from "@/actions/auth";
 import { AddGoalButton } from "@/features/dashboard/add-goal-dialog/add-goal-button";
-import { getGoalsForUser } from "@/lib/supabase/queries/queries";
+import { getActiveGoalsForUser } from "@/lib/supabase/queries/queries";
 
 export const AddGoalButtonWrapper = async ({
   selectedUserId,
@@ -11,7 +11,7 @@ export const AddGoalButtonWrapper = async ({
   const isCurrentUser = selectedUserId === currentUser.id;
   if (!isCurrentUser) return null;
 
-  const userGoals = await getGoalsForUser(selectedUserId);
+  const userGoals = await getActiveGoalsForUser(selectedUserId);
 
   return <AddGoalButton goalCount={userGoals.length} />;
 };

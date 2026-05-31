@@ -6,8 +6,8 @@ import {
 } from "@/actions/goals";
 import { DisplayedGoals } from "@/features/dashboard/displayed-goals/displayed-goals";
 import {
+  getActiveGoalsForUser,
   getCompletionsForGoals,
-  getGoalsForUser,
   getUsers,
 } from "@/lib/supabase/queries/queries";
 
@@ -26,7 +26,7 @@ export const DisplayedGoalsWrapper = async ({
     return null;
   }
 
-  const displayedGoals = await getGoalsForUser(targetUserId);
+  const displayedGoals = await getActiveGoalsForUser(targetUserId);
 
   // Fetch completions for displayed goals
   const goalIds = displayedGoals.map((g) => g.id);

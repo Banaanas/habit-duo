@@ -28,9 +28,18 @@ export const buildHeatmapData = (
   const completionsByDate = groupCompletionsByDate(completions);
 
   return eachDayOfInterval({ start: startDate, end: today }).map((date) =>
-    mapDateToHeatmapDay(date, completionsByDate, goalById, goals.length)
+    mapDateToHeatmapDay(date, completionsByDate, goalById, goals)
   );
 };
+
+// A goal counts toward a given day only if it was active that day:
+// created on/before the day, and not yet archived before the day.
+const countActiveGoalsForDate = (goals: Goal[], dateStr: string): number =>
+  goals.filter(
+    (g) =>
+      g.createdAt.slice(0, 10) <= dateStr &&
+      (g.archivedAt === null || g.archivedAt.slice(0, 10) >= dateStr)
+  ).length;
 
 export const calculateCurrentStreak = (completionDates: string[]): number => {
   if (completionDates.length === 0) return 0;
@@ -69,7 +78,7 @@ const mapDateToHeatmapDay = (
   date: Date,
   completionsByDate: Map<string, Completion[]>,
   goalById: Map<string, Goal>,
-  totalGoals: number
+  goals: Goal[]
 ): HeatmapDay => {
   const dateStr = formatDateToISO(date);
   const completedGoals = getCompletedGoalsForDate(
@@ -78,7 +87,11 @@ const mapDateToHeatmapDay = (
     goalById
   );
 
-  return { date: dateStr, completedGoals, totalGoals };
+  return {
+    date: dateStr,
+    completedGoals,
+    totalGoals: countActiveGoalsForDate(goals, dateStr),
+  };
 };
 
 const getCompletedGoalsForDate = (

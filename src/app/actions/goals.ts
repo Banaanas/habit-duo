@@ -30,7 +30,7 @@ export const createGoalAction = async (
 export const updateGoalAction = async (
   goalId: string,
   title: string,
-  description?: string
+  description: string | null
 ) => {
   try {
     await updateGoal(goalId, title, description);
