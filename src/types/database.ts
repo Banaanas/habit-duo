@@ -26,6 +26,7 @@ export type DbGoal = {
   description: string | null;
   target_days: number;
   created_at: string;
+  archived_at: string | null;
 };
 
 export type DbCompletion = {

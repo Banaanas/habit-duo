@@ -60,7 +60,7 @@ interface DisplayedGoalsProps {
 type OnEditGoal = (
   goalId: string,
   title: string,
-  description?: string
+  description: string | null
 ) => Promise<void>;
 
 const DisplayedGoalsHeader = ({

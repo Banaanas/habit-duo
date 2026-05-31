@@ -26,6 +26,7 @@ export interface Goal {
   description: string | null;
   targetDays: number;
   createdAt: string;
+  archivedAt: string | null;
 }
 
 export interface Completion {

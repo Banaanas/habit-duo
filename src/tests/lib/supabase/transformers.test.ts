@@ -72,6 +72,7 @@ describe("transformGoal", () => {
       description: "30 minutes of cardio",
       target_days: 5,
       created_at: "2024-01-01T00:00:00Z",
+      archived_at: null,
     };
 
     const result = transformGoal(dbGoal);
@@ -83,6 +84,7 @@ describe("transformGoal", () => {
       description: "30 minutes of cardio",
       targetDays: 5,
       createdAt: "2024-01-01T00:00:00Z",
+      archivedAt: null,
     });
   });
 });

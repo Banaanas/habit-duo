@@ -38,6 +38,7 @@ export const transformGoal = (dbGoal: DbGoal): Goal => ({
   description: dbGoal.description,
   targetDays: dbGoal.target_days,
   createdAt: dbGoal.created_at,
+  archivedAt: dbGoal.archived_at,
 });
 
 export const transformCompletion = (

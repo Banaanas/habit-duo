@@ -69,6 +69,8 @@ export async function getAllWeeks(): Promise<Week[]> {
 
 // ============= GOALS =============
 
+// Returns ALL goals including archived ones. Used by the activity heatmap and
+// scoreboard, which need archived goals to render historical completions.
 export async function getGoalsForUser(userId: string): Promise<Goal[]> {
   cacheLife("minutes");
   cacheTag(CACHE_TAGS.goals);
@@ -77,6 +79,23 @@ export async function getGoalsForUser(userId: string): Promise<Goal[]> {
     .from("goals")
     .select("*")
     .eq("user_id", userId)
+    .order("created_at");
+
+  if (error) throw error;
+  return (data || []).map(transformGoal);
+}
+
+// Returns only active (non-archived) goals. Used by the goal list and goal
+// count, which should ignore archived goals.
+export async function getActiveGoalsForUser(userId: string): Promise<Goal[]> {
+  cacheLife("minutes");
+  cacheTag(CACHE_TAGS.goals);
+
+  const { data, error } = await supabase
+    .from("goals")
+    .select("*")
+    .eq("user_id", userId)
+    .is("archived_at", null)
     .order("created_at");
 
   if (error) throw error;

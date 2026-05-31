@@ -60,7 +60,7 @@ export const GoalCard = ({
     await onToggle(goal.id, dateStr);
   };
 
-  const handleEditSave = async (title: string, description?: string) => {
+  const handleEditSave = async (title: string, description: string | null) => {
     await onEdit(goal.id, title, description);
     setEditOpen(false);
     router.refresh();
@@ -117,7 +117,7 @@ interface GoalCardProps {
   onEdit: (
     goalId: string,
     title: string,
-    description?: string
+    description: string | null
   ) => Promise<void>;
   isCurrentUser: boolean;
 }
@@ -211,7 +211,7 @@ const EditGoalDialog = ({
 
     try {
       setIsSubmitting(true);
-      await onSave(title.trim(), description.trim() || undefined);
+      await onSave(title.trim(), description.trim() || null);
     } catch (error) {
       console.error("Failed to update goal:", error);
     } finally {
@@ -273,5 +273,5 @@ interface EditGoalDialogProps {
   goal: Goal;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSave: (title: string, description?: string) => Promise<void>;
+  onSave: (title: string, description: string | null) => Promise<void>;
 }

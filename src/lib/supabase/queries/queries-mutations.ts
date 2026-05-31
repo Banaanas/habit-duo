@@ -33,7 +33,7 @@ export const createGoal = async (
 export const updateGoal = async (
   goalId: string,
   title: string,
-  description?: string
+  description: string | null
 ): Promise<Goal> => {
   const supabase = await createSupabaseServerClient();
 
@@ -48,10 +48,15 @@ export const updateGoal = async (
   return transformGoal(data);
 };
 
+// Soft delete: archive the goal instead of deleting it, so its completions
+// (and the history they represent) are preserved.
 export const deleteGoal = async (goalId: string): Promise<void> => {
   const supabase = await createSupabaseServerClient();
 
-  const { error } = await supabase.from("goals").delete().eq("id", goalId);
+  const { error } = await supabase
+    .from("goals")
+    .update({ archived_at: new Date().toISOString() })
+    .eq("id", goalId);
 
   if (error) throw error;
 };
