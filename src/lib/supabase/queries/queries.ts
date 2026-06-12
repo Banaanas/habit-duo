@@ -3,6 +3,7 @@ export {
   getUsers,
   getWeekById,
   getAllWeeks,
+  getWeekWinCounts,
   getGoalsForUser,
   getActiveGoalsForUser,
   getCompletionsForGoal,
@@ -18,5 +19,6 @@ export {
   createGoal,
   updateGoal,
   deleteGoal,
+  restoreGoal,
   toggleCompletion,
 } from "@/lib/supabase/queries/queries-mutations";

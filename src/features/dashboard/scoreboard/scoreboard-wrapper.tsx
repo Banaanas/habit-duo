@@ -5,6 +5,7 @@ import {
   getCurrentWeek,
   getGoalsForUser,
   getUsers,
+  getWeekWinCounts,
   getWeeklyScores,
 } from "@/lib/supabase/queries/queries";
 import type { WeeklyScore } from "@/types/database-camel-case";
@@ -16,7 +17,14 @@ export const ScoreboardWrapper = async () => {
     return null;
   }
 
-  const { currentUser, friendUser, goals, completions, weeklyScores } = data;
+  const {
+    currentUser,
+    friendUser,
+    goals,
+    completions,
+    weeklyScores,
+    winCounts,
+  } = data;
 
   const currentScore = toScore(
     weeklyScores.find((s) => s.userId === currentUser.id)
@@ -33,6 +41,8 @@ export const ScoreboardWrapper = async () => {
         friendUser={friendUser}
         currentScore={currentScore}
         friendScore={friendScore}
+        currentWins={winCounts[currentUser.id] ?? 0}
+        friendWins={winCounts[friendUser.id] ?? 0}
         goals={goals}
         completions={completions}
       />
@@ -52,11 +62,13 @@ const getScoreboardData = async () => {
   if (!currentWeek) return null;
   if (!currentUser || !friendUser) return null;
 
-  const [currentUserGoals, friendUserGoals, weeklyScores] = await Promise.all([
-    getGoalsForUser(currentUser.id),
-    getGoalsForUser(friendUser.id),
-    getWeeklyScores(currentWeek.id),
-  ]);
+  const [currentUserGoals, friendUserGoals, weeklyScores, winCounts] =
+    await Promise.all([
+      getGoalsForUser(currentUser.id),
+      getGoalsForUser(friendUser.id),
+      getWeeklyScores(currentWeek.id),
+      getWeekWinCounts(),
+    ]);
 
   const [currentUserCompletions, friendUserCompletions] = await Promise.all([
     currentUserGoals.length > 0
@@ -73,6 +85,7 @@ const getScoreboardData = async () => {
     goals: [...currentUserGoals, ...friendUserGoals],
     completions: [...currentUserCompletions, ...friendUserCompletions],
     weeklyScores,
+    winCounts,
   };
 };
 

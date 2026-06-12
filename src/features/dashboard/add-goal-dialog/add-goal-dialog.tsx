@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { createGoalAction } from "@/actions/goals";
 import { Button } from "@/components/ui/button";
@@ -24,32 +25,31 @@ export const AddGoalDialog = ({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const maxGoalsNumber = appLimits.maxDaysPerGoal;
+  const maxGoalsNumber = appLimits.maxGoals;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!title.trim()) return;
 
-    try {
-      setIsSubmitting(true);
-      await createGoalAction(
-        userId,
-        title.trim(),
-        description.trim() || undefined
-      );
+    setIsSubmitting(true);
+    const result = await createGoalAction(
+      userId,
+      title.trim(),
+      description.trim() || undefined
+    );
+    setIsSubmitting(false);
 
-      // Reset form
-      setTitle("");
-      setDescription("");
-
-      onOpenChange(false);
-    } catch (error) {
-      console.error("Failed to create goal:", error);
-      alert("Failed to create goal. Please try again.");
-    } finally {
-      setIsSubmitting(false);
+    if (!result.ok) {
+      toast.error(result.error);
+      return;
     }
+
+    // Reset form
+    setTitle("");
+    setDescription("");
+
+    onOpenChange(false);
   };
 
   return (

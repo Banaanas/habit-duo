@@ -3,7 +3,9 @@
 import { CheckIcon, Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
+import { toast } from "sonner";
 
+import type { GoalActionResult } from "@/actions/goals";
 import { cn } from "@/lib/utils";
 import {
   formatDateToISO,
@@ -76,7 +78,7 @@ interface DayButtonProps {
   date: Date;
   isCompleted: boolean;
   canToggle: boolean;
-  onToggle: (date: string) => Promise<void>;
+  onToggle: (date: string) => Promise<GoalActionResult>;
 }
 
 const DayLabel = ({ date, today }: DayLabelProps) => {
@@ -170,7 +172,15 @@ const handleDayButtonClick = async ({
   setOptimisticCompleted(!optimisticCompleted);
 
   startTransition(async () => {
-    await onToggle(formatDateToISO(date));
+    const result = await onToggle(formatDateToISO(date));
+
+    if (!result.ok) {
+      // Revert the optimistic flip and tell the user
+      setOptimisticCompleted(optimisticCompleted);
+      toast.error(result.error);
+      return;
+    }
+
     router.refresh();
   });
 };
@@ -180,7 +190,7 @@ interface HandleDayButtonClickParams {
   optimisticCompleted: boolean;
   setOptimisticCompleted: (value: boolean) => void;
   startTransition: (callback: () => Promise<void>) => void;
-  onToggle: (date: string) => Promise<void>;
+  onToggle: (date: string) => Promise<GoalActionResult>;
   date: Date;
   router: ReturnType<typeof useRouter>;
 }

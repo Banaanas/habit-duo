@@ -113,7 +113,7 @@ describe("DayButton", () => {
   describe("Click Interactions", () => {
     it("should call onToggle with ISO date string when clicked", async () => {
       const testDate = new Date("2024-01-15");
-      mockOnToggle.mockResolvedValue(undefined);
+      mockOnToggle.mockResolvedValue({ ok: true });
 
       render(
         <DayButton
@@ -149,7 +149,7 @@ describe("DayButton", () => {
     });
 
     it("should toggle completion state when clicked", () => {
-      mockOnToggle.mockResolvedValue(undefined);
+      mockOnToggle.mockResolvedValue({ ok: true });
 
       render(
         <DayButton
@@ -177,7 +177,7 @@ describe("DayButton", () => {
 
   describe("Optimistic UI", () => {
     it("should update optimistically when clicked", () => {
-      mockOnToggle.mockResolvedValue(undefined);
+      mockOnToggle.mockResolvedValue({ ok: true });
 
       render(
         <DayButton

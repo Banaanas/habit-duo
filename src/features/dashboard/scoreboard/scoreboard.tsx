@@ -14,6 +14,8 @@ export const Scoreboard = ({
   friendUser,
   currentScore,
   friendScore,
+  currentWins,
+  friendWins,
   goals,
   completions,
 }: ScoreboardProps) => {
@@ -63,6 +65,12 @@ export const Scoreboard = ({
           </h2>
         </div>
         {leadingUser ? <LeaderIndicator leadingUser={leadingUser} /> : null}
+        <WinTally
+          currentUser={currentUser}
+          friendUser={friendUser}
+          currentWins={currentWins}
+          friendWins={friendWins}
+        />
       </div>
 
       <div className="flex flex-col gap-y-6">
@@ -108,8 +116,36 @@ interface ScoreboardProps {
   friendUser: User;
   currentScore: { completed: number; total: number; percentage: number };
   friendScore: { completed: number; total: number; percentage: number };
+  currentWins: number;
+  friendWins: number;
   goals: Goal[];
   completions: Completion[];
+}
+
+// All-time tally of finalized weekly wins
+const WinTally = ({
+  currentUser,
+  friendUser,
+  currentWins,
+  friendWins,
+}: WinTallyProps) => {
+  if (currentWins + friendWins === 0) return null;
+
+  return (
+    <div className="text-muted-foreground flex items-center gap-x-2 pt-1 text-sm">
+      <span>🏆</span>
+      <span className="font-medium">
+        {currentUser.name} {currentWins} — {friendWins} {friendUser.name}
+      </span>
+    </div>
+  );
+};
+
+interface WinTallyProps {
+  currentUser: User;
+  friendUser: User;
+  currentWins: number;
+  friendWins: number;
 }
 
 const TiedGameText = () => {

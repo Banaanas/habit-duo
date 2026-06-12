@@ -67,6 +67,28 @@ export async function getAllWeeks(): Promise<Week[]> {
   return (data || []).map(transformWeek);
 }
 
+// Number of finalized weeks won, per user id (ties have no winner)
+export async function getWeekWinCounts(): Promise<Record<string, number>> {
+  cacheLife("minutes");
+  cacheTag(CACHE_TAGS.weeks);
+
+  const { data, error } = await supabase
+    .from("weeks")
+    .select("winner_id")
+    .eq("is_finalized", true)
+    .not("winner_id", "is", null);
+
+  if (error) throw error;
+
+  const counts: Record<string, number> = {};
+  for (const row of data || []) {
+    if (row.winner_id) {
+      counts[row.winner_id] = (counts[row.winner_id] ?? 0) + 1;
+    }
+  }
+  return counts;
+}
+
 // ============= GOALS =============
 
 // Returns ALL goals including archived ones. Used by the activity heatmap and

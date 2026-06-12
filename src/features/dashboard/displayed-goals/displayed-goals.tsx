@@ -1,8 +1,12 @@
+import type { GoalActionResult } from "@/actions/goals";
+import { ArchivedGoals } from "@/features/dashboard/displayed-goals/archived-goals";
 import { GoalCard } from "@/features/dashboard/goal-card";
 import type { Completion, Goal, User } from "@/types/database-camel-case";
 
 export const DisplayedGoals = ({
   displayedGoals,
+  archivedGoals,
+  canRestore,
   completions,
   selectedUser,
   isViewingCurrentUser,
@@ -11,6 +15,7 @@ export const DisplayedGoals = ({
   onToggle,
   onDelete,
   onEdit,
+  onRestore,
 }: DisplayedGoalsProps) => {
   const hasGoals = displayedGoals.length > 0;
 
@@ -41,27 +46,38 @@ export const DisplayedGoals = ({
           isViewingCurrentUser={isViewingCurrentUser}
         />
       ) : null}
+
+      {isViewingCurrentUser ? (
+        <ArchivedGoals
+          archivedGoals={archivedGoals}
+          canRestore={canRestore}
+          onRestore={onRestore}
+        />
+      ) : null}
     </div>
   );
 };
 
 interface DisplayedGoalsProps {
   displayedGoals: Goal[];
+  archivedGoals: Goal[];
+  canRestore: boolean;
   completions: Completion[];
   selectedUser: User;
   isViewingCurrentUser: boolean;
   weekStartDate: string;
   weekEndDate: string;
-  onToggle: (goalId: string, date: string) => Promise<void>;
-  onDelete: (goalId: string) => Promise<void>;
+  onToggle: (goalId: string, date: string) => Promise<GoalActionResult>;
+  onDelete: (goalId: string) => Promise<GoalActionResult>;
   onEdit: OnEditGoal;
+  onRestore: (goalId: string) => Promise<GoalActionResult>;
 }
 
 type OnEditGoal = (
   goalId: string,
   title: string,
   description: string | null
-) => Promise<void>;
+) => Promise<GoalActionResult>;
 
 const DisplayedGoalsHeader = ({
   isViewingCurrentUser,
@@ -124,8 +140,8 @@ interface GoalsListProps {
   completions: Completion[];
   weekStartDate: string;
   weekEndDate: string;
-  onToggle: (goalId: string, date: string) => Promise<void>;
-  onDelete: (goalId: string) => Promise<void>;
+  onToggle: (goalId: string, date: string) => Promise<GoalActionResult>;
+  onDelete: (goalId: string) => Promise<GoalActionResult>;
   onEdit: OnEditGoal;
   isViewingCurrentUser: boolean;
 }
