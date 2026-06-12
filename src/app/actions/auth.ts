@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { appNavLinks } from "@/data/app-data";
+import { getCurrentUser } from "@/lib/auth/get-current-user";
 import { createSupabaseServerClient } from "@/lib/supabase/clients/supabase-server";
 
 export async function signInWithEmail(
@@ -59,30 +60,5 @@ export async function signOut() {
 }
 
 export async function getUser() {
-  const supabase = await createSupabaseServerClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) return null;
-
-  // Fetch app user data
-  const { data: appUser } = await supabase
-    .from("users")
-    .select("*")
-    .eq("auth_user_id", user.id)
-    .single();
-
-  if (!appUser) return null;
-
-  // Transform to camelCase
-  return {
-    id: appUser.id,
-    name: appUser.name,
-    email: appUser.email,
-    avatarEmoji: appUser.avatar_emoji,
-    authUserId: appUser.auth_user_id,
-    createdAt: appUser.created_at,
-  };
+  return getCurrentUser();
 }

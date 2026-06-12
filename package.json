@@ -11,6 +11,7 @@
     "prettier-check": "prettier --check .",
     "prettier-write": "prettier --write .",
     "test": "vitest",
+    "test:run": "vitest run",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage"
   },
