@@ -13,9 +13,9 @@ export const HeaderUserButtons = async () => {
   return (
     <>
       <div className="bg-background flex items-center gap-x-2 rounded-md px-2 py-1 sm:px-4">
-        <span className="bg-accent sm: hidden inline-flex h-10 w-10 items-center justify-center rounded-full text-xl">
+        <span className="bg-accent inline-flex h-10 w-10 items-center justify-center rounded-full text-xl sm:hidden">
           {avatarEmoji}
-        </span>{" "}
+        </span>
         <span className="hidden font-bold sm:inline-block">{name}</span>
       </div>
       <Button variant="ghost" size="icon" onClick={signOut}>

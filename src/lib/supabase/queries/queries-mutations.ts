@@ -116,12 +116,14 @@ export const toggleCompletion = async (
   const supabase = await createSupabaseServerClient();
 
   // Check if completion exists
-  const { data: existing } = await supabase
+  const { data: existing, error: findError } = await supabase
     .from("completions")
     .select("id")
     .eq("goal_id", goalId)
     .eq("completion_date", date)
-    .single();
+    .maybeSingle();
+
+  if (findError) throw findError;
 
   if (existing) {
     // Delete if exists

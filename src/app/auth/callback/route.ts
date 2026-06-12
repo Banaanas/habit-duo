@@ -7,7 +7,13 @@ import { createSupabaseServerClient } from "@/lib/supabase/clients/supabase-serv
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
-  const next = requestUrl.searchParams.get("next") ?? appNavLinks.home.href;
+  const nextParam = requestUrl.searchParams.get("next");
+
+  // Only allow same-origin relative paths to prevent open redirects
+  const next =
+    nextParam?.startsWith("/") && !nextParam.startsWith("//")
+      ? nextParam
+      : appNavLinks.home.href;
 
   if (code) {
     const supabase = await createSupabaseServerClient();
