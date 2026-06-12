@@ -56,6 +56,7 @@ export const Dashboard = async ({ searchParams }: DashboardProps) => {
         selectedUserId={selectedUserId}
         weekStartDate={displayedWeek.startDate}
         weekEndDate={displayedWeek.endDate}
+        isCurrentWeek={weekOffset === 0}
       />
       <AddGoalButtonWrapper selectedUserId={selectedUserId} />
       <AddGoalDialogWrapper userId={currentUser.id} />

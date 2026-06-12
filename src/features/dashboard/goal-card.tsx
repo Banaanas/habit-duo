@@ -2,12 +2,15 @@
 
 import { PencilIcon, Trash2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { MouseEventHandler, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
+import { toast } from "sonner";
 
+import type { GoalActionResult } from "@/actions/goals";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -35,7 +38,9 @@ export const GoalCard = ({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [editOpen, setEditOpen] = useState(false);
+  const [archiveOpen, setArchiveOpen] = useState(false);
   const weekDates = getCurrentWeekDates(weekStartDate, weekEndDate);
+  const isArchived = goal.archivedAt !== null;
 
   const isCompleted = (date: Date): boolean => {
     const dateStr = formatDateToISO(date);
@@ -49,19 +54,31 @@ export const GoalCard = ({
   const completedCount = validCompletions.length;
   const totalDays = weekDates.filter(isPastOrToday).length;
 
-  const handleDelete = async () => {
+  const handleArchive = () => {
     startTransition(async () => {
-      await onDelete(goal.id);
+      const result = await onDelete(goal.id);
+
+      if (!result.ok) {
+        toast.error(result.error);
+        return;
+      }
+
+      setArchiveOpen(false);
       router.refresh();
     });
   };
 
-  const handleToggle = async (dateStr: string) => {
-    await onToggle(goal.id, dateStr);
-  };
+  const handleToggle = (goalId: string, dateStr: string) =>
+    onToggle(goalId, dateStr);
 
   const handleEditSave = async (title: string, description: string | null) => {
-    await onEdit(goal.id, title, description);
+    const result = await onEdit(goal.id, title, description);
+
+    if (!result.ok) {
+      toast.error(result.error);
+      return;
+    }
+
     setEditOpen(false);
     router.refresh();
   };
@@ -70,20 +87,23 @@ export const GoalCard = ({
     <>
       <div className="bg-card border-border flex flex-col gap-y-4 rounded-xl border p-4 shadow-sm">
         <div className="flex items-start justify-between">
-          <GoalHeader goal={goal} />
-          <GoalActions
-            onDelete={handleDelete}
-            onEdit={() => setEditOpen(true)}
-            isCurrentUser={isCurrentUser}
-            isPending={isPending}
-          />
+          <GoalHeader goal={goal} isArchived={isArchived} />
+          {!isArchived ? (
+            <GoalActions
+              onArchive={() => setArchiveOpen(true)}
+              onEdit={() => setEditOpen(true)}
+              isCurrentUser={isCurrentUser}
+              isPending={isPending}
+            />
+          ) : null}
         </div>
 
         <div className="flex flex-col gap-y-4">
           <DayButtons
             weekDates={weekDates}
             isCompleted={isCompleted}
-            isCurrentUser={isCurrentUser}
+            canToggleGoal={isCurrentUser && !isArchived}
+            goalId={goal.id}
             onToggle={handleToggle}
           />
 
@@ -95,13 +115,22 @@ export const GoalCard = ({
         </div>
       </div>
 
-      {isCurrentUser ? (
-        <EditGoalDialog
-          goal={goal}
-          open={editOpen}
-          onOpenChange={setEditOpen}
-          onSave={handleEditSave}
-        />
+      {isCurrentUser && !isArchived ? (
+        <>
+          <EditGoalDialog
+            goal={goal}
+            open={editOpen}
+            onOpenChange={setEditOpen}
+            onSave={handleEditSave}
+          />
+          <ArchiveGoalDialog
+            goalTitle={goal.title}
+            open={archiveOpen}
+            onOpenChange={setArchiveOpen}
+            onConfirm={handleArchive}
+            isPending={isPending}
+          />
+        </>
       ) : null}
     </>
   );
@@ -112,18 +141,18 @@ interface GoalCardProps {
   completions: Completion[];
   weekStartDate: string;
   weekEndDate: string;
-  onToggle: (goalId: string, date: string) => Promise<void>;
-  onDelete: (goalId: string) => Promise<void>;
+  onToggle: (goalId: string, date: string) => Promise<GoalActionResult>;
+  onDelete: (goalId: string) => Promise<GoalActionResult>;
   onEdit: (
     goalId: string,
     title: string,
     description: string | null
-  ) => Promise<void>;
+  ) => Promise<GoalActionResult>;
   isCurrentUser: boolean;
 }
 
 const GoalActions = ({
-  onDelete,
+  onArchive,
   onEdit,
   isPending,
   isCurrentUser,
@@ -134,13 +163,15 @@ const GoalActions = ({
     <div className="flex items-center gap-x-1">
       <button
         onClick={onEdit}
+        aria-label="Edit goal"
         className="text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg p-2 transition-colors"
       >
         <PencilIcon className="h-4 w-4" />
       </button>
       <button
-        onClick={onDelete}
+        onClick={onArchive}
         disabled={isPending}
+        aria-label="Archive goal"
         className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg p-2 transition-colors disabled:opacity-50"
       >
         <Trash2Icon className="h-4 w-4" />
@@ -150,18 +181,31 @@ const GoalActions = ({
 };
 
 interface GoalActionsProps {
-  onDelete: MouseEventHandler<HTMLButtonElement>;
+  onArchive: () => void;
   onEdit: () => void;
   isPending: boolean;
   isCurrentUser: boolean;
 }
 
-const GoalHeader = ({ goal }: { goal: Goal }) => {
+const GoalHeader = ({
+  goal,
+  isArchived,
+}: {
+  goal: Goal;
+  isArchived: boolean;
+}) => {
   const { title, description } = goal;
 
   return (
     <div className="flex-1">
-      <h3 className="text-foreground font-semibold">{title}</h3>
+      <div className="flex items-center gap-x-2">
+        <h3 className="text-foreground font-semibold">{title}</h3>
+        {isArchived ? (
+          <span className="bg-muted text-muted-foreground rounded-md px-2 py-0.5 text-xs font-medium">
+            Archived
+          </span>
+        ) : null}
+      </div>
       <p className="text-muted-foreground text-sm">{description}</p>
     </div>
   );
@@ -170,14 +214,16 @@ const GoalHeader = ({ goal }: { goal: Goal }) => {
 interface DayButtonsProps {
   weekDates: Date[];
   isCompleted: (date: Date) => boolean;
-  isCurrentUser: boolean;
-  onToggle: (date: string) => Promise<void>;
+  canToggleGoal: boolean;
+  goalId: string;
+  onToggle: (goalId: string, date: string) => Promise<GoalActionResult>;
 }
 
 const DayButtons = ({
   weekDates,
   isCompleted,
-  isCurrentUser,
+  canToggleGoal,
+  goalId,
   onToggle,
 }: DayButtonsProps) => {
   return (
@@ -187,13 +233,63 @@ const DayButtons = ({
           key={date.toISOString()}
           date={date}
           isCompleted={isCompleted(date)}
-          canToggle={isPastOrToday(date) && isCurrentUser}
-          onToggle={onToggle}
+          canToggle={isPastOrToday(date) && canToggleGoal}
+          onToggle={(dateStr) => onToggle(goalId, dateStr)}
         />
       ))}
     </div>
   );
 };
+
+const ArchiveGoalDialog = ({
+  goalTitle,
+  open,
+  onOpenChange,
+  onConfirm,
+  isPending,
+}: ArchiveGoalDialogProps) => {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Archive &ldquo;{goalTitle}&rdquo;?</DialogTitle>
+          <DialogDescription className="text-left text-pretty">
+            The goal will be removed from your current goals, but its history
+            (heatmap, past weeks) is kept. You can restore it anytime from the
+            archived goals list.
+          </DialogDescription>
+        </DialogHeader>
+
+        <DialogFooter>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => onOpenChange(false)}
+            disabled={isPending}
+          >
+            Cancel
+          </Button>
+          <Button
+            type="button"
+            variant="destructive"
+            onClick={onConfirm}
+            disabled={isPending}
+          >
+            {isPending ? "Archiving..." : "Archive"}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+interface ArchiveGoalDialogProps {
+  goalTitle: string;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onConfirm: () => void;
+  isPending: boolean;
+}
 
 const EditGoalDialog = ({
   goal,
@@ -209,14 +305,9 @@ const EditGoalDialog = ({
     e.preventDefault();
     if (!title.trim()) return;
 
-    try {
-      setIsSubmitting(true);
-      await onSave(title.trim(), description.trim() || null);
-    } catch (error) {
-      console.error("Failed to update goal:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
+    setIsSubmitting(true);
+    await onSave(title.trim(), description.trim() || null);
+    setIsSubmitting(false);
   };
 
   return (

@@ -30,6 +30,7 @@ export const ActivityHeatmap = ({
   defaultOpen = false,
 }: ActivityHeatmapProps) => {
   const [open, setOpen] = useState(defaultOpen);
+  const [selectedDay, setSelectedDay] = useState<HeatmapDay | null>(null);
 
   const heatmapData = buildHeatmapData(goals, completions, 8);
   const uniqueCompletionDates = [
@@ -37,6 +38,11 @@ export const ActivityHeatmap = ({
   ];
   const streak = calculateCurrentStreak(uniqueCompletionDates);
   const padded = padToGrid(heatmapData);
+
+  // Tap toggles the detail line below the grid (tooltips don't open on touch)
+  const handleSelectDay = (day: HeatmapDay) => {
+    setSelectedDay((current) => (current?.date === day.date ? null : day));
+  };
 
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
@@ -46,9 +52,15 @@ export const ActivityHeatmap = ({
         <div className="flex flex-col items-center gap-y-2 pt-2">
           <div className="flex gap-x-1">
             <DayAxisLabels />
-            <HeatmapGrid padded={padded} variant={variant} />
+            <HeatmapGrid
+              padded={padded}
+              variant={variant}
+              selectedDate={selectedDay?.date ?? null}
+              onSelectDay={handleSelectDay}
+            />
           </div>
           <HeatmapLegend variant={variant} />
+          {selectedDay ? <SelectedDayDetail day={selectedDay} /> : null}
         </div>
       </CollapsibleContent>
     </Collapsible>
@@ -90,7 +102,7 @@ interface StreakLabelProps {
 const DayAxisLabels = () => (
   <div className="grid grid-rows-7 gap-0.5">
     {DAY_LABELS.map((label, i) => (
-      <div key={i} className="flex h-2 items-center md:h-2.5">
+      <div key={i} className="flex h-2.5 items-center md:h-3">
         <span className="text-muted-foreground text-[8px] leading-none">
           {label}
         </span>
@@ -99,17 +111,28 @@ const DayAxisLabels = () => (
   </div>
 );
 
-const HeatmapGrid = ({ padded, variant }: HeatmapGridProps) => (
+const HeatmapGrid = ({
+  padded,
+  variant,
+  selectedDate,
+  onSelectDay,
+}: HeatmapGridProps) => (
   <div className="grid grid-flow-col grid-rows-7 gap-0.5 overflow-x-auto">
     {padded.map((day, i) =>
       day === null ? (
         <div
           key={`empty-${i}`}
-          className="size-2 rounded-sm md:size-2.5"
+          className="size-2.5 rounded-sm md:size-3"
           aria-hidden="true"
         />
       ) : (
-        <HeatmapCell key={day.date} day={day} variant={variant} />
+        <HeatmapCell
+          key={day.date}
+          day={day}
+          variant={variant}
+          isSelected={day.date === selectedDate}
+          onSelect={onSelectDay}
+        />
       )
     )}
   </div>
@@ -118,9 +141,16 @@ const HeatmapGrid = ({ padded, variant }: HeatmapGridProps) => (
 interface HeatmapGridProps {
   padded: (HeatmapDay | null)[];
   variant: "primary" | "accent";
+  selectedDate: string | null;
+  onSelectDay: (day: HeatmapDay) => void;
 }
 
-const HeatmapCell = ({ day, variant }: HeatmapCellProps) => {
+const HeatmapCell = ({
+  day,
+  variant,
+  isSelected,
+  onSelect,
+}: HeatmapCellProps) => {
   const { completedGoals, totalGoals, date } = day;
   const colorClass = getColorClass(completedGoals.length, totalGoals, variant);
   const formattedDate = format(parseLocalDate(date), "EEE, MMM d");
@@ -128,10 +158,13 @@ const HeatmapCell = ({ day, variant }: HeatmapCellProps) => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <div
-          className={`size-2 rounded-sm md:size-2.5 ${colorClass}`}
+        <button
+          type="button"
+          onClick={() => onSelect(day)}
+          className={`size-2.5 cursor-pointer rounded-sm md:size-3 ${colorClass} ${
+            isSelected ? "ring-foreground/60 ring-1" : ""
+          }`}
           aria-label={`${formattedDate}: ${completedGoals.length} goal${completedGoals.length !== 1 ? "s" : ""} completed`}
-          tabIndex={0}
         />
       </TooltipTrigger>
       <TooltipContent>
@@ -151,6 +184,28 @@ const HeatmapCell = ({ day, variant }: HeatmapCellProps) => {
 interface HeatmapCellProps {
   day: HeatmapDay;
   variant: "primary" | "accent";
+  isSelected: boolean;
+  onSelect: (day: HeatmapDay) => void;
+}
+
+const SelectedDayDetail = ({ day }: SelectedDayDetailProps) => {
+  const formattedDate = format(parseLocalDate(day.date), "EEE, MMM d");
+  const detail =
+    day.completedGoals.length === 0
+      ? "No completions"
+      : day.completedGoals.map((g) => g.title).join(", ");
+
+  return (
+    <p className="text-muted-foreground text-center text-xs">
+      <span className="text-foreground font-medium">{formattedDate}</span>
+      {" — "}
+      {detail}
+    </p>
+  );
+};
+
+interface SelectedDayDetailProps {
+  day: HeatmapDay;
 }
 
 const CompletedGoalsList = ({ goals }: CompletedGoalsListProps) => (

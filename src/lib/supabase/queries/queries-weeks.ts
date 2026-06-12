@@ -16,6 +16,14 @@ export async function getCurrentWeek(): Promise<Week | null> {
   if (error) throw error;
   if (!data) return null;
 
+  // Record winners for any weeks that just ended. Non-blocking: if the
+  // function doesn't exist yet (migration not applied), the dashboard
+  // must still render.
+  const { error: finalizeError } = await supabase.rpc("finalize_past_weeks");
+  if (finalizeError) {
+    console.error("Failed to finalize past weeks:", finalizeError);
+  }
+
   const { data: week, error: weekError } = await supabase
     .from("weeks")
     .select("*")

@@ -7,6 +7,19 @@ import type { Goal } from "@/types/database-camel-case";
 // These are NOT cached - they modify data
 // IMPORTANT: Use server client for proper authentication and RLS
 
+const countActiveGoals = async (userId: string): Promise<number> => {
+  const supabase = await createSupabaseServerClient();
+
+  const { count, error } = await supabase
+    .from("goals")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .is("archived_at", null);
+
+  if (error) throw error;
+  return count ?? 0;
+};
+
 export const createGoal = async (
   userId: string,
   title: string,
@@ -14,6 +27,14 @@ export const createGoal = async (
   targetDays: number = appLimits.maxDaysPerGoal
 ): Promise<Goal> => {
   const supabase = await createSupabaseServerClient();
+
+  // The UI disables the add button at the limit, but enforce it here too
+  const activeCount = await countActiveGoals(userId);
+  if (activeCount >= appLimits.maxGoals) {
+    throw new Error(
+      `You can only have ${appLimits.maxGoals} active goals at a time.`
+    );
+  }
 
   const { data, error } = await supabase
     .from("goals")
@@ -56,6 +77,33 @@ export const deleteGoal = async (goalId: string): Promise<void> => {
   const { error } = await supabase
     .from("goals")
     .update({ archived_at: new Date().toISOString() })
+    .eq("id", goalId);
+
+  if (error) throw error;
+};
+
+// Un-archive a goal, bringing it back into the active goals list
+export const restoreGoal = async (goalId: string): Promise<void> => {
+  const supabase = await createSupabaseServerClient();
+
+  const { data: goal, error: goalError } = await supabase
+    .from("goals")
+    .select("user_id")
+    .eq("id", goalId)
+    .single();
+
+  if (goalError) throw goalError;
+
+  const activeCount = await countActiveGoals(goal.user_id);
+  if (activeCount >= appLimits.maxGoals) {
+    throw new Error(
+      `You can only have ${appLimits.maxGoals} active goals at a time. Archive one first.`
+    );
+  }
+
+  const { error } = await supabase
+    .from("goals")
+    .update({ archived_at: null })
     .eq("id", goalId);
 
   if (error) throw error;
