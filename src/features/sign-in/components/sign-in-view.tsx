@@ -16,7 +16,7 @@ export const SignInView = () => {
   });
 
   const handleTryAgain = () => {
-    window.location.assign("/sign-in");
+    window.location.reload();
   };
 
   if (state.email && !state.error) {
