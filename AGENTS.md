@@ -42,6 +42,26 @@ Quand l'utilisateur demande un check/update des dépendances (`ncu`, "update dep
 - `eslint` reste en `^9` : eslint 10 casse `@typescript-eslint` (`Class extends value undefined is not a constructor or null`).
 - `typescript` reste en `^6` : TS 7 casse `@typescript-eslint` (`Cannot read properties of undefined (reading 'Cjs')`) et `next build`.
 
+**Cadence** : une fois par semaine. Pas de rattrapage entre deux passages.
+
+**Sécurité : seulement les vulnérabilités sévères** (`high` et `critical`).
+Décidé le 15/08/2026. Le reste — `low`, `moderate` — ne se traite pas et ne se
+remonte pas : avec un `ncu` hebdomadaire, ces bumps arrivent tout seuls. Les
+alertes Dependabot sont désactivées sur ce dépôt et le restent : ne pas
+proposer de les activer.
+
+L'audit se fait en local : `CI=true pnpm audit --prod` (le `--prod` écarte le
+bruit de l'outillage dev). `ncu` ne voit pas les dépendances transitives ; un
+bump transitif se corrige par `CI=true pnpm update <package> --depth Infinity`,
+jamais par un `overrides` forcé sur un package épinglé à l'intérieur de `next`.
+Cas connu et laissé tel quel : `minimatch` / `brace-expansion` sous
+`@typescript-eslint/typescript-estree`, dev-only, non résoluble sans override.
+
+Ne pas passer par `gh api .../dependabot/alerts` : le token `gh` est dans le
+trousseau macOS et un agent ne peut pas le lire (401 alors que la commande
+marche dans le Terminal de Cyril, vérifié le 15/08/2026). Le push git n'est pas
+concerné : remotes SSH.
+
 `pnpm-workspace.yaml` est un artefact local de pnpm 11 (`allowBuilds` pour esbuild/sharp/unrs-resolver). Il n'est volontairement pas versionné : la CI tourne en pnpm 10 avec `--frozen-lockfile` et passe sans lui.
 
 ## Architecture
