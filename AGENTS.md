@@ -30,8 +30,8 @@ pnpm prettier-write   # Auto-format
 
 Quand l'utilisateur demande un check/update des dépendances (`ncu`, "update deps"), suivre cette procédure sans la ré-expliquer :
 
-1. **Check** : `npx npm-check-updates`.
-2. **Apply all** : `npx npm-check-updates -u` puis `CI=true pnpm install --no-frozen-lockfile`. Le préfixe `CI=true` est obligatoire : sans TTY, pnpm 11 abandonne le purge de `node_modules` et fait échouer toutes les commandes suivantes.
+1. **Check** : `npx npm-check-updates` **ET** `pnpm outdated`. Les deux sont nécessaires : ncu ne voit que les numéros écrits dans `package.json`, or les ranges dev sont en majeur (`^4`, `^19`, `^26`), donc un bump in-range (4.1→4.3) n'apparaît **que** dans `pnpm outdated`. Le 30/08/2026 ncu ne montrait rien alors que 5 paquets (`tailwindcss`, `@tailwindcss/postcss`, `@types/node`, `@types/react`, `@types/react-dom`) étaient en retard in-range.
+2. **Apply** : `npx npm-check-updates -u` puis `CI=true pnpm install --no-frozen-lockfile` pour les bumps hors-range ; `CI=true pnpm update` pour la dérive in-range (remonte aussi les planchers de range dans `package.json`, ex. `^4`→`^4.3.3`). Le préfixe `CI=true` est obligatoire : sans TTY, pnpm 11 abandonne le purge de `node_modules` et fait échouer toutes les commandes suivantes.
 3. **Verify** : rejouer exactement les étapes de la CI — `pnpm lint`, `pnpm type-check`, `pnpm prettier-check`, `pnpm test:run`, `pnpm build`.
 4. **Si ça break** : identifier la ou les librairies fautives, les revert seules dans `package.json`, réinstaller, et **notifier l'utilisateur** (quoi a été skippé, avec l'erreur concrète).
 5. **Commit** : `build: ncu -u (<libs-skippées> restent en <version> — <raison>)`.
@@ -63,6 +63,8 @@ marche dans le Terminal de Cyril, vérifié le 15/08/2026). Le push git n'est pa
 concerné : remotes SSH.
 
 `pnpm-workspace.yaml` est un artefact local de pnpm 11 (`allowBuilds` pour esbuild/sharp/unrs-resolver). Il n'est volontairement pas versionné : la CI tourne en pnpm 10 avec `--frozen-lockfile` et passe sans lui.
+
+**Piège binaire pnpm en session agent.** Le `node_modules` local est linké depuis le store pnpm 11 (`~/Library/pnpm/store/v11`), mais une session Claude Code résout `pnpm` vers celui de nvm (10.x) → `ERR_PNPM_UNEXPECTED_STORE`, aucune commande ne passe. Utiliser le binaire pnpm 11 explicite : `/opt/homebrew/bin/pnpm`. De plus le sandbox bloque l'écriture dans `~/Library/pnpm`, donc pnpm se rabat sur un store local au projet (même erreur) : lancer les `install`/`update` **hors sandbox** avec `--store-dir ~/Library/pnpm/store`. Vérifié le 30/08/2026.
 
 ## Architecture
 
