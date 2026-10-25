@@ -1,0 +1,16 @@
+allowBuilds:
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
+minimumReleaseAgeExclude:
+  - "@supabase/auth-js@2.110.9"
+  - "@supabase/functions-js@2.110.9"
+  - "@supabase/postgrest-js@2.110.9"
+  - "@supabase/realtime-js@2.110.9"
+  - "@supabase/storage-js@2.110.9"
+  - "@supabase/supabase-js@2.110.9"
+  - jsdom@30.0.0
+  - happy-dom@20.12.0
+  - lucide-react@1.37.0 || 1.55.0
+  - tailwind-merge@3.7.0
+  - "@types/node@26.6.3 || 26.6.5"
