@@ -121,3 +121,7 @@ NEXT_PUBLIC_SUPABASE_URL=...
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 NEXT_PUBLIC_SITE_URL=https://habitduo.vercel.app  # Required for magic links
 ```
+
+## Accès données (Claude)
+
+Clé secrète Supabase (`sb_secret_…`, nom `claude` côté dashboard) dans `.service-key` (chmod 600, ignoré par Git) — bypass RLS, toutes les données (Andrea comprise) : ne s'en servir que pour cocher/décocher les objectifs de Cyril. REST : `curl "$NEXT_PUBLIC_SUPABASE_URL/rest/v1/completions?..." -H "apikey: $(cat .service-key)"` (pas de `Authorization: Bearer`). Cocher = INSERT `{goal_id, completion_date}` dans `completions` ; décocher = DELETE. Objectifs actifs : `GET /rest/v1/goals?archived_at=is.null`.
